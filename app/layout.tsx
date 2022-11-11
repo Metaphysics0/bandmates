@@ -1,11 +1,10 @@
-import { useRouter } from "next/router"
-import NavBar from "../ui/NavBar"
-import WavyNav from "../ui/WavyNav"
+import "../styles/globals.css";
+import NavBar from "../ui/NavBar";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html>
@@ -13,7 +12,7 @@ export default function RootLayout({
       <body>
         <NavBar />
         {children}
-        </body>
+      </body>
     </html>
-  )
+  );
 }

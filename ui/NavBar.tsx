@@ -1,19 +1,17 @@
+"use client";
+
 import { BandMatesLogo } from "./Logo";
 import { CgProfile } from "react-icons/cg";
 import { FaRegPaperPlane } from "react-icons/fa";
 import Link from "next/link";
-import styles from "../styles/Main.module.css";
-import { inter, nunito } from "../styles/fonts"
+import { useSelectedLayoutSegment } from "next/navigation";
+import { ROUTES } from "../data/routes";
 
-export default function NavBar({ isHero = false }: { isHero?: boolean }) {
-  const commonLinkStyle =
-    "block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white text-2xl";
+export default function NavBar() {
+  const segment = useSelectedLayoutSegment();
+  const isHero = segment === null;
   return (
-    <nav
-      className={`bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded ${
-        isHero ? "h-44" : ""
-      }`}
-    >
+    <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded">
       <div className="container flex justify-between w-full items-center mx-auto">
         {!isHero ? (
           <div className="logo-wrap">
@@ -24,19 +22,45 @@ export default function NavBar({ isHero = false }: { isHero?: boolean }) {
               <BandMatesLogo />
             </Link>
           </div>
-        ) : <div></div>}
+        ) : (
+          <div></div>
+        )}
         <div className="route-actions flex">
-          <Link href="/messages" className={commonLinkStyle}>
-            <FaRegPaperPlane />
-          </Link>
-          <Link
-            href="/profile"
-            className={`group flex w-full items-center space-x-2.5 ${commonLinkStyle} ml-7`}
-          >
-            <CgProfile />
-          </Link>
+          {ROUTES.map((slug) =>
+            NavLink({
+              item: {
+                slug,
+              },
+            })
+          )}
         </div>
       </div>
     </nav>
   );
 }
+
+function NavLink({ item }: { item: INavItem }) {
+  const segment = useSelectedLayoutSegment();
+  const isActive = item.slug === segment;
+  const iconColor = isActive ? "red" : "blue";
+
+  const iconMap = {
+    messages: <FaRegPaperPlane />,
+    profile: <CgProfile />,
+  };
+
+  return (
+    <Link
+      key={item.slug}
+      href={`/${item.slug}`}
+      className={`text-${iconColor}-500 text-2xl`}
+    >
+      {iconMap[item.slug]}
+    </Link>
+  );
+}
+
+type INavItem = {
+  slug: typeof ROUTES[number];
+  description?: string;
+};
