@@ -1,15 +1,13 @@
 import "../styles/Nav.module.css";
-import EmbedVideo from "./EmbedVideo";
+import { createClient } from "pexels";
 
-export default function Hero() {
-  const logForm = () => {
-    console.log("AHH");
-  };
+export default async function Hero() {
+  const videoLink = await fetchBackgroundVideo();
   return (
-    <section className="flex justify-center h-auto p-10">
-      <div className="h-fit">
-        <h4 className="title text-3xl">🎸 Discover artists</h4>
-        <p>
+    <section className="flex relative justify-center h-auto p-10">
+      <div className="h-fit pr-24 z-10">
+        <h4 className="title text-6xl font-bold">🎸 Discover artists</h4>
+        <p className="text-2xl">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
           dignissimos quisquam quos facere aut, quo sint quasi suscipit ipsam
           quae?
@@ -35,6 +33,35 @@ export default function Hero() {
           </form>
         </div>
       </div>
+      <div>{BackgroundVideo(videoLink)}</div>
     </section>
   );
 }
+
+function BackgroundVideo(videoLink: string) {
+  return (
+    <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
+      <video
+        className="bg min-w-full min-h-full absolute object-cover"
+        id="head-image-video"
+        src={videoLink}
+        autoPlay
+        loop
+        muted
+      ></video>
+    </div>
+  );
+}
+
+const fetchBackgroundVideo = async (): Promise<string> => {
+  const pexelsClient = createClient(process.env.PEXELS_API_KEY ?? "");
+  const { video_files = [] } = await pexelsClient.videos.show({
+    id: "4089580",
+  });
+
+  if (video_files.length === 0) {
+    console.warn("No videos found");
+    return "";
+  }
+  return video_files[0].link;
+};
