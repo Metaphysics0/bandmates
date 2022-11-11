@@ -1,6 +1,6 @@
 export default function EmbedVideo({ videoSrc }: { videoSrc?: string }) {
   return (
-    <div className="aspect-w-16 aspect-h-9">
+    <div className="aspect-w-16 aspect-h-9 z-10">
       <iframe
         src={videoSrc || "https://www.youtube.com/embed/UBOj6rqRUME"}
         frameBorder="0"

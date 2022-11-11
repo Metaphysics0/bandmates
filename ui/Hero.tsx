@@ -5,15 +5,15 @@ export default async function Hero() {
   const videoLink = await fetchBackgroundVideo();
   return (
     <section className="flex relative justify-center h-auto p-10">
-      <div className="h-fit pr-24 z-10">
-        <h4 className="title text-6xl font-bold">🎸 Discover artists</h4>
+      <div className="h-fit pr-24 z-10 text-white">
+        <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
         <p className="text-2xl">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
           dignissimos quisquam quos facere aut, quo sint quasi suscipit ipsam
           quae?
         </p>
       </div>
-      <div>
+      <div className="z-10">
         <div className="p-5 bg-sky-200 rounded-xl">
           <iframe
             src="https://www.youtube.com/embed/UBOj6rqRUME"
@@ -63,5 +63,7 @@ const fetchBackgroundVideo = async (): Promise<string> => {
     console.warn("No videos found");
     return "";
   }
-  return video_files[0].link;
+  return (
+    video_files.find((video) => video && video.quality === "sd")?.link ?? "sdf"
+  );
 };
