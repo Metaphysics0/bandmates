@@ -4,20 +4,18 @@ import { Suspense } from "react";
 
 export default async function Hero() {
   return (
-    <section className="flex relative justify-center h-auto p-10">
+    <section className="flex relative justify-between items-center h-auto p-10">
       <div className="h-fit pr-24 z-10 text-white">
         <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
         <p className="text-2xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-          dignissimos quisquam quos facere aut, quo sint quasi suscipit ipsam
-          quae?
+          Find the perfect musicans and artists to collaborate with.
         </p>
       </div>
       <div className="z-10">
         <div className="p-5 bg-sky-200 rounded-xl shadow-xl">
           <div className="video-wrapper mb-4 border-orange-500 border-2 rounded-md">
             <iframe
-              src="https://www.youtube.com/embed/UBOj6rqRUME"
+              src="https://www.youtube.com/embed/UIofe-CEyII"
               frameBorder="0"
               className="rounded-md"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
