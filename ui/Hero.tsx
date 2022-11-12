@@ -1,10 +1,9 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
-import { Suspense } from "react";
 
 export default async function Hero() {
   return (
-    <section className="flex relative justify-between items-center h-auto p-10">
+    <section className="flex relative justify-between items-center h-auto p-10 pb-20">
       <div className="h-fit pr-24 z-10 text-white">
         <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
         <p className="text-2xl">
@@ -28,7 +27,7 @@ export default async function Hero() {
               name="email"
               id="email"
               placeholder="Type your email!"
-              className="form-input px-4 py-3 rounded-sm mb-3"
+              className="form-input px-4 py-3 mb-3 rounded-lg"
             />
             <button
               className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
