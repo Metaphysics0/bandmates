@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import Hero from "../ui/Hero";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div>
-      <Hero />
+      {await Hero()}
       <main>Home page</main>
 
       <footer>

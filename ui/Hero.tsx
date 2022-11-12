@@ -1,8 +1,8 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
+import { Suspense } from "react";
 
 export default async function Hero() {
-  const videoLink = await fetchBackgroundVideo();
   return (
     <section className="flex relative justify-center h-auto p-10">
       <div className="h-fit pr-24 z-10 text-white">
@@ -14,31 +14,41 @@ export default async function Hero() {
         </p>
       </div>
       <div className="z-10">
-        <div className="p-5 bg-sky-200 rounded-xl">
-          <iframe
-            src="https://www.youtube.com/embed/UBOj6rqRUME"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            className="mb-4"
-            allowFullScreen
-          ></iframe>
-          <form className="container flex justify-center">
+        <div className="p-5 bg-sky-200 rounded-xl shadow-xl">
+          <div className="video-wrapper mb-4 border-orange-500 border-2 rounded-md">
+            <iframe
+              src="https://www.youtube.com/embed/UBOj6rqRUME"
+              frameBorder="0"
+              className="rounded-md"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <form className="container flex flex-col align-middle justify-center">
             <input
               type="text"
               name="email"
               id="email"
               placeholder="Type your email!"
-              className="form-input px-4 py-3 rounded-sm w-11/12"
+              className="form-input px-4 py-3 rounded-sm mb-3"
             />
+            <button
+              className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+              type="submit"
+            >
+              Sign up!
+            </button>
           </form>
         </div>
       </div>
-      <div>{BackgroundVideo(videoLink)}</div>
+      <div>{await BackgroundVideo()}</div>
     </section>
   );
 }
 
-function BackgroundVideo(videoLink: string) {
+async function BackgroundVideo() {
+  const videoLink = await fetchBackgroundVideoLink();
+  if (!videoLink) return null;
   return (
     <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
       <video
@@ -53,7 +63,7 @@ function BackgroundVideo(videoLink: string) {
   );
 }
 
-const fetchBackgroundVideo = async (): Promise<string> => {
+const fetchBackgroundVideoLink = async (): Promise<string> => {
   const pexelsClient = createClient(process.env.PEXELS_API_KEY ?? "");
   const { video_files = [] } = await pexelsClient.videos.show({
     id: "4089580",
