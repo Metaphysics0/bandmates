@@ -12,7 +12,7 @@ export default function NavBar() {
   return (
     <nav
       className="flex justify-around py-4 bg-white/80
-    backdrop-blur-md shadow-md w-fit p-10 rounded-md ml-auto
+    backdrop-blur-md shadow-md w-fit p-10 rounded-bl-md ml-auto
     fixed top-0 left-0 right-0 z-20"
     >
       <div className="container flex justify-between w-full items-center mx-auto">
@@ -28,13 +28,15 @@ export default function NavBar() {
         ) : (
           <div></div>
         )}
-        <div className="route-actions flex">{ROUTES.map(NavLink)}</div>
+        <div className="route-actions flex">
+          {ROUTES.map(NavLink)}
+        </div>
       </div>
     </nav>
   );
 }
 
-function NavLink(slug: typeof ROUTES[number]) {
+function NavLink(slug: typeof ROUTES[number], idx: number) {
   const isActive = slug === useSelectedLayoutSegment();
   const iconColor = isActive ? "red" : "blue";
 
@@ -47,7 +49,7 @@ function NavLink(slug: typeof ROUTES[number]) {
     <Link
       key={slug}
       href={`/${slug}`}
-      className={`text-${iconColor}-500 text-2xl`}
+      className={`text-${iconColor}-500 text-2xl ${idx === 0 ? "mr-2" : ""}`}
     >
       {iconMap[slug]}
     </Link>

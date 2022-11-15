@@ -1,12 +1,15 @@
 # Bandmates 🎸
-Connect with other musicians.
+An all in one place to connect with other musicians.
 
-### Tech Stack
+### Tech Stack 👨🏻‍💻
 - Next JS 13
 - Tailwind CSS
-- Supabase
+- Supabase (Auth, DB, and Realtime)
+- Serverless computing
 - Aws S3
 
+
 ```bash
+# To start the local dev server:
 yarn dev
 ```
