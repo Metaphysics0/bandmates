@@ -5,7 +5,10 @@ import { MdLocationOn } from "react-icons/md";
 
 export default function ProfileCard(profile: IProfile) {
   return (
-    <article className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-pointer">
+    <article
+      key={profile.id}
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-pointer"
+    >
       <div className="w-full h-full relative">
         <Image
           src={guitarist}
@@ -28,3 +31,12 @@ export default function ProfileCard(profile: IProfile) {
     </article>
   );
 }
+
+{
+  /* <SignUpModal> */
+}
+
+// TODO: Add Overlay.
+// function ProfileCardOverlay(profile) {
+
+// }

@@ -1,5 +1,6 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
+import SignUpModal from "./modals/SignUp";
 
 export default async function Hero() {
   return (
@@ -21,7 +22,7 @@ export default async function Hero() {
               allowFullScreen
             ></iframe>
           </div>
-          <form className="container flex flex-col align-middle justify-center">
+          <div className="container flex flex-col align-middle justify-center">
             <input
               type="text"
               name="email"
@@ -29,13 +30,14 @@ export default async function Hero() {
               placeholder="Type your email!"
               className="form-input px-4 py-3 mb-3 rounded-lg"
             />
-            <button
+            {/* <button
               className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
-              type="submit"
+              // onClick={toggleModal}
             >
               Sign up!
-            </button>
-          </form>
+            </button> */}
+            {<SignUpModal />}
+          </div>
         </div>
       </div>
       <div>{await BackgroundVideo()}</div>

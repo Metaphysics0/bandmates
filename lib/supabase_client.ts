@@ -7,5 +7,5 @@ export const supabase = createClient<Database>(
 );
 
 export async function getMusicians() {
-  return await supabase.from("profiles").select(`*`);
+  return await supabase.from("profiles").select(`*, musical_instrument(*)`);
 }

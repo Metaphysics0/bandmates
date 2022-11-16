@@ -27,7 +27,7 @@ export default async function Home() {
           ? musicians.map(ProfileCard)
           : "no profiles"}
       </div>
-      <main>Home page</main> gri
+      <main>Home page</main>
     </div>
   );
 }
