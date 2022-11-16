@@ -1,6 +1,6 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
-import SignUpModal from "./modals/SignUp";
+import SignUpModal from "./modals/base";
 
 export default async function Hero() {
   return (
@@ -31,7 +31,7 @@ export default async function Hero() {
               className="form-input px-4 py-3 mb-3 rounded-lg"
             />
             {/* <button
-              className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+              className=""
               // onClick={toggleModal}
             >
               Sign up!

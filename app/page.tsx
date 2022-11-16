@@ -1,4 +1,4 @@
-import { getMusicians } from "../lib/supabase_client";
+import { getMusicians } from "../lib/supabase/db";
 import "../styles/globals.css";
 import Hero from "../ui/Hero";
 import ProfileCard from "../ui/ProfileCard";

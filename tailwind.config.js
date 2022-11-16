@@ -1,4 +1,5 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -17,5 +18,16 @@ module.exports = {
   plugins: [
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
+    plugin(({ addComponents }) => {
+      addComponents({
+        ".social-btn": {
+          display: "flex",
+          fontWeight: "bold",
+          color: "#fff",
+          fontSize: "1.125rem",
+          lineHeight: "1.75rem",
+        },
+      });
+    }),
   ],
 };
