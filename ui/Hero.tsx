@@ -1,6 +1,8 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
 import SignUpModal from "./modals/base";
+import DropdownList from "./inputs/DropdownList";
+import { USER_TYPE_OPTIONS } from "../data/consts";
 
 export default async function Hero() {
   return (
@@ -23,19 +25,7 @@ export default async function Hero() {
             ></iframe>
           </div>
           <div className="container flex flex-col align-middle justify-center">
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Type your email!"
-              className="form-input px-4 py-3 mb-3 rounded-lg"
-            />
-            {/* <button
-              className=""
-              // onClick={toggleModal}
-            >
-              Sign up!
-            </button> */}
+            <DropdownList options={USER_TYPE_OPTIONS} />
             {<SignUpModal />}
           </div>
         </div>

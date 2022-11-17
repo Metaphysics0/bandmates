@@ -1,0 +1,15 @@
+export const USER_TYPE_OPTIONS = [
+  { value: "Select the most relevant!", id: 123, disabled: true },
+  { value: "Guitarist", id: 0 },
+  { value: "Drummer", id: 1 },
+  { value: "Singer", id: 2 },
+  { value: "Producer", id: 3 },
+  { value: "Listener", id: 4 },
+  { value: "Pianist", id: 5 },
+  { value: "Composer", id: 6 },
+  { value: "Artist", id: 7 },
+  { value: "Philosopher", id: 8 },
+  { value: "Writer", id: 9 },
+  { value: "Poet", id: 10 },
+  { value: "Rapper", id: 11 },
+];

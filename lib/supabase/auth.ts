@@ -6,6 +6,12 @@ export async function signInWithSpotify() {
   });
 }
 
+export async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+  });
+}
+
 export async function signout() {
   const { error } = await supabase.auth.signOut();
 }
