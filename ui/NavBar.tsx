@@ -13,7 +13,7 @@ export default function NavBar() {
     <nav
       className="flex justify-around py-4 bg-white/80
     backdrop-blur-md shadow-md w-fit p-10 rounded-bl-md ml-auto
-    fixed top-0 left-0 right-0 z-20"
+    fixed top-0 left-0 right-0 z-20 sm:static xs:static xs:w-full sm:w-full"
     >
       <div className="container flex justify-between w-full items-center mx-auto">
         {!isHero ? (
@@ -28,9 +28,7 @@ export default function NavBar() {
         ) : (
           <div></div>
         )}
-        <div className="route-actions flex">
-          {ROUTES.map(NavLink)}
-        </div>
+        <div className="route-actions flex">{ROUTES.map(NavLink)}</div>
       </div>
     </nav>
   );

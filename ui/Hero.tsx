@@ -1,9 +1,13 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
+import SignUpModal from "./modals/base";
+import DropdownList from "./inputs/DropdownList";
+import { USER_TYPE_OPTIONS } from "../data/consts";
+import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 
 export default async function Hero() {
   return (
-    <section className="flex relative justify-between items-center h-auto p-10 pb-20">
+    <section className="flex flex-col sm:flex-col lg:flex-row md:flex-row xl:flex-row relative justify-between items-center h-auto p-10 pb-20">
       <div className="h-fit pr-24 z-10 text-white">
         <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
         <p className="text-2xl">
@@ -11,8 +15,8 @@ export default async function Hero() {
         </p>
       </div>
       <div className="z-10">
-        <div className="p-5 bg-sky-200 rounded-xl shadow-xl">
-          <div className="video-wrapper mb-4 border-orange-500 border-2 rounded-md">
+        <div className="p-5 bg-white rounded-xl shadow-xl">
+          <div className="video-wrapper mb-4 rounded-md">
             <iframe
               src="https://www.youtube.com/embed/UIofe-CEyII"
               frameBorder="0"
@@ -21,21 +25,12 @@ export default async function Hero() {
               allowFullScreen
             ></iframe>
           </div>
-          <form className="container flex flex-col align-middle justify-center">
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Type your email!"
-              className="form-input px-4 py-3 mb-3 rounded-lg"
-            />
-            <button
-              className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
-              type="submit"
-            >
-              Sign up!
-            </button>
-          </form>
+          <div className="container flex flex-col align-middle justify-center">
+            <SelectedOptionProvider>
+              <DropdownList options={USER_TYPE_OPTIONS} />
+              <SignUpModal />
+            </SelectedOptionProvider>
+          </div>
         </div>
       </div>
       <div>{await BackgroundVideo()}</div>
@@ -70,7 +65,8 @@ const fetchBackgroundVideoLink = async (): Promise<string> => {
     console.warn("No videos found");
     return "";
   }
+
   return (
-    video_files.find((video) => video && video.quality === "sd")?.link ?? "sdf"
+    video_files.find((video) => video && video.quality === "sd")?.link ?? ""
   );
 };
