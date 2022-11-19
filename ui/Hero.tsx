@@ -15,8 +15,8 @@ export default async function Hero() {
         </p>
       </div>
       <div className="z-10">
-        <div className="p-5 bg-sky-200 rounded-xl shadow-xl">
-          <div className="video-wrapper mb-4 border-orange-500 border-2 rounded-md">
+        <div className="p-5 bg-white rounded-xl shadow-xl">
+          <div className="video-wrapper mb-4 rounded-md">
             <iframe
               src="https://www.youtube.com/embed/UIofe-CEyII"
               frameBorder="0"
@@ -65,7 +65,8 @@ const fetchBackgroundVideoLink = async (): Promise<string> => {
     console.warn("No videos found");
     return "";
   }
+
   return (
-    video_files.find((video) => video && video.quality === "sd")?.link ?? "sdf"
+    video_files.find((video) => video && video.quality === "sd")?.link ?? ""
   );
 };
