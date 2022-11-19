@@ -1,15 +1,19 @@
 import "../styles/Nav.module.css";
 import { createClient } from "pexels";
-import SignUpModal from "./modals/base";
+import SignUpModal from "./SignUpModal";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
 import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 
 export default async function Hero() {
   return (
-    <section className="flex flex-col sm:flex-col lg:flex-row md:flex-row xl:flex-row relative justify-between items-center h-auto p-10 pb-20">
-      <div className="h-fit pr-24 z-10 text-white">
-        <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
+    <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20">
+      <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4">
+        <h4 className="title text-6xl font-bold mb-2">
+          <span className="sm:hidden">🎸 </span>
+          Discover artists
+          <span className="md:hidden lg:hidden xl:hidden 2xl:hidden"> 🎸</span>
+        </h4>
         <p className="text-2xl">
           Find the perfect musicans and artists to collaborate with.
         </p>

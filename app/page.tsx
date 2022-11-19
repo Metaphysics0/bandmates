@@ -5,7 +5,9 @@ import ProfileCard from "../ui/ProfileCard";
 
 export default async function Home() {
   const { data: musicians, error } = await getMusicians();
-  console.log("MUSICIANS", musicians);
+  if (error) {
+    console.error("Error loading musicians", error);
+  }
 
   return (
     <div>

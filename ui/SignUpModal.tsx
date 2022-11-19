@@ -1,18 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
+import { Provider } from "@supabase/supabase-js";
 import { KeyboardEvent, useEffect, useState } from "react";
+import { FaFacebook } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { SiSpotify } from "react-icons/si";
-import { signInWithSpotify } from "../../lib/supabase/auth";
-import { useSelectOption } from "../inputs/DropdownListProvider";
+import { FcGoogle } from "react-icons/fc";
+import {
+  AVAILABLE_PROVIDERS,
+  IAvailableProvider,
+  SignInWithOAuth,
+} from "../lib/supabase/auth";
+import { useSelectOption } from "./inputs/DropdownListProvider";
+import { capitalize } from "../utils/strings";
 
-export default function Modal() {
+export default function SignUpModal() {
   const [shouldShowModal, toggleModal] = useState(false);
   const [selectedOption] = useSelectOption();
-
-  const socialButtonStyle =
-    "text-white text-lg text-bold bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 flex items-center w-max";
 
   useEffect(() => {
     const closeModalOnEscape = (e: KeyboardEvent | any): void => {
@@ -64,14 +69,7 @@ export default function Modal() {
                     <p className="text-slate-500 text-lg text-center mb-6">
                       {selectedOption?.signUpDescription ?? "asdf"}
                     </p>
-                    <button
-                      type="button"
-                      className={socialButtonStyle}
-                      onClick={signInWithSpotify}
-                    >
-                      <SiSpotify className="mr-1" />
-                      Sign up with Spotify
-                    </button>
+                    {AVAILABLE_PROVIDERS.map(socialSignInButton)}
                   </div>
                 </section>
               </div>
@@ -83,3 +81,25 @@ export default function Modal() {
     </>
   );
 }
+
+const socialSignInButton = (provider: IAvailableProvider) => {
+  const socialButtonStyle =
+    "text-white text-lg text-bold bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 flex items-center w-max";
+
+  const iconMap = {
+    spotify: <SiSpotify className="mr-1" />,
+    google: <FcGoogle className="mr-1" />,
+    facebook: <FaFacebook className="mr-1" />,
+  };
+
+  return (
+    <button
+      type="button"
+      className={socialButtonStyle}
+      onClick={() => SignInWithOAuth(provider)}
+    >
+      {iconMap[provider]}
+      Sign up with {capitalize(provider)}
+    </button>
+  );
+};
