@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import NavBar from "../ui/NavBar";
 
 export default function RootLayout({

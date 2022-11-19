@@ -1,11 +1,14 @@
-import { getMusicians } from "../lib/supabase/db";
+import "../styles/tailwind.css";
 import "../styles/globals.css";
+import { getMusicians } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
 import ProfileCard from "../ui/ProfileCard";
 
 export default async function Home() {
   const { data: musicians, error } = await getMusicians();
-  console.log("MUSICIANS", musicians);
+  if (error) {
+    console.error("Error loading musicians", error);
+  }
 
   return (
     <div>

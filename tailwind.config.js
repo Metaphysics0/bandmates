@@ -3,6 +3,7 @@ const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "jit",
   content: [
     "./node_modules/flowbite-react/**/*.js",
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -14,12 +15,22 @@ module.exports = {
       fontFamily: {
         sans: ["Nunito", ...fontFamily.sans],
       },
+      colors: {
+        spotify: {
+          100: "#34db6f",
+          200: "#4adf7f",
+          300: "#61e38f",
+          400: "#1ed760",
+          500: "#1bc156",
+          600: "#18ac4c",
+          700: "#159643",
+          800: "#128139",
+          900: "#0f6b30",
+        },
+      },
     },
     screens: {
-      xs: { max: "639px" },
-      // => @media (max-width: 639px) { ... }
-
-      sm: { min: "640px", max: "767px" },
+      sm: { max: "767px" },
       // => @media (min-width: 640px and max-width: 767px) { ... }
 
       md: { min: "768px", max: "1023px" },

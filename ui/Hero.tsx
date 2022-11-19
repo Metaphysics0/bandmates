@@ -1,21 +1,24 @@
-import "../styles/Nav.module.css";
 import { createClient } from "pexels";
-import SignUpModal from "./modals/base";
+import SignUpModal from "./SignUpModal";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
 import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 
 export default async function Hero() {
   return (
-    <section className="flex flex-col sm:flex-col lg:flex-row md:flex-row xl:flex-row relative justify-between items-center h-auto p-10 pb-20">
-      <div className="h-fit pr-24 z-10 text-white">
-        <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
+    <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20">
+      <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4">
+        <h4 className="title text-6xl font-bold mb-2">
+          <span className="sm:hidden">🎸 </span>
+          Discover artists
+          <span className="md:hidden lg:hidden xl:hidden 2xl:hidden"> 🎸</span>
+        </h4>
         <p className="text-2xl">
-          Find the perfect musicans and artists to collaborate with.
+          The all in one place to meet like-minded musicians and artists.
         </p>
       </div>
       <div className="z-10">
-        <div className="p-5 bg-white rounded-xl shadow-xl">
+        <div className="p-5 pb-4 bg-white rounded-xl shadow-xl">
           <div className="video-wrapper mb-4 rounded-md">
             <iframe
               src="https://www.youtube.com/embed/UIofe-CEyII"
@@ -25,12 +28,23 @@ export default async function Hero() {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="container flex flex-col align-middle justify-center">
+          <div className="container flex flex-col align-middle justify-center mb-2">
             <SelectedOptionProvider>
-              <DropdownList options={USER_TYPE_OPTIONS} />
+              <div className="mb-3">
+                <DropdownList options={USER_TYPE_OPTIONS} />
+              </div>
               <SignUpModal />
             </SelectedOptionProvider>
           </div>
+          <p className="text-center text-sm">
+            Already have an account?{" "}
+            <a
+              href=""
+              className="text-orange-500 font-medium hover:text-orange-600 transition duration-75 underline"
+            >
+              Log In
+            </a>
+          </p>
         </div>
       </div>
       <div>{await BackgroundVideo()}</div>

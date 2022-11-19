@@ -40,18 +40,30 @@ export const USER_TYPE_OPTIONS: ISignUpSelectOption[] = [
   {
     value: "Pianist",
     emoji: "🎹",
+    signUpHeader: "Love me some keys.",
+    signUpDescription:
+      "Joining the community, especially as someone who knows how to play the keys, will give you a tremendous outlet to showcase your talent, collaborate with other musicians, and to get inspired from other artists.",
   },
   {
     value: "Songwriter",
     emoji: "✍️",
+    signUpHeader: "Drake had most of his music written for him.",
+    signUpDescription:
+      "Joining the community as a songwriter will give you an amazing place to showcase your talent, collaborate with other musicians, and to get inspired from other artists.",
   },
   {
     value: "Composer",
     emoji: "🎼",
+    signUpHeader: "Compose some Bach.",
+    signUpDescription:
+      "Joining the community as a composer will give you a tremendous outlet to showcase your talent, collaborate with other artists, and to get inspired for your next piece.",
   },
   {
     value: "Artist",
     emoji: "🧑‍🎨",
+    signUpHeader: "Compose some Bach.",
+    signUpDescription:
+      "Joining the community as a composer will give you a tremendous outlet to showcase your talent, collaborate with other artists, and to get inspired for your next piece.",
   },
   {
     value: "Philosopher",

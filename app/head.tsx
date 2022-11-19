@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>BandMates</title>
+      <title>Bands.fm | Meet Musicians</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <link rel="icon" href="/favicon.ico" />
     </>
