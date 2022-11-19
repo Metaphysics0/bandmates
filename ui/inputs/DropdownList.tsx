@@ -13,7 +13,7 @@ export default function DropdownList({
 }) {
   const [selectedOption, setSelectedOption] = useSelectOption();
   return (
-    <div className="mb-3">
+    <div className="w-full">
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -29,10 +29,7 @@ export default function DropdownList({
               </span>
             )}
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <HiChevronUpDown
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <HiChevronUpDown aria-hidden className="h-5 w-5 text-gray-400" />
             </span>
           </Listbox.Button>
           <Transition
@@ -66,7 +63,7 @@ export default function DropdownList({
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <HiCheck className="h-5 w-5" aria-hidden="true" />
+                          <HiCheck aria-hidden className="h-5 w-5" />
                         </span>
                       ) : null}
                     </>

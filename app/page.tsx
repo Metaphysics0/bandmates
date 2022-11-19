@@ -1,5 +1,6 @@
-import { getMusicians } from "../lib/supabase/db";
+import "../styles/tailwind.css";
 import "../styles/globals.css";
+import { getMusicians } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
 import ProfileCard from "../ui/ProfileCard";
 

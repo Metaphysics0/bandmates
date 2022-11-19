@@ -11,6 +11,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@next/font": "^13.0.3",
+    "@supabase/auth-helpers-nextjs": "^0.5.2",
+    "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.1.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/jit": "^0.1.18",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "supabase": "^1.12.2",

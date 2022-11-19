@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { Provider } from "@supabase/supabase-js";
 import { KeyboardEvent, useEffect, useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
@@ -14,6 +13,8 @@ import {
 } from "../lib/supabase/auth";
 import { useSelectOption } from "./inputs/DropdownListProvider";
 import { capitalize } from "../utils/strings";
+import DropdownList from "./inputs/DropdownList";
+import { USER_TYPE_OPTIONS } from "../data/consts";
 
 export default function SignUpModal() {
   const [shouldShowModal, toggleModal] = useState(false);
@@ -34,7 +35,7 @@ export default function SignUpModal() {
   return (
     <>
       <button
-        className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+        className="bg-red-500 hover:bg-red-400 transition duration-75 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded outline-none"
         type="button"
         onClick={() => toggleModal(true)}
         autoFocus
@@ -62,15 +63,27 @@ export default function SignUpModal() {
                       <ImCross />
                     </button>
                     <h3 className="text-3xl font-semibold text-center">
-                      {selectedOption?.signUpHeader ?? "asdf"}
+                      {selectedOption?.signUpHeader ?? defaultHeader}
                     </h3>
                   </div>
-                  <div className="p-5 flex flex-col justify-center items-center">
-                    <p className="text-slate-500 text-lg text-center mb-6">
-                      {selectedOption?.signUpDescription ?? "asdf"}
-                    </p>
+                  <p className="text-slate-500 text-lg text-center mb-6">
+                    {selectedOption?.signUpDescription ?? defaultDescription}
+                  </p>
+                  <div className="mx-auto mb-2 w-1/4">
+                    <DropdownList options={USER_TYPE_OPTIONS} />
+                  </div>
+                  <div className="p-5 flex flex-col items-center mx-auto w-fit">
                     {AVAILABLE_PROVIDERS.map(socialSignInButton)}
                   </div>
+                  <p className="text-center text-sm pb-4">
+                    Already have an account?{" "}
+                    <a
+                      href=""
+                      className="text-orange-500 font-medium hover:text-orange-600 transition duration-75 underline"
+                    >
+                      Log In
+                    </a>
+                  </p>
                 </section>
               </div>
             </div>
@@ -82,9 +95,11 @@ export default function SignUpModal() {
   );
 }
 
-const socialSignInButton = (provider: IAvailableProvider) => {
+const socialSignInButton = (provider: IAvailableProvider, idx: number) => {
   const socialButtonStyle =
-    "text-white text-lg text-bold bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 flex items-center w-max";
+    provider === "spotify"
+      ? "text-slate-100 bg-spotify-500 hover:bg-spotify-600 focus:ring-spotify-300"
+      : "text-black bg-slate-100 hover:bg-slate-200 focus:ring-slate-300 border-1 border-slate-700";
 
   const iconMap = {
     spotify: <SiSpotify className="mr-1" />,
@@ -93,13 +108,20 @@ const socialSignInButton = (provider: IAvailableProvider) => {
   };
 
   return (
-    <button
-      type="button"
-      className={socialButtonStyle}
-      onClick={() => SignInWithOAuth(provider)}
-    >
-      {iconMap[provider]}
-      Sign up with {capitalize(provider)}
-    </button>
+    <>
+      <button
+        type="button"
+        className={` text-lg focus:outline-none focus:ring-4 font-medium rounded-full px-5 py-2.5 flex items-center w-max ${socialButtonStyle}`}
+        onClick={() => SignInWithOAuth(provider)}
+        key={idx}
+      >
+        {iconMap[provider]}
+        Sign up with {capitalize(provider)}
+      </button>
+      {idx === 0 && <span className="my-2"> Or </span>}
+    </>
   );
 };
+
+const defaultHeader = "Join the community.";
+const defaultDescription = "it's free";

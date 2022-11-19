@@ -5,8 +5,12 @@ import { FaRegPaperPlane, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { ROUTES } from "../data/routes";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export default function NavBar() {
+  const session = useSession();
+  console.log("SESSION", session);
+
   const segment = useSelectedLayoutSegment();
   const isHero = segment === null;
   return (
