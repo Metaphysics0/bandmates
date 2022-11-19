@@ -1,24 +1,27 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { HiChevronUpDown, HiCheck } from "react-icons/hi2";
+import { IDropdownListOption } from "../../types/types";
+import { useSelectOption } from "./DropdownListProvider";
 
 export default function DropdownList({
   options,
 }: {
   options: IDropdownListOption[];
 }) {
-  const [selected, setSelected] = useState();
-
+  const [selectedOption, setSelectedOption] = useSelectOption();
   return (
     <div className="mb-3">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selectedOption} onChange={setSelectedOption}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            {selected ? (
-              // @ts-ignore
-              <span className="block truncate font-bold">{selected.value}</span>
+            {selectedOption ? (
+              <span className="block truncate font-bold">
+                {/* @ts-ignore */}
+                {selectedOption.value} {selectedOption.emoji || ""}
+              </span>
             ) : (
               <span className="text-slate-700 block truncate font-semibold">
                 I&apos;m a...{" "}
@@ -39,9 +42,9 @@ export default function DropdownList({
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {options.map((option) => (
+              {options.map((option, idx) => (
                 <Listbox.Option
-                  key={option.id}
+                  key={idx}
                   className={({ active }) =>
                     `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
                       active ? "bg-amber-100 text-amber-900" : "text-gray-900"
@@ -59,11 +62,11 @@ export default function DropdownList({
                           option.disabled ? "opacity-40 cursor-default" : ""
                         }`}
                       >
-                        {option.value}
+                        {option.value} {option.emoji || ""}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <HiCheck className="h-5 w-5" />
+                          <HiCheck className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
                     </>
@@ -76,9 +79,4 @@ export default function DropdownList({
       </Listbox>
     </div>
   );
-}
-interface IDropdownListOption {
-  id: number | string;
-  value: string;
-  disabled?: boolean;
 }

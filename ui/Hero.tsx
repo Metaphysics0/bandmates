@@ -3,10 +3,11 @@ import { createClient } from "pexels";
 import SignUpModal from "./modals/base";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
+import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 
 export default async function Hero() {
   return (
-    <section className="flex relative justify-between items-center h-auto p-10 pb-20">
+    <section className="flex flex-col sm:flex-col lg:flex-row md:flex-row xl:flex-row relative justify-between items-center h-auto p-10 pb-20">
       <div className="h-fit pr-24 z-10 text-white">
         <h4 className="title text-6xl font-bold mb-2">🎸 Discover artists</h4>
         <p className="text-2xl">
@@ -25,8 +26,10 @@ export default async function Hero() {
             ></iframe>
           </div>
           <div className="container flex flex-col align-middle justify-center">
-            <DropdownList options={USER_TYPE_OPTIONS} />
-            {<SignUpModal />}
+            <SelectedOptionProvider>
+              <DropdownList options={USER_TYPE_OPTIONS} />
+              <SignUpModal />
+            </SelectedOptionProvider>
           </div>
         </div>
       </div>
