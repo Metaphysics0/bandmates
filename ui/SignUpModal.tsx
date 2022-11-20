@@ -35,7 +35,7 @@ export default function SignUpModal() {
   return (
     <>
       <button
-        className="bg-red-500 hover:bg-red-400 transition duration-75 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded outline-none"
+        className="bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded outline-none"
         type="button"
         onClick={() => toggleModal(true)}
         autoFocus

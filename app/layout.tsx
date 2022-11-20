@@ -1,4 +1,4 @@
-import NavBar from "../ui/NavBar";
+import NavMenu from "../ui/NavMenu";
 
 export default function RootLayout({
   children,
@@ -9,7 +9,7 @@ export default function RootLayout({
     <html>
       <head />
       <body>
-        <NavBar />
+        <NavMenu />
         {children}
       </body>
     </html>
