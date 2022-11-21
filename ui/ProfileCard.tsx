@@ -31,11 +31,6 @@ export default function ProfileCard(profile: IProfile) {
     </article>
   );
 }
-
-{
-  /* <SignUpModal> */
-}
-
 // TODO: Add Overlay.
 // function ProfileCardOverlay(profile) {
 
