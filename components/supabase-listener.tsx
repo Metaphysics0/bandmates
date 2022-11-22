@@ -13,8 +13,6 @@ export default function SupabaseListener({
 }: {
   accessToken?: string;
 }) {
-  console.log("ACCESS TOKEN", accessToken);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +24,7 @@ export default function SupabaseListener({
         router.refresh();
       }
     });
-  }, [accessToken]);
+  }, [accessToken, router]);
 
   return null;
 }

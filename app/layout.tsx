@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html>
       <head />
       <body>
-        <NavMenu />
+        <NavMenu session={session} />
         <SupabaseListener accessToken={session?.access_token} />
         {children}
       </body>

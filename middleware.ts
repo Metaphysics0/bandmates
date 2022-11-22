@@ -13,13 +13,18 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log("SEESSION", session);
+  const { pathname } = req.nextUrl;
 
-  if (!session && req.nextUrl.pathname.startsWith("/profile")) {
+  const PROTECTED_ROUTES = ["/profile", "/messages"];
+
+  if (
+    !session &&
+    PROTECTED_ROUTES.some((route) => pathname.startsWith(route))
+  ) {
     // Auth condition not met, redirect to home page.
     const redirectUrl = req.nextUrl.clone();
     redirectUrl.pathname = "/";
-    redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
+    redirectUrl.searchParams.set(`redirectedFrom`, pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
