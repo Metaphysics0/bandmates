@@ -15,9 +15,11 @@ import { useSelectOption } from "./inputs/DropdownListProvider";
 import { capitalize } from "../utils/strings";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
+import { ISignUpSelectOption } from "../types/types";
 
 export default function SignUpModal() {
   const [shouldShowModal, toggleModal] = useState(false);
+  const [nameInputValue, setNameInputValue] = useState("");
   const [selectedOption] = useSelectOption();
 
   useEffect(() => {
@@ -72,8 +74,28 @@ export default function SignUpModal() {
                   <div className="mx-auto mb-2 w-1/4">
                     <DropdownList options={USER_TYPE_OPTIONS} />
                   </div>
+                  <div className="mx-auto w-1/5">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={nameInputValue}
+                      placeholder="First Name"
+                      onChange={(e) => {
+                        setNameInputValue(e.target.value.trim());
+                      }}
+                      className="rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold w-full"
+                    />
+                  </div>
                   <div className="p-5 flex flex-col items-center mx-auto w-fit">
-                    {AVAILABLE_PROVIDERS.map(socialSignInButton)}
+                    {AVAILABLE_PROVIDERS.map((provider, idx) =>
+                      socialSignInButton({
+                        provider,
+                        idx,
+                        selectedOption,
+                        nameInputValue,
+                      })
+                    )}
                   </div>
                   <p className="text-center text-sm pb-4">
                     Already have an account?{" "}
@@ -95,7 +117,17 @@ export default function SignUpModal() {
   );
 }
 
-const socialSignInButton = (provider: IAvailableProvider, idx: number) => {
+const socialSignInButton = ({
+  provider,
+  idx,
+  selectedOption,
+  nameInputValue,
+}: {
+  provider: IAvailableProvider;
+  idx: number;
+  selectedOption: ISignUpSelectOption | undefined;
+  nameInputValue: string;
+}) => {
   const socialButtonStyle =
     provider === "spotify"
       ? "text-slate-100 bg-spotify-500 hover:bg-spotify-600 focus:ring-spotify-300"
@@ -107,12 +139,19 @@ const socialSignInButton = (provider: IAvailableProvider, idx: number) => {
     facebook: <FaFacebook className="mr-1" />,
   };
 
+  const options = {
+    queryParams: {
+      initialMusicianType: String(selectedOption),
+      first_name: nameInputValue,
+    },
+  };
+
   return (
     <>
       <button
         type="button"
         className={` text-lg focus:outline-none focus:ring-4 font-medium rounded-full px-5 py-2.5 flex items-center w-max ${socialButtonStyle}`}
-        onClick={() => SignInWithOAuth(provider)}
+        onClick={() => SignInWithOAuth({ provider, options })}
         key={idx}
       >
         {iconMap[provider]}

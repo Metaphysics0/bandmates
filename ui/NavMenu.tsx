@@ -1,13 +1,13 @@
 "use client";
+
 import Link from "next/link";
+import { IRoute, ROUTES } from "../data/routes";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { ROUTES } from "../data/routes";
-import { useSession } from "@supabase/auth-helpers-react";
 
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { HiChevronDown, HiOutlinePaperAirplane } from "react-icons/hi2";
-import { GiGuitarHead } from "react-icons/gi";
+import { HiChevronDown } from "react-icons/hi2";
+import { getSession } from "../lib/supabase/auth";
 
 export default function NavMenu() {
   return (
@@ -39,25 +39,7 @@ export default function NavMenu() {
               <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
-                    {ROUTES.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      >
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#FB923C] text-white rounded-md sm:h-12 sm:w-12">
-                          <item.icon aria-hidden="true" className="w-6 h-6" />
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-900">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {item.description}
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
+                    {ROUTES.map(NavMenuItem)}
                   </div>
                 </div>
               </Popover.Panel>
@@ -68,3 +50,27 @@ export default function NavMenu() {
     </div>
   );
 }
+
+const NavMenuItem = (item: IRoute) => {
+  const segment = useSelectedLayoutSegment();
+  const isActive =
+    item.slug === segment || (item.slug === "" && segment === null);
+
+  return (
+    <Link
+      key={item.name}
+      href={`/${item.slug}`}
+      className={`-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out ${
+        isActive ? "bg-red-50" : ""
+      } hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50`}
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#FB923C] text-white rounded-md sm:h-12 sm:w-12">
+        <item.icon aria-hidden="true" className="w-6 h-6" />
+      </div>
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-900">{item.name}</p>
+        <p className="text-sm text-gray-500">{item.description}</p>
+      </div>
+    </Link>
+  );
+};

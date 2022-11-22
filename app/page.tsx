@@ -1,5 +1,3 @@
-import "../styles/tailwind.css";
-import "../styles/globals.css";
 import { getMusicians } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
 import SearchSection from "../ui/SearchSection";
