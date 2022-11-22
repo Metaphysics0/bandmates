@@ -6,26 +6,26 @@ export const ROUTES: IRoute[] = [
   {
     name: "Home",
     description: "Is where the heart is",
-    href: "/",
+    slug: "",
     icon: HiHome,
   },
   {
     name: "Messages",
     description: "Talk with other artists",
-    href: "/messages",
+    slug: "messages",
     icon: HiOutlinePaperAirplane,
   },
   {
     name: "Profile",
     description: "Personalize your account",
-    href: "/profile",
+    slug: "profile",
     icon: CgProfile,
   },
 ];
 
-interface IRoute {
+export interface IRoute {
   name: string;
   description: string;
-  href: string;
+  slug: string;
   icon: IconType;
 }
