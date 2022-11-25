@@ -16,15 +16,25 @@ export default function ProfileCard({
   return (
     <article
       key={profile.id}
-      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-pointer"
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-cell"
     >
       <div className="w-full h-full relative">
-        <Image
-          src={guitarist}
-          alt={profile.full_name || "musician"}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3">
+        {profile.avatar_url ? (
+          <Image
+            src={profile.avatar_url}
+            alt={profile.full_name || "musician"}
+            width="100"
+            height="100"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <Image
+            src={guitarist}
+            alt={profile.full_name || "musician"}
+            className="h-full w-full object-cover"
+          />
+        )}
+        <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3 bg-gradient-to-b from-transparent to-black/40">
           <p className=" text-xl">{profile.full_name}, 23</p>
           <p className="text-lg">Guitarist</p>
         </div>

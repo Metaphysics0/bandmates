@@ -2,7 +2,7 @@
 
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { HiCheck, HiChevronUpDown } from "react-icons/hi2";
+import { HiCheck } from "react-icons/hi2";
 import { IDropdownListOption } from "../../types/types";
 import { useSelectedFilter } from "./SortByFilterProvider";
 

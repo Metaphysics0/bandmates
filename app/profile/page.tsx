@@ -17,7 +17,7 @@ export default async function ProfilePage() {
         aria-label="Full name"
       />
       {/* @ts-ignore */}
-      <ProfileCard profile={data} />
+      <ProfileCard profile={data.user?.user_metadata} />
     </div>
   );
 }

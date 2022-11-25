@@ -6,10 +6,10 @@ export async function SignInWithSpotify(queryParams: any = {}) {
     provider: "spotify",
     options: { queryParams },
   };
-  const { data, error } = await oAuthSignIn(oAuthParams);
+  return await oAuthSignIn(oAuthParams);
 }
 
-export async function signout() {
+export async function signOut() {
   const { error } = await supabase.auth.signOut();
 }
 
@@ -17,8 +17,8 @@ export async function getSession() {
   return await supabase.auth.getSession();
 }
 
-const oAuthSignIn = (credentials: SignInWithOAuthCredentials) =>
-  supabase.auth.signInWithOAuth(credentials);
+const oAuthSignIn = async (credentials: SignInWithOAuthCredentials) =>
+  await supabase.auth.signInWithOAuth(credentials);
 
 export const AVAILABLE_PROVIDERS: IAvailableProvider[] = ["spotify", "google"];
 

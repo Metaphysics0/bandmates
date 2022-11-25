@@ -4,16 +4,16 @@ import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 import supabase from "../lib/supabase/supabase-server";
 import ProfileCard from "./ProfileCard";
 import { UserMetadata } from "@supabase/supabase-js";
-import SignOutText from "./inputs/signOutText";
 import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
+import Link from "next/link";
 
 export default async function Hero() {
   const { data, error } = await supabase().auth.getUser();
 
   return (
-    <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20">
-      <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4">
-        <div className="title text-6xl font-bold mb-2">
+    <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20 sm:p-10 sm:pb-10">
+      <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4 sm:mt-14">
+        <div className="title text-6xl sm:text-4xl font-bold mb-2">
           <span className="sm:hidden">🎸 </span>
           Discover artists
           <span className="md:hidden lg:hidden xl:hidden 2xl:hidden"> 🎸</span>
@@ -43,10 +43,15 @@ export default async function Hero() {
 
 function SignedInProfileCard(user: UserMetadata) {
   return (
-    <div className="p-3 bg-white rounded-xl shadow-xl">
+    <div className="flex flex-col items-center">
       {/* @ts-ignore */}
       <ProfileCard profile={user} />
-      <SignOutText />
+      <Link
+        href="/profile"
+        className="bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2"
+      >
+        Take me to my profile!
+      </Link>
     </div>
   );
 }

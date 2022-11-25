@@ -41,6 +41,21 @@ export default function NavMenu({ session }: { session: Session | null }) {
                   <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
                     {ROUTES.map((route) => NavMenuItem(route, session))}
                   </div>
+                  <div className="bg-gray-50 p-4">
+                    <Link
+                      href="/about"
+                      className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                    >
+                      <span className="flex items-center">
+                        <span className="text-sm font-medium text-gray-900">
+                          FAQ / Contact Us
+                        </span>
+                      </span>
+                      <span className="block text-sm text-gray-500">
+                        Have a question? Come over
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               </Popover.Panel>
             </Transition>
