@@ -1,9 +1,12 @@
-import { Provider, SignInWithOAuthCredentials } from "@supabase/supabase-js";
-import supabase from "./client";
+import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
+import supabase from "./supbase-browser";
 
-export async function SignInWithOAuth(credentials: SignInWithOAuthCredentials) {
-  const { data, error } = await oAuthSignIn(credentials);
-  console.log("DATA", data);
+export async function SignInWithSpotify(queryParams: any = {}) {
+  const oAuthParams: SignInWithOAuthCredentials = {
+    provider: "spotify",
+    options: { queryParams },
+  };
+  const { data, error } = await oAuthSignIn(oAuthParams);
 }
 
 export async function signout() {

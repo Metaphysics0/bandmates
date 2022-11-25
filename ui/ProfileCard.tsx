@@ -3,7 +3,16 @@ import { IProfile } from "../types/db";
 import guitarist from "../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
 
-export default function ProfileCard(profile: IProfile) {
+export default function ProfileCard({
+  profile,
+  isLoggedInUser,
+}: {
+  profile: IProfile;
+  isLoggedInUser?: boolean;
+}) {
+  if (isLoggedInUser) {
+    console.log("PROFILE", profile);
+  }
   return (
     <article
       key={profile.id}

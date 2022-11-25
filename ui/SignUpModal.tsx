@@ -2,25 +2,21 @@
 "use client";
 
 import { KeyboardEvent, useEffect, useState } from "react";
-import { FaFacebook } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import { SiSpotify } from "react-icons/si";
-import { FcGoogle } from "react-icons/fc";
-import {
-  AVAILABLE_PROVIDERS,
-  IAvailableProvider,
-  SignInWithOAuth,
-} from "../lib/supabase/auth";
 import { useSelectOption } from "./inputs/DropdownListProvider";
-import { capitalize } from "../utils/strings";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
-import { ISignUpSelectOption } from "../types/types";
+import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
 
 export default function SignUpModal() {
   const [shouldShowModal, toggleModal] = useState(false);
   const [nameInputValue, setNameInputValue] = useState("");
   const [selectedOption] = useSelectOption();
+
+  const signUpQueryParams = {
+    initialMusicianType: selectedOption,
+    first_name: nameInputValue,
+  };
 
   useEffect(() => {
     const closeModalOnEscape = (e: KeyboardEvent | any): void => {
@@ -87,15 +83,8 @@ export default function SignUpModal() {
                       className="rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold w-full"
                     />
                   </div>
-                  <div className="p-5 flex flex-col items-center mx-auto w-fit">
-                    {AVAILABLE_PROVIDERS.map((provider, idx) =>
-                      socialSignInButton({
-                        provider,
-                        idx,
-                        selectedOption,
-                        nameInputValue,
-                      })
-                    )}
+                  <div className="p-5 flex items-center mx-auto w-fit">
+                    <SignUpWithSpotfiyButton options={signUpQueryParams} />
                   </div>
                   <p className="text-center text-sm pb-4">
                     Already have an account?{" "}
@@ -116,51 +105,6 @@ export default function SignUpModal() {
     </>
   );
 }
-
-const socialSignInButton = ({
-  provider,
-  idx,
-  selectedOption,
-  nameInputValue,
-}: {
-  provider: IAvailableProvider;
-  idx: number;
-  selectedOption: ISignUpSelectOption | undefined;
-  nameInputValue: string;
-}) => {
-  const socialButtonStyle =
-    provider === "spotify"
-      ? "text-slate-100 bg-spotify-500 hover:bg-spotify-600 focus:ring-spotify-300"
-      : "text-black bg-slate-100 hover:bg-slate-200 focus:ring-slate-300 border-1 border-slate-700";
-
-  const iconMap = {
-    spotify: <SiSpotify className="mr-1" />,
-    google: <FcGoogle className="mr-1" />,
-    facebook: <FaFacebook className="mr-1" />,
-  };
-
-  const options = {
-    queryParams: {
-      initialMusicianType: String(selectedOption),
-      first_name: nameInputValue,
-    },
-  };
-
-  return (
-    <>
-      <button
-        type="button"
-        className={` text-lg focus:outline-none focus:ring-4 font-medium rounded-full px-5 py-2.5 flex items-center w-max ${socialButtonStyle}`}
-        onClick={() => SignInWithOAuth({ provider, options })}
-        key={idx}
-      >
-        {iconMap[provider]}
-        Sign up with {capitalize(provider)}
-      </button>
-      {idx === 0 && <span className="my-2"> Or </span>}
-    </>
-  );
-};
 
 const defaultHeader = "Join the community.";
 const defaultDescription = "it's free";

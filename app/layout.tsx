@@ -1,3 +1,5 @@
+import "server-only";
+
 import "../styles/tailwind.css";
 import "../styles/globals.css";
 
