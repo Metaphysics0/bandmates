@@ -12,5 +12,5 @@ export const getMusicians = async (loggedInUserId?: string) => {
   return await baseCriteria;
 };
 
-export const getUser = async (userId: string) =>
-  await supabase.from("profiles").select("*").eq(userId, true);
+export const getUser = async (uuid: string) =>
+  await supabase.from("profiles").select("*").eq("id", uuid);

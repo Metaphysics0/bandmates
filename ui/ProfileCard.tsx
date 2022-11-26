@@ -10,9 +10,6 @@ export default function ProfileCard({
   profile: IProfile;
   isLoggedInUser?: boolean;
 }) {
-  if (isLoggedInUser) {
-    console.log("PROFILE", profile);
-  }
   return (
     <article
       key={profile.id}

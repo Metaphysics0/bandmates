@@ -7,7 +7,7 @@ import { headers, cookies } from "next/headers";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../types/db";
 import NavMenu from "../ui/NavMenu";
-import SupabaseListener from "../components/supabase-listener";
+import SupabaseListener from "../utils/supabase-listener";
 
 export default async function RootLayout({
   children,
@@ -21,8 +21,6 @@ export default async function RootLayout({
   const {
     data: { session },
   } = await supabase.auth.getSession();
-
-  console.log("SESSION", session);
 
   return (
     <html>
