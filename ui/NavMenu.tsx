@@ -23,7 +23,7 @@ export default function NavMenu({ session }: { session: Session | null }) {
               Menu
               <HiChevronDown
                 aria-hidden="true"
-                className={`${open ? "" : "text-opacity-70"}
+                className={`${open ? "rotate-180 transform" : "text-opacity-70"}
                   ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
               />
             </Popover.Button>

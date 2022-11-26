@@ -1,3 +1,4 @@
+import { IProfile } from "../../types/database";
 import supabase from "./supbase-browser";
 
 export const getMusicians = async (loggedInUserId?: string) => {
@@ -12,5 +13,8 @@ export const getMusicians = async (loggedInUserId?: string) => {
   return await baseCriteria;
 };
 
-export const getUser = async (userId: string) =>
-  await supabase.from("profiles").select("*").eq(userId, true);
+export const getUser = async (uuid: string) =>
+  await supabase.from("profiles").select("*").eq("id", uuid);
+
+export const updateUser = async (user: IProfile, fields: object) =>
+  await supabase.from("profiles").update(fields).eq("id", user.id);

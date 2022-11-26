@@ -5,9 +5,9 @@ import "../styles/globals.css";
 
 import { headers, cookies } from "next/headers";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../types/db";
+import { Database } from "../types/database";
 import NavMenu from "../ui/NavMenu";
-import SupabaseListener from "../components/supabase-listener";
+import SupabaseListener from "../utils/supabase-listener";
 
 export default async function RootLayout({
   children,

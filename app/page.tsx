@@ -1,7 +1,7 @@
 import { getMusicians } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
 import SearchSection from "../ui/SearchSection";
-import { IProfile } from "../types/db";
+import { IProfile } from "../types/database";
 import MusiciansList from "../ui/MusiciansList";
 
 export default async function Home() {

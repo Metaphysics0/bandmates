@@ -11,13 +11,13 @@ export const ROUTES: IRoute[] = [
   },
   {
     name: "Messages",
-    description: "Talk with other artists",
+    description: "Collaborate and talk with other artists!",
     slug: "messages",
     icon: HiOutlinePaperAirplane,
   },
   {
     name: "Profile",
-    description: "Personalize your account",
+    description: "Add music and personalize your account",
     slug: "profile",
     icon: CgProfile,
   },

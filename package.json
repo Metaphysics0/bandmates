@@ -24,6 +24,7 @@
     "pexels": "^1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.5",
     "react-icons": "^4.6.0",
     "server-only": "^0.0.1",
     "typescript": "4.8.4"
@@ -32,7 +33,9 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/jit": "^0.1.18",
+    "@types/lodash": "^4.14.190",
     "autoprefixer": "^10.4.13",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.19",
     "supabase": "^1.12.2",
     "tailwindcss": "^3.2.3"
