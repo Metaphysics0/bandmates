@@ -59,7 +59,7 @@ const FAQS: IFaq[] = [
   },
   {
     title: "What technologies are used?",
-    text: "Bands.fm uses cutting edge serverless technologies. Next.js 13 server components for the frontend, Supabase for the backend data services. Tailwind for styling.",
+    text: "Bands.fm uses cutting edge serverless technologies. Next.js 13 for the frontend, Supabase for the backend data services. Tailwind for styling + HeadlessUI for the inputs. And a few open source React libraries.",
   },
   {
     title: "Who owns the rights to the music after collaboration?",

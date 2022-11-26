@@ -13,7 +13,7 @@ export default function ProfileCard({
   return (
     <article
       key={profile.id}
-      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-cell w-fit"
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-zoom-in w-fit"
     >
       <div className="w-full h-full relative">
         {profile.avatar_url ? (

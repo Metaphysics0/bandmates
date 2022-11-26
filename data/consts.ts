@@ -78,3 +78,13 @@ export const USER_TYPE_OPTIONS: ISignUpSelectOption[] = [
     emoji: "🌎",
   },
 ];
+
+export const PREMIUM_SEARCH_FILTERS: string[] = [
+  "👾 Lo-Fi",
+  "✨ Neo-Soul",
+  "🎸 Math Rock",
+  "🖤 Emo",
+  "🪐 Progressive",
+  "😤 Hardcore",
+  "🎺 Jazz",
+];
