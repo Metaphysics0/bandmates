@@ -5,7 +5,7 @@ import "../styles/globals.css";
 
 import { headers, cookies } from "next/headers";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../types/db";
+import { Database } from "../types/database";
 import NavMenu from "../ui/NavMenu";
 import SupabaseListener from "../utils/supabase-listener";
 

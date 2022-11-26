@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IProfile } from "../types/db";
+import { IProfile } from "../types/database";
 import guitarist from "../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
 

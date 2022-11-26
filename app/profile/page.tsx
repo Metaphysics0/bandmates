@@ -19,7 +19,7 @@ export default async function ProfilePage() {
   return (
     <div className="container grid grid-cols-3 m-auto bg-white p-3 rounded-xl drop-shadow-lg mt-24 w-full">
       <ProfileForm profile={profile[0]} />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center">
         {/* @ts-ignore */}
         <ProfileCard profile={data.user?.user_metadata} />
         <p className="text-slate-800 font-extrabold text-center mt-2 text-lg drop-shadow-md">

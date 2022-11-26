@@ -16,13 +16,15 @@ export interface Database {
           skill_level: number | null;
           model: string | null;
           type: string | null;
+          profile_id: string | null;
         };
         Insert: {
-          id: string;
+          id?: string;
           instrument_name: string;
           skill_level?: number | null;
           model?: string | null;
           type?: string | null;
+          profile_id?: string | null;
         };
         Update: {
           id?: string;
@@ -30,41 +32,34 @@ export interface Database {
           skill_level?: number | null;
           model?: string | null;
           type?: string | null;
+          profile_id?: string | null;
         };
       };
       profiles: {
         Row: IProfile;
         Insert: {
-          id: string;
+          id?: string;
           updated_at?: string | null;
-          username?: string | null;
           full_name?: string | null;
           avatar_url?: string | null;
           email?: string | null;
-          "sound snippets"?: string[] | null;
-          "social links"?: Json | null;
-          meeting_preference?:
-            | Database["public"]["Enums"]["meeting_preference"]
-            | null;
-          "musical style"?:
-            | Database["public"]["Enums"]["musical_style"][]
-            | null;
+          sound_snippets?: string[] | null;
+          age?: number | null;
+          bio?: string | null;
+          artist_type?: string | null;
+          location?: string | null;
         };
         Update: {
           id?: string;
           updated_at?: string | null;
-          username?: string | null;
           full_name?: string | null;
           avatar_url?: string | null;
           email?: string | null;
-          "sound snippets"?: string[] | null;
-          "social links"?: Json | null;
-          meeting_preference?:
-            | Database["public"]["Enums"]["meeting_preference"]
-            | null;
-          "musical style"?:
-            | Database["public"]["Enums"]["musical_style"][]
-            | null;
+          sound_snippets?: string[] | null;
+          age?: number | null;
+          bio?: string | null;
+          artist_type?: string | null;
+          location?: string | null;
         };
       };
     };
@@ -210,12 +205,12 @@ export interface Database {
 export interface IProfile {
   id: string;
   updated_at: string | null;
-  username: string | null;
   full_name: string | null;
   avatar_url: string | null;
   email: string | null;
-  "sound snippets": string[] | null;
-  "social links": Json | null;
-  meeting_preference: Database["public"]["Enums"]["meeting_preference"] | null;
-  "musical style": Database["public"]["Enums"]["musical_style"][] | null;
+  sound_snippets: string[] | null;
+  age: number | null;
+  bio: string | null;
+  artist_type: string | null;
+  location: string | null;
 }

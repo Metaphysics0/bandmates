@@ -1,4 +1,4 @@
-import { IProfile } from "../types/db";
+import { IProfile } from "../types/database";
 import ProfileCard from "./ProfileCard";
 
 export default function MusiciansList({
