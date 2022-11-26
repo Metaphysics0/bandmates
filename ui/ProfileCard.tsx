@@ -16,7 +16,7 @@ export default function ProfileCard({
   return (
     <article
       key={profile.id}
-      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-cell"
+      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-cell w-fit"
     >
       <div className="w-full h-full relative">
         {profile.avatar_url ? (
@@ -34,11 +34,11 @@ export default function ProfileCard({
             className="h-full w-full object-cover"
           />
         )}
-        <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3 bg-gradient-to-b from-transparent to-black/40">
-          <p className=" text-xl">{profile.full_name}, 23</p>
+        <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3 bg-opacity-50 bg-black p-2 rounded-lg">
+          <p className=" text-xl drop-shadow">{profile.full_name}</p>
           <p className="text-lg">Guitarist</p>
         </div>
-        <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between">
+        <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
           <div className="flex items-center">
             <MdLocationOn />
             <p>Lisbon, Portugal</p>
