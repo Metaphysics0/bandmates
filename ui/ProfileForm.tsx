@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IProfile } from "../types/database";
 import { useForm } from "react-hook-form";
 import UpdateProfilePhotoModal from "./inputs/UpdateProfilePhotoModal";
@@ -9,14 +9,25 @@ import _ from "lodash";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [shouldDisableSubmit, setShouldDisableSubmit] = useState(true);
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     defaultValues: {
       full_name: profile.full_name,
       artist_type: profile.artist_type,
       bio: profile.bio,
     },
   });
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name !== undefined && profile[name] !== value) {
+        setShouldDisableSubmit(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [profile, watch]);
 
   const onSubmit = (data: any) => {
     console.log("DATA", data);
@@ -94,7 +105,12 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       <div className="mt-3 col-span-2 flex justify-center">
         <button
           type="submit"
-          className={`bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-75`}
+          disabled={shouldDisableSubmit}
+          className={`${
+            shouldDisableSubmit
+              ? "bg-slate-400 hover:bg-slate-300"
+              : "bg-red-500 hover:bg-red-400"
+          } text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-75`}
         >
           Submit
         </button>

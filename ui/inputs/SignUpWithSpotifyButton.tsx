@@ -23,11 +23,11 @@ export default function SignUpWithSpotfiyButton({
   return (
     <button
       type="button"
-      className="text-slate-100 bg-spotify-500 hover:bg-spotify-600 focus:ring-spotify-300 text-lg focus:outline-none focus:ring-4 font-medium rounded-full px-5 py-2.5 flex items-center justify-between w-[calc(100%_-_2rem)] m-auto"
+      className="text-slate-100 bg-spotify-500 hover:bg-spotify-600 focus:ring-spotify-300 text-lg focus:outline-none focus:ring-4 font-medium rounded-full px-5 py-2.5 flex items-center justify-between w-[calc(100%_-_2rem)] m-auto shadow-md"
       onClick={handleSignIn}
     >
       <SiSpotify className="mr-1" />
-      <span>
+      <span className="font-semibold">
         {isLoading
           ? `${_loadingSpinner()} Signing in!`
           : "Sign up with Spotify"}

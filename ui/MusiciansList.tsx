@@ -1,5 +1,5 @@
 import { IProfile } from "../types/database";
-import ProfileCard from "./ProfileCard";
+import ProfileCard, { ProfileCardSkeleton } from "./ProfileCard";
 
 export default function MusiciansList({
   musicians,

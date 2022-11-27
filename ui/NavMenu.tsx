@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { IRoute, ROUTES } from "../data/routes";
+import { IRoute, PROTECTED_ROUTES, ROUTES } from "../data/routes";
 import { useSelectedLayoutSegment } from "next/navigation";
 
 import { Popover, Transition } from "@headlessui/react";
@@ -18,7 +18,7 @@ export default function NavMenu({ session }: { session: Session | null }) {
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-90"}
-                group inline-flex items-center rounded-md bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                group inline-flex items-center rounded-md bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 px-3 py-2 text-base font-bold text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               Menu
               <HiChevronDown
@@ -73,7 +73,8 @@ const NavMenuItem = (item: IRoute, session: Session | null) => {
   const disabledClass = "opacity-40 pointer-events-none cursor-not-allowed";
 
   // meaning user is not signed in, and we're not on the home page.
-  const shouldShowDisabledUi = session === null && !isHomePage;
+  const shouldShowDisabledUi =
+    session === null && !isHomePage && PROTECTED_ROUTES.includes(item.slug);
 
   return (
     <Link

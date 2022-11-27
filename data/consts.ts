@@ -84,7 +84,7 @@ export const PREMIUM_SEARCH_FILTERS: string[] = [
   "✨ Neo-Soul",
   "🎸 Math Rock",
   "🖤 Emo",
-  "🪐 Progressive",
+  "🪐 Djent",
   "😤 Hardcore",
   "🎺 Jazz",
 ];
