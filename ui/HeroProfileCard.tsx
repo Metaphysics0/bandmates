@@ -1,43 +1,19 @@
-import DropdownList from "./inputs/DropdownList";
-import { USER_TYPE_OPTIONS } from "../data/consts";
-import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
-import supabase from "../lib/supabase/supabase-server";
-import ProfileCard from "./ProfileCard";
+"use client";
+
 import { UserMetadata } from "@supabase/supabase-js";
-import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
 import Link from "next/link";
-import HeroProfileCard from "./HeroProfileCard";
+import { USER_TYPE_OPTIONS } from "../data/consts";
+import DropdownList from "./inputs/DropdownList";
+import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
+import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
+import ProfileCard from "./ProfileCard";
 
-export default async function Hero() {
-  const { data, error } = await supabase.auth.getUser();
-
-  return (
-    <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20 sm:p-10 sm:pb-10">
-      <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4 sm:mt-14">
-        <div className="title text-6xl sm:text-4xl font-bold mb-2">
-          <span className="sm:hidden">🎸 </span>
-          Discover artists
-          <span className="md:hidden lg:hidden xl:hidden 2xl:hidden"> 🎸</span>
-        </div>
-        <p className="text-2xl">
-          Meet and collaborate with like-minded musicians and artists.
-        </p>
-      </div>
-      <div className="z-10">
-        <HeroProfileCard profile={data.user?.user_metadata} />
-      </div>
-      <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
-        <video
-          className="bg min-w-full min-h-full absolute object-cover"
-          id="head-image-video"
-          src="/background_video.mp4"
-          autoPlay
-          loop
-          muted
-        ></video>
-      </div>
-    </section>
-  );
+export default function HeroProfileCard({
+  profile,
+}: {
+  profile?: UserMetadata;
+}) {
+  return profile ? SignedInProfileCard(profile) : SignUpModalCard();
 }
 
 function SignedInProfileCard(user: UserMetadata) {

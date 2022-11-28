@@ -72,9 +72,8 @@ const NavMenuItem = (item: IRoute, session: Session | null) => {
   const isActive = item.slug === segment || (isHomePage && segment === null);
   const disabledClass = "opacity-40 pointer-events-none cursor-not-allowed";
 
-  // meaning user is not signed in, and we're not on the home page.
   const shouldShowDisabledUi =
-    session === null && !isHomePage && PROTECTED_ROUTES.includes(item.slug);
+    session === null && PROTECTED_ROUTES.includes(item.slug);
 
   return (
     <Link

@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     appDir: true,
+    esmExternals: true,
   },
   images: {
     domains: ["i.scdn.co", "lh3.googleusercontent.com"],

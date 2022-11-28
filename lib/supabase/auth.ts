@@ -1,5 +1,5 @@
 import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
-import supabase from "./supbase-browser";
+import supabase from "./supabase-browser";
 
 export async function SignInWithSpotify(queryParams: any = {}) {
   const oAuthParams: SignInWithOAuthCredentials = {

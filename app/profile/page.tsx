@@ -7,7 +7,7 @@ import ProfileForm from "../../ui/ProfileForm";
 export const revalidate = 0;
 
 export default async function ProfilePage() {
-  const { data, error } = await supabase().auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
   if (error) {
     return <div>Something went wrong ):</div>;
   }

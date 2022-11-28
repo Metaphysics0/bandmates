@@ -1,5 +1,5 @@
 import { IProfile } from "../../types/database";
-import supabase from "./supbase-browser";
+import supabase from "./supabase-browser";
 
 export const getMusicians = async (loggedInUserId?: string) => {
   const baseCriteria = supabase

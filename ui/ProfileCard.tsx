@@ -3,10 +3,10 @@ import { IProfile } from "../types/database";
 import guitarist from "../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
 import { FaGuitar } from "react-icons/fa";
+import ProfileLikeButton from "./inputs/ProfileLikeButton";
 
 export default function ProfileCard({
   profile,
-  isLoggedInUser,
 }: {
   profile: IProfile;
   isLoggedInUser?: boolean;
@@ -36,12 +36,16 @@ export default function ProfileCard({
           <p className=" text-xl drop-shadow">{profile.full_name}</p>
           <p className="text-lg">Guitarist</p>
         </div>
+
+        <div className="absolute top-0 right-0 mt-2 mr-3">
+          <ProfileLikeButton />
+        </div>
+
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
           <div className="flex items-center">
             <MdLocationOn />
             <p>Lisbon, Portugal</p>
           </div>
-
           <p className="font-semibold">85% match 🔥</p>
         </div>
       </div>

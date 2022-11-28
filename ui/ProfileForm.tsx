@@ -6,6 +6,7 @@ import { IProfile } from "../types/database";
 import { useForm } from "react-hook-form";
 import UpdateProfilePhotoModal from "./inputs/UpdateProfilePhotoModal";
 import _ from "lodash";
+import SignOutButton from "./inputs/signOutButton";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +85,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
           </p>
           <UpdateProfilePhotoModal isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
+        <SignOutButton />
       </div>
       <div className="flex flex-col items-center">
         <audio controls className="mb-2">
