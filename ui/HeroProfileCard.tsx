@@ -1,5 +1,3 @@
-"use client";
-
 import { UserMetadata } from "@supabase/supabase-js";
 import Link from "next/link";
 import { USER_TYPE_OPTIONS } from "../data/consts";

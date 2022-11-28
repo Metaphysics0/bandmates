@@ -34,7 +34,7 @@ export default function ProfileCard({
         )}
         <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3 bg-opacity-50 bg-black p-2 rounded-lg">
           <p className=" text-xl drop-shadow">{profile.full_name}</p>
-          <p className="text-lg">Guitarist</p>
+          <p className="text-lg">{profile.artist_type || ""}</p>
         </div>
 
         <div className="absolute top-0 right-0 mt-2 mr-3">

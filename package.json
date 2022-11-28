@@ -24,6 +24,7 @@
     "pexels": "^1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-google-autocomplete": "^2.7.0",
     "react-hook-form": "^7.39.5",
     "react-icons": "^4.6.0",
     "server-only": "^0.0.1",
