@@ -214,3 +214,12 @@ export interface IProfile {
   artist_type: string | null;
   location: string | null;
 }
+
+export interface IProfileUpdateFields {
+  full_name?: string | null;
+  avatar_url?: string | null;
+  age?: number | null;
+  bio?: string | null;
+  artist_type?: string | null;
+  location?: string | null;
+}

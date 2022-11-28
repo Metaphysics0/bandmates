@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { IProfile } from "../types/database";
-import { useForm } from "react-hook-form";
+import { IProfile, IProfileUpdateFields } from "../types/database";
+import { useForm, SubmitHandler } from "react-hook-form";
 import UpdateProfilePhotoModal from "./inputs/UpdateProfilePhotoModal";
-import _ from "lodash";
+import AutoComplete from "react-google-autocomplete";
+import SignOutButton from "./inputs/signOutButton";
+import { Users } from "../lib/supabase/db";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +18,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       full_name: profile.full_name,
       artist_type: profile.artist_type,
       bio: profile.bio,
+      location: profile.location,
     },
   });
 
@@ -29,9 +32,14 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     return () => subscription.unsubscribe();
   }, [profile, watch]);
 
-  const onSubmit = (data: any) => {
-    console.log("DATA", data);
+  const onSubmit: SubmitHandler<IProfileUpdateFields> = async (
+    fieldsToUpdate: IProfileUpdateFields
+  ) => {
+    const { data, error } = await Users.update(profile.id, fieldsToUpdate);
   };
+
+  const commonInputClass =
+    "mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold";
 
   return (
     <form
@@ -43,26 +51,25 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
           type="text"
           {...register("full_name")}
           placeholder="Name"
-          className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold"
+          className={commonInputClass}
         />
         <input
           type="text"
           {...register("artist_type")}
           placeholder="Artist Type"
-          className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold"
+          className={commonInputClass}
         />
-        <input
-          type="text"
-          name="location"
-          id="location"
-          placeholder="Location"
-          className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold"
+        <AutoComplete
+          placeholder={profile.location || "Enter a location"}
+          apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+          className={commonInputClass + " p-2"}
+          onPlaceSelected={(place) => console.log(place)}
         />
         <textarea
           {...register("bio")}
           rows={4}
           placeholder="Bio"
-          className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold"
+          className={commonInputClass}
         ></textarea>
         <div
           className="flex items-center cursor-pointer mx-auto"
@@ -84,6 +91,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
           </p>
           <UpdateProfilePhotoModal isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
+        <SignOutButton />
       </div>
       <div className="flex flex-col items-center">
         <audio controls className="mb-2">

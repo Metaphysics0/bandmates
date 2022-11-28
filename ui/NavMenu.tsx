@@ -6,7 +6,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { HiChevronDown } from "react-icons/hi2";
+import { BsChevronDown } from "react-icons/bs";
 import { Session } from "@supabase/supabase-js";
 
 export default function NavMenu({ session }: { session: Session | null }) {
@@ -21,7 +21,7 @@ export default function NavMenu({ session }: { session: Session | null }) {
                 group inline-flex items-center rounded-md bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 px-3 py-2 text-base font-bold text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               Menu
-              <HiChevronDown
+              <BsChevronDown
                 aria-hidden="true"
                 className={`${open ? "rotate-180 transform" : "text-opacity-70"}
                   ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
@@ -72,9 +72,8 @@ const NavMenuItem = (item: IRoute, session: Session | null) => {
   const isActive = item.slug === segment || (isHomePage && segment === null);
   const disabledClass = "opacity-40 pointer-events-none cursor-not-allowed";
 
-  // meaning user is not signed in, and we're not on the home page.
   const shouldShowDisabledUi =
-    session === null && !isHomePage && PROTECTED_ROUTES.includes(item.slug);
+    session === null && PROTECTED_ROUTES.includes(item.slug);
 
   return (
     <Link
