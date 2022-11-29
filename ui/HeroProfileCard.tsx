@@ -1,24 +1,24 @@
-import { UserMetadata } from "@supabase/supabase-js";
+"use client";
+
 import Link from "next/link";
 import { USER_TYPE_OPTIONS } from "../data/consts";
+import { IProfile } from "../types/database";
+import { useUser } from "../utils/userProvider";
 import DropdownList from "./inputs/DropdownList";
 import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
 import ProfileCard from "./ProfileCard";
 
-export default function HeroProfileCard({
-  profile,
-}: {
-  profile?: UserMetadata;
-}) {
-  return profile ? SignedInProfileCard(profile) : SignUpModalCard();
+export default function HeroProfileCard() {
+  const [user, setUser] = useUser();
+
+  return user ? <SignedInProfileCard profile={user} /> : <SignUpModalCard />;
 }
 
-function SignedInProfileCard(user: UserMetadata) {
+function SignedInProfileCard({ profile }: { profile: IProfile }) {
   return (
     <div className="flex flex-col items-center">
-      {/* @ts-ignore */}
-      <ProfileCard profile={user} />
+      <ProfileCard profile={profile} />
       <Link
         href="/profile"
         className="bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2"
