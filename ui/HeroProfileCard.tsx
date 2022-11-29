@@ -11,6 +11,7 @@ import ProfileCard from "./ProfileCard";
 
 export default function HeroProfileCard() {
   const [user, setUser] = useUser();
+  console.log("USER FROM HERO", user);
 
   return user ? <SignedInProfileCard profile={user} /> : <SignUpModalCard />;
 }

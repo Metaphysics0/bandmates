@@ -25,7 +25,9 @@ export default function SupabaseListener({
         const { data: user, error: userError } = await Users.find(
           session.user?.id
         );
+        console.log("USER", user);
         // @ts-ignore
+
         if (user[0]) setUser(user[0]);
       }
       if (event === "SIGNED_OUT") setUser(null);
