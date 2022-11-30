@@ -24,14 +24,8 @@ export const ROUTES: IRoute[] = [
     icon: HiOutlinePaperAirplane,
   },
   {
-    name: "Likes",
-    description: "All the artists you liked in one place.",
-    slug: "likes",
-    icon: AiOutlineHeart,
-  },
-  {
     name: "Profile",
-    description: "Add music and personalize your account",
+    description: "Personalize your account and view likes artists",
     slug: "profile",
     icon: CgProfile,
   },

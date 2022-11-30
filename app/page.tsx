@@ -3,6 +3,9 @@ import Hero from "../ui/Hero";
 import SearchSection from "../ui/SearchSection";
 import { IProfile } from "../types/database";
 import MusiciansList from "../ui/MusiciansList";
+import { SignUpModalProvider } from "../providers/modalProvider";
+import SignUpModal from "../ui/SignUpModal";
+import { SelectedOptionProvider } from "../ui/inputs/DropdownListProvider";
 
 export default async function Home() {
   const {
@@ -16,9 +19,14 @@ export default async function Home() {
 
   return (
     <main>
-      {await Hero()}
-      <SearchSection />
-      <MusiciansList musicians={musicians} />
+      <SignUpModalProvider>
+        <SelectedOptionProvider>
+          {await Hero()}
+          <SearchSection />
+          <MusiciansList musicians={musicians} />
+          <SignUpModal />
+        </SelectedOptionProvider>
+      </SignUpModalProvider>
     </main>
   );
 }

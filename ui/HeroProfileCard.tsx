@@ -4,18 +4,13 @@ import { Users } from "../lib/supabase/db";
 import supabaseServer from "../lib/supabase/supabase-server";
 import { IProfile } from "../types/database";
 import DropdownList from "./inputs/DropdownList";
-import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
 import ProfileCard from "./ProfileCard";
 
 export default async function HeroProfileCard() {
   const profile = await Users.loadUserFromSession(supabaseServer());
 
-  return profile ? (
-    <SignedInProfileCard profile={profile} />
-  ) : (
-    <SignUpModalCard />
-  );
+  return profile ? <SignedInProfileCard profile={profile} /> : <SignUpCard />;
 }
 
 function SignedInProfileCard({ profile }: { profile: IProfile }) {
@@ -32,7 +27,7 @@ function SignedInProfileCard({ profile }: { profile: IProfile }) {
   );
 }
 
-function SignUpModalCard() {
+function SignUpCard() {
   return (
     <div className="p-5 pb-4 bg-white rounded-xl shadow-xl">
       <div className="video-wrapper mb-4 rounded-md">
@@ -45,12 +40,10 @@ function SignUpModalCard() {
         ></iframe>
       </div>
       <div className="container flex flex-col align-middle justify-center mb-2">
-        <SelectedOptionProvider>
-          <div className="mb-3">
-            <DropdownList options={USER_TYPE_OPTIONS} />
-          </div>
-          <SignUpWithSpotfiyButton />
-        </SelectedOptionProvider>
+        <div className="mb-3">
+          <DropdownList options={USER_TYPE_OPTIONS} />
+        </div>
+        <SignUpWithSpotfiyButton />
       </div>
       <div className="text-center text-sm">
         Already have an account?{" "}

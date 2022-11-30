@@ -7,7 +7,6 @@ import ProfileLikeButton from "./inputs/ProfileLikeButton";
 
 export default function ProfileCard({
   profile,
-  isEditMode,
 }: {
   profile: IProfile;
   isEditMode?: boolean;
@@ -40,7 +39,7 @@ export default function ProfileCard({
         </div>
 
         <div className="absolute top-0 right-0 mt-2 mr-3">
-          <ProfileLikeButton />
+          <ProfileLikeButton profile={profile} />
         </div>
 
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">

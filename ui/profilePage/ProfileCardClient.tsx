@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { IProfile } from "../types/database";
-import guitarist from "../public/guitarist.jpg";
+import { IProfile } from "../../types/database";
+import guitarist from "../../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
-import ProfileLikeButton from "./inputs/ProfileLikeButton";
-import { useProfileForm } from "../providers/profileFormProvider";
+import { useProfileForm } from "../../providers/profileFormProvider";
 
 export default function ProfileCardClient({
   profile,
@@ -43,10 +42,6 @@ export default function ProfileCardClient({
           <p className="text-lg">
             {profileForm?.artist_type || profile.artist_type}
           </p>
-        </div>
-
-        <div className="absolute top-0 right-0 mt-2 mr-3">
-          <ProfileLikeButton />
         </div>
 
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
