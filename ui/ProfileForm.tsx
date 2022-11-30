@@ -41,6 +41,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     const { error } = await Users.update(profile.id, fieldsToUpdate);
     if (error) {
       console.error("Error updating profile", error);
+      return;
     }
   };
 

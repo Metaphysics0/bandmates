@@ -46,7 +46,7 @@ export default function ProfileCard({
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
           <div className="flex items-center">
             <MdLocationOn />
-            <p>Lisbon, Portugal</p>
+            <p>{profile.location || ""}</p>
           </div>
           <p className="font-semibold">85% match 🔥</p>
         </div>

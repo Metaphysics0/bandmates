@@ -1,19 +1,21 @@
-"use client";
-
 import Link from "next/link";
 import { USER_TYPE_OPTIONS } from "../data/consts";
+import { Users } from "../lib/supabase/db";
+import supabaseServer from "../lib/supabase/supabase-server";
 import { IProfile } from "../types/database";
-import { useUser } from "../utils/userProvider";
 import DropdownList from "./inputs/DropdownList";
 import { SelectedOptionProvider } from "./inputs/DropdownListProvider";
 import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
 import ProfileCard from "./ProfileCard";
 
-export default function HeroProfileCard() {
-  const [user, setUser] = useUser();
-  console.log("USER FROM HERO", user);
+export default async function HeroProfileCard() {
+  const profile = await Users.loadUserFromSession(supabaseServer());
 
-  return user ? <SignedInProfileCard profile={user} /> : <SignUpModalCard />;
+  return profile ? (
+    <SignedInProfileCard profile={profile} />
+  ) : (
+    <SignUpModalCard />
+  );
 }
 
 function SignedInProfileCard({ profile }: { profile: IProfile }) {

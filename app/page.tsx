@@ -16,7 +16,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Hero />
+      {await Hero()}
       <SearchSection />
       <MusiciansList musicians={musicians} />
     </main>
