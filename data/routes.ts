@@ -2,6 +2,7 @@ import { IconType } from "react-icons";
 import { HiHome, HiOutlinePaperAirplane } from "react-icons/hi2";
 import { AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
+import { MdExplore } from "react-icons/md";
 
 export const ROUTES: IRoute[] = [
   {
@@ -9,6 +10,12 @@ export const ROUTES: IRoute[] = [
     description: "Is where the heart is",
     slug: "",
     icon: HiHome,
+  },
+  {
+    name: "Explore",
+    description: "Discover talent",
+    slug: "explore",
+    icon: MdExplore,
   },
   {
     name: "Messages",

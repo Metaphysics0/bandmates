@@ -1,9 +1,6 @@
-import supabase from "../lib/supabase/supabase-server";
 import HeroProfileCard from "./HeroProfileCard";
 
 export default async function Hero() {
-  const { data, error } = await supabase().auth.getUser();
-
   return (
     <section className="flex sm:flex-col relative justify-between items-center h-auto p-10 pb-20 sm:p-10 sm:pb-10">
       <div className="h-fit pr-24 z-10 text-white sm:pr-0 sm:mb-4 sm:mt-14">
@@ -16,9 +13,7 @@ export default async function Hero() {
           Meet and collaborate with like-minded musicians and artists.
         </p>
       </div>
-      <div className="z-10">
-        <HeroProfileCard profile={data.user?.user_metadata} />
-      </div>
+      <div className="z-10">{await HeroProfileCard()}</div>
       <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
         <video
           className="bg min-w-full min-h-full absolute object-cover"

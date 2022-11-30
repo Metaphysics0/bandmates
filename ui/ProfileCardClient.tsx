@@ -1,17 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import { IProfile } from "../types/database";
 import guitarist from "../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
-import { FaGuitar } from "react-icons/fa";
 import ProfileLikeButton from "./inputs/ProfileLikeButton";
+import { useProfileForm } from "../providers/profileFormProvider";
 
-export default function ProfileCard({
+export default function ProfileCardClient({
   profile,
-  isEditMode,
 }: {
   profile: IProfile;
   isEditMode?: boolean;
 }) {
+  const [profileForm, setProfileForm] = useProfileForm();
   return (
     <article
       key={profile.id}
@@ -35,8 +37,12 @@ export default function ProfileCard({
         )}
 
         <div className="absolute text-white top-0 left-0 font-semibold mt-2 ml-3 bg-opacity-50 bg-black p-2 rounded-lg">
-          <p className=" text-xl drop-shadow">{profile.full_name}</p>
-          <p className="text-lg">{profile.artist_type || ""}</p>
+          <p className=" text-xl drop-shadow">
+            {profileForm?.full_name || profile.full_name}
+          </p>
+          <p className="text-lg">
+            {profileForm?.artist_type || profile.artist_type}
+          </p>
         </div>
 
         <div className="absolute top-0 right-0 mt-2 mr-3">
@@ -46,7 +52,7 @@ export default function ProfileCard({
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
           <div className="flex items-center">
             <MdLocationOn />
-            <p>{profile.location || ""}</p>
+            <p>{profileForm?.location || profile.location}</p>
           </div>
           <p className="font-semibold">85% match 🔥</p>
         </div>
@@ -54,24 +60,3 @@ export default function ProfileCard({
     </article>
   );
 }
-
-export function ProfileCardSkeleton() {
-  return (
-    <div
-      role="status"
-      className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center bg-white p-3 rounded-lg shadow-lg flex flex-col justify-between"
-    >
-      <div className="flex justify-center items-center w-full h-52 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
-        <FaGuitar className="w-12 h-12 text-gray-200" />
-      </div>
-      <div className="w-full">
-        <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-      </div>
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
-}
-// TODO: Add Overlay.
-// function ProfileCardOverlay(profile) {
-
-// }
