@@ -3,38 +3,48 @@
 import { MouseEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import supabaseBrowser from "../../lib/supabase/supabase-browser";
+import { Users } from "../../lib/supabase/db";
 import { useSignUpModal } from "../../providers/modalProvider";
+import { useLoggedInUser } from "../../providers/userProvider";
 import { IProfile } from "../../types/database";
 
 export default function ProfileLikeButton({ profile }: { profile: IProfile }) {
   const [isHovering, setIsHovering] = useState(false);
   const [shouldShowSignUpModal, toggleSignUpModal] = useSignUpModal();
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
   const handleClick = async (e: MouseEvent<HTMLElement>) => {
-    try {
-      const {
-        data: { session },
-        error,
-      } = await supabaseBrowser.auth.getSession();
-
-      if (!session) {
-        toggleSignUpModal({
-          shouldShowModal: true,
-          toggleModalReason: `${profile.full_name} wants to be liked 😢💔`,
-        });
-        return;
-      }
-
-      toast(`Liked ${profile.full_name}`, {
-        icon: "❤️",
-        duration: 2500,
+    if (!loggedInUser) {
+      toggleSignUpModal({
+        shouldShowModal: true,
+        toggleModalReason: `${profile.full_name} wants to be liked 😢💔`,
       });
-    } catch (error) {
-      toast.error(`Unable to like ${profile.full_name} at this time 😢💔`);
-      console.error(error);
+      return;
     }
+
+    const likedUsersToSet = [...(loggedInUser.liked_users || []), profile.id];
+
+    const { data, error } = await Users.updateById(loggedInUser.id, {
+      liked_users: likedUsersToSet,
+    });
+
+    if (error) {
+      toast.error("Unable to like user at this time");
+      return;
+    }
+
+    setLoggedInUser({ ...loggedInUser, liked_users: likedUsersToSet });
+
+    toast(`Liked ${profile.full_name}`, {
+      icon: "❤️",
+      duration: 2500,
+    });
   };
+
+  const hasLikedProfile =
+    loggedInUser && loggedInUser.liked_users?.includes(profile.id);
+
+  const shouldShowFilledHeart = hasLikedProfile || isHovering;
 
   return (
     <>
@@ -44,7 +54,7 @@ export default function ProfileLikeButton({ profile }: { profile: IProfile }) {
         className="text-3xl cursor-pointer"
         onClick={handleClick}
       >
-        {isHovering ? (
+        {shouldShowFilledHeart ? (
           <AiFillHeart className="text-pink-500" />
         ) : (
           <AiOutlineHeart className="text-white" />

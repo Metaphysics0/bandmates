@@ -6,6 +6,7 @@ import MusiciansList from "../ui/MusiciansList";
 import { SignUpModalProvider } from "../providers/modalProvider";
 import SignUpModal from "../ui/SignUpModal";
 import { SelectedOptionProvider } from "../ui/inputs/DropdownListProvider";
+import { LoggedInUserProvider } from "../providers/userProvider";
 
 export default async function Home() {
   const {

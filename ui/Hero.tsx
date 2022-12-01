@@ -13,7 +13,9 @@ export default async function Hero() {
           Meet and collaborate with like-minded musicians and artists.
         </p>
       </div>
-      <div className="z-10">{await HeroProfileCard()}</div>
+      <div className="z-10">
+        <HeroProfileCard />
+      </div>
       <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
         <video
           className="bg min-w-full min-h-full absolute object-cover"

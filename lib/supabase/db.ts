@@ -1,5 +1,5 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { IProfile } from "../../types/database";
+import { Session, SupabaseClient } from "@supabase/supabase-js";
+import { IProfile, IProfileUpdateFields } from "../../types/database";
 import supabase from "./supabase-browser";
 
 class UsersApi {
@@ -19,11 +19,11 @@ class UsersApi {
     return await supabase.from("profiles").select("*").eq("id", uuid);
   }
 
-  async updateById(uuid: string, fields: object) {
+  async updateById(uuid: string, fields: IProfileUpdateFields) {
     return await supabase.from("profiles").update(fields).eq("id", uuid);
   }
 
-  async loadUserFromSession(
+  async loadUserFromCurrentSession(
     supabaseServerInstance: SupabaseClient
   ): Promise<IProfile | undefined> {
     const {
@@ -44,6 +44,18 @@ class UsersApi {
     );
     if (userError) {
       console.error("Error loading user", error);
+      return;
+    }
+
+    return profile[0];
+  }
+
+  async loadUserFromSession(session: Session): Promise<IProfile | undefined> {
+    const { data: profile, error: userError } = await this.findById(
+      session.user.id
+    );
+    if (userError) {
+      console.error("Error loading user", userError);
       return;
     }
 
