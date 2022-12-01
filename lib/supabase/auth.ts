@@ -2,11 +2,9 @@ import { SignInWithOAuthCredentials } from "@supabase/supabase-js";
 import supabase from "./supabase-browser";
 
 export async function SignInWithSpotify(queryParams: any = {}) {
-  const oAuthParams: SignInWithOAuthCredentials = {
+  return await supabase.auth.signInWithOAuth({
     provider: "spotify",
-    options: { queryParams },
-  };
-  return await oAuthSignIn(oAuthParams);
+  });
 }
 
 export async function signOut() {
@@ -16,10 +14,3 @@ export async function signOut() {
 export async function getSession() {
   return await supabase.auth.getSession();
 }
-
-const oAuthSignIn = async (credentials: SignInWithOAuthCredentials) =>
-  await supabase.auth.signInWithOAuth(credentials);
-
-export const AVAILABLE_PROVIDERS: IAvailableProvider[] = ["spotify", "google"];
-
-export type IAvailableProvider = "spotify" | "google";

@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { IProfile, IProfileUpdateFields } from "../types/database";
+import { IProfile, IProfileUpdateFields } from "../../types/database";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import UpdateProfilePhotoModal from "./inputs/UpdateProfilePhotoModal";
+import UpdateProfilePhotoModal from "../inputs/UpdateProfilePhotoModal";
 import AutoComplete from "react-google-autocomplete";
-import SignOutButton from "./inputs/signOutButton";
-import { Users } from "../lib/supabase/db";
-import { useProfileForm } from "../providers/profileFormProvider";
+import SignOutButton from "../inputs/signOutButton";
+import { Users } from "../../lib/supabase/db";
+import { useProfileForm } from "../../providers/profileFormProvider";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +38,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
   const onSubmit: SubmitHandler<IProfileUpdateFields> = async (
     fieldsToUpdate: IProfileUpdateFields
   ): Promise<void> => {
-    const { error } = await Users.update(profile.id, fieldsToUpdate);
+    const { error } = await Users.updateById(profile.id, fieldsToUpdate);
     if (error) {
       console.error("Error updating profile", error);
       return;

@@ -15,24 +15,33 @@ class UsersApi {
     return await baseCriteria;
   }
 
-  async find(uuid: string) {
+  async findById(uuid: string) {
     return await supabase.from("profiles").select("*").eq("id", uuid);
   }
 
-  async update(uuid: string, fields: object) {
+  async updateById(uuid: string, fields: object) {
     return await supabase.from("profiles").update(fields).eq("id", uuid);
   }
 
   async loadUserFromSession(
     supabaseServerInstance: SupabaseClient
   ): Promise<IProfile | undefined> {
-    const { data, error } = await supabaseServerInstance.auth.getUser();
+    const {
+      data: { session },
+      error,
+    } = await supabaseServerInstance.auth.getSession();
     if (error) {
       console.error("Error getting user from session", error);
       return;
     }
 
-    const { data: profile, error: userError } = await this.find(data.user?.id);
+    if (!session) {
+      console.error("Error loading");
+      return;
+    }
+    const { data: profile, error: userError } = await this.findById(
+      session.user.id
+    );
     if (userError) {
       console.error("Error loading user", error);
       return;
