@@ -48,6 +48,7 @@ export interface Database {
           bio?: string | null;
           artist_type?: string | null;
           location?: string | null;
+          liked_users?: string[] | null;
         };
         Update: {
           id?: string;
@@ -60,6 +61,7 @@ export interface Database {
           bio?: string | null;
           artist_type?: string | null;
           location?: string | null;
+          liked_users?: string[] | null;
         };
       };
     };
@@ -213,13 +215,16 @@ export interface IProfile {
   bio: string | null;
   artist_type: string | null;
   location: string | null;
+  liked_users: string[] | null;
 }
-
 export interface IProfileUpdateFields {
   full_name?: string | null;
   avatar_url?: string | null;
+  email?: string | null;
+  sound_snippets?: string[] | null;
   age?: number | null;
   bio?: string | null;
   artist_type?: string | null;
   location?: string | null;
+  liked_users?: string[] | null;
 }

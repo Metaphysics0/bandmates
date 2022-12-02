@@ -16,7 +16,7 @@ export default function SupabaseListener({
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.access_token !== accessToken) {
         // server and client are out of sync
         // reload the page to fetch fresh server data

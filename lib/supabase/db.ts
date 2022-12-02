@@ -1,5 +1,9 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { IProfile } from "../../types/database";
+import {
+  PostgrestResponse,
+  Session,
+  SupabaseClient,
+} from "@supabase/supabase-js";
+import { IProfile, IProfileUpdateFields } from "../../types/database";
 import supabase from "./supabase-browser";
 
 class UsersApi {
@@ -19,11 +23,11 @@ class UsersApi {
     return await supabase.from("profiles").select("*").eq("id", uuid);
   }
 
-  async updateById(uuid: string, fields: object) {
+  async updateById(uuid: string, fields: IProfileUpdateFields) {
     return await supabase.from("profiles").update(fields).eq("id", uuid);
   }
 
-  async loadUserFromSession(
+  async loadUserFromCurrentSession(
     supabaseServerInstance: SupabaseClient
   ): Promise<IProfile | undefined> {
     const {
@@ -48,6 +52,39 @@ class UsersApi {
     }
 
     return profile[0];
+  }
+
+  async loadUserFromSession(session: Session): Promise<IProfile | undefined> {
+    const { data: profile, error: userError } = await this.findById(
+      session.user.id
+    );
+    if (userError) {
+      console.error("Error loading user", userError);
+      return;
+    }
+
+    return profile[0];
+  }
+
+  async likeUser(
+    currentLoggedInUser: IProfile,
+    userToLike: IProfile
+  ): Promise<PostgrestResponse<any>> {
+    return this.updateById(currentLoggedInUser.id, {
+      liked_users: [...(currentLoggedInUser.liked_users || []), userToLike.id],
+    });
+  }
+
+  async unlikeUser(
+    currentLoggedInUser: IProfile,
+    userToUnlike: IProfile
+  ): Promise<PostgrestResponse<any>> {
+    return this.updateById(currentLoggedInUser.id, {
+      // @ts-ignore: Object is possibly 'null'.
+      liked_users: currentLoggedInUser.liked_users.filter(
+        (id) => id !== userToUnlike.id
+      ),
+    });
   }
 }
 export const Users = new UsersApi();
