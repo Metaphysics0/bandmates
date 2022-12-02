@@ -10,7 +10,9 @@ export default async function MusiciansList({
   const {
     data: musicians,
     error: getMusiciansError,
-  }: { data: IProfile[] | null; error: any } = await Users.list();
+  }: { data: IProfile[] | null; error: any } = await Users.list(
+    currentLoggedInUser?.id ?? null
+  );
 
   if (getMusiciansError) {
     console.error("Error loading musicians", getMusiciansError);

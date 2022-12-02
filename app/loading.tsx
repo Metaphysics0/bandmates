@@ -1,4 +1,4 @@
-import { ProfileCardSkeleton } from "../ui/ProfileCard";
+import ProfileCardSkeleton from "../ui/skeletons/ProfileCard";
 
 function Loading() {
   return (

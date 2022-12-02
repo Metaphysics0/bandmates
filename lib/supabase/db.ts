@@ -7,16 +7,18 @@ import { IProfile, IProfileUpdateFields } from "../../types/database";
 import supabase from "./supabase-browser";
 
 class UsersApi {
-  async list(loggedInUserId?: string) {
-    const baseCriteria = supabase
-      .from("profiles")
-      .select(`*, musical_instrument(*)`);
+  async list(loggedInUserId?: string | null) {
+    const baseCriteria = supabase.from("profiles").select(`*`);
 
     if (loggedInUserId) {
       return await baseCriteria.not("id", "eq", loggedInUserId);
     }
 
     return await baseCriteria;
+  }
+
+  async listByIds(ids: string[]) {
+    return supabase.from("profiles").select(`*`).in("id", ids);
   }
 
   async findById(uuid: string) {
