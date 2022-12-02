@@ -217,6 +217,12 @@ export interface IProfile {
   location: string | null;
   liked_users: string[] | null;
 }
+
+interface IThinProfile {
+  id: string;
+  liked_users: string[];
+}
+
 export interface IProfileUpdateFields {
   full_name?: string | null;
   avatar_url?: string | null;

@@ -4,7 +4,7 @@ import React from "react";
 import { IProfile } from "../types/database";
 
 const LoggedInUser = React.createContext<
-  | [IProfile | undefined, React.Dispatch<React.SetStateAction<IProfile | any>>]
+  | [IProfile | null, React.Dispatch<React.SetStateAction<IProfile | null>>]
   | undefined
 >(undefined);
 
@@ -13,7 +13,7 @@ export function LoggedInUserProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [loggedInUser, setLoggedInUser] = React.useState();
+  const [loggedInUser, setLoggedInUser] = React.useState<IProfile | null>(null);
   return (
     <LoggedInUser.Provider value={[loggedInUser, setLoggedInUser]}>
       {children}

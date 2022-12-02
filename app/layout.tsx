@@ -7,9 +7,7 @@ import SupabaseListener from "../utils/supabase-listener";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../types/database";
 import { headers, cookies } from "next/headers";
-import { LoggedInUserProvider } from "../providers/userProvider";
-import LoggedInUserListener from "../utils/logged-in-user-listener";
-import { Users } from "../lib/supabase/db";
+import { SignUpModalProvider } from "../providers/modalProvider";
 
 export default async function RootLayout({
   children,
@@ -24,23 +22,15 @@ export default async function RootLayout({
     data: { session },
   } = await supabase.auth.getSession();
 
-  let profile;
-  if (session) {
-    profile = await Users.loadUserFromSession(session);
-  }
-
   return (
     <html>
       <head />
       <body>
-        <LoggedInUserProvider>
-          <>
-            <NavMenu session={session} />
-            <SupabaseListener accessToken={session?.access_token} />
-            <LoggedInUserListener profile={profile} />
-            {children}
-          </>
-        </LoggedInUserProvider>
+        <SignUpModalProvider>
+          <NavMenu session={session} />
+          <SupabaseListener accessToken={session?.access_token} />
+          {children}
+        </SignUpModalProvider>
       </body>
     </html>
   );

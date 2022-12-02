@@ -1,28 +1,33 @@
 "use client";
 
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import { MouseEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Users } from "../../lib/supabase/db";
 import { useSignUpModal } from "../../providers/modalProvider";
-import { IProfile } from "../../types/database";
+import { IProfile, IThinProfile } from "../../types/database";
 
 export default function ProfileLikeButton({
   profile,
   currentLoggedInUser,
 }: {
   profile: IProfile;
-  currentLoggedInUser?: IProfile;
+  currentLoggedInUser?: IProfile | IThinProfile;
 }) {
   const [isHovering, setIsHovering] = useState(false);
   const [shouldShowSignUpModal, toggleSignUpModal] = useSignUpModal();
+  const segment = useSelectedLayoutSegment();
 
-  const hasLikedProfile =
+  const shouldUnlikeUser =
     currentLoggedInUser &&
     currentLoggedInUser.liked_users?.includes(profile.id);
-  const shouldShowFilledHeart = hasLikedProfile || isHovering;
+  const shouldShowFilledHeart = shouldUnlikeUser || isHovering;
 
   async function likeOrUnlikeUser(e: MouseEvent<HTMLElement>) {
+    console.log("ROUTER PATH", segment);
+
     if (!currentLoggedInUser) {
       toggleSignUpModal({
         shouldShowModal: true,
@@ -31,26 +36,43 @@ export default function ProfileLikeButton({
       return;
     }
 
-    const { error } = hasLikedProfile
+    const { error } = shouldUnlikeUser
       ? await Users.unlikeUser(currentLoggedInUser, profile)
       : await Users.likeUser(currentLoggedInUser, profile);
 
     if (error) {
-      toast.error("Unable to like user at this time");
+      toast.error(
+        `Unable to ${shouldUnlikeUser ? "like" : "Unlike"} user at this time`
+      );
       console.error(error);
       return;
     }
 
     // For the UI
-    currentLoggedInUser.liked_users = hasLikedProfile
+    currentLoggedInUser.liked_users = shouldUnlikeUser
       ? // @ts-ignore: Object is possibly 'null'
         currentLoggedInUser.liked_users.filter((id) => id !== profile.id)
       : [...(currentLoggedInUser.liked_users || []), profile.id];
 
-    toast(`${hasLikedProfile ? "Unliked" : "Liked"} ${profile.full_name}`, {
-      icon: hasLikedProfile ? "🤍" : "❤️",
-      duration: 2500,
-    });
+    toast(
+      (t) => (
+        <div>
+          <span className="mr-1">{shouldUnlikeUser ? "🤍" : "❤️"}</span>
+          <span>
+            {shouldUnlikeUser ? "Unliked" : "Liked"} {profile.full_name}
+          </span>
+          <Link
+            className="ml-1 bg-slate-200 p-1 font-semibold rounded-lg"
+            href="/profile/likes"
+          >
+            View Likes
+          </Link>
+        </div>
+      ),
+      {
+        duration: 3000,
+      }
+    );
   }
 
   return (

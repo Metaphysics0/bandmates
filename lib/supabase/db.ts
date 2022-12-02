@@ -3,7 +3,11 @@ import {
   Session,
   SupabaseClient,
 } from "@supabase/supabase-js";
-import { IProfile, IProfileUpdateFields } from "../../types/database";
+import {
+  IProfile,
+  IProfileUpdateFields,
+  IThinProfile,
+} from "../../types/database";
 import supabase from "./supabase-browser";
 
 class UsersApi {
@@ -69,7 +73,7 @@ class UsersApi {
   }
 
   async likeUser(
-    currentLoggedInUser: IProfile,
+    currentLoggedInUser: IProfile | IThinProfile,
     userToLike: IProfile
   ): Promise<PostgrestResponse<any>> {
     return this.updateById(currentLoggedInUser.id, {
@@ -78,7 +82,7 @@ class UsersApi {
   }
 
   async unlikeUser(
-    currentLoggedInUser: IProfile,
+    currentLoggedInUser: IProfile | IThinProfile,
     userToUnlike: IProfile
   ): Promise<PostgrestResponse<any>> {
     return this.updateById(currentLoggedInUser.id, {
@@ -87,6 +91,13 @@ class UsersApi {
         (id) => id !== userToUnlike.id
       ),
     });
+  }
+
+  async getLikedUserIds(userId: string) {
+    return await supabase
+      .from("profiles")
+      .select(`liked_users`)
+      .eq("id", userId);
   }
 }
 export const Users = new UsersApi();
