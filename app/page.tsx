@@ -6,6 +6,7 @@ import SignUpModal from "../ui/SignUpModal";
 import { SelectedOptionProvider } from "../ui/inputs/DropdownListProvider";
 import supabaseServer from "../lib/supabase/supabase-server";
 import { IProfile } from "../types/database";
+import ProfileModal from "../ui/ProfileModal";
 
 export default async function Home() {
   const currentLoggedInUser = await Users.loadUserFromCurrentSession(
@@ -39,6 +40,7 @@ export default async function Home() {
           />
         )}
         <SignUpModal />
+        <ProfileModal />
       </SelectedOptionProvider>
     </main>
   );

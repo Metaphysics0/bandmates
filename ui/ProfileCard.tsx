@@ -3,6 +3,7 @@ import { IProfile, IThinProfile } from "../types/database";
 import guitarist from "../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
 import ProfileLikeButton from "./inputs/ProfileLikeButton";
+import ViewProfileButton from "./inputs/ViewProfileButton";
 
 export default function ProfileCard({
   profile,
@@ -67,9 +68,7 @@ function ProfileCardOverlay({ profile }: { profile: IProfile }) {
         <p className="text-xl font-semibold text-center text-slate-100">
           {profile.bio || ""}
         </p>
-        <button className="opacity-100 bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2">
-          View Profile
-        </button>
+        <ViewProfileButton profile={profile} />
       </div>
     </div>
   );

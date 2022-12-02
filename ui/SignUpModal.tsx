@@ -6,7 +6,7 @@ import { useSelectOption } from "./inputs/DropdownListProvider";
 import DropdownList from "./inputs/DropdownList";
 import { USER_TYPE_OPTIONS } from "../data/consts";
 import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
-import { useSignUpModal } from "../providers/modalProvider";
+import { useSignUpModal } from "../providers/signUpModalProvider";
 import { SignInWithSpotify } from "../lib/supabase/auth";
 
 export default function SignUpModal() {

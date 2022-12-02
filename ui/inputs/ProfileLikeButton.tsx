@@ -6,7 +6,7 @@ import { MouseEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Users } from "../../lib/supabase/db";
-import { useSignUpModal } from "../../providers/modalProvider";
+import { useSignUpModal } from "../../providers/signUpModalProvider";
 import { IProfile, IThinProfile } from "../../types/database";
 
 export default function ProfileLikeButton({
