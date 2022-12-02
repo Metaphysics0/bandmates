@@ -1,30 +1,24 @@
 import { Users } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
 import SearchSection from "../ui/SearchSection";
-import { IProfile } from "../types/database";
 import MusiciansList from "../ui/MusiciansList";
 import { SignUpModalProvider } from "../providers/modalProvider";
 import SignUpModal from "../ui/SignUpModal";
 import { SelectedOptionProvider } from "../ui/inputs/DropdownListProvider";
-import { LoggedInUserProvider } from "../providers/userProvider";
+import supabaseServer from "../lib/supabase/supabase-server";
 
 export default async function Home() {
-  const {
-    data: musicians,
-    error: getMusiciansError,
-  }: { data: IProfile[] | null; error: any } = await Users.list();
-
-  if (getMusiciansError) {
-    console.error("Error loading musicians", getMusiciansError);
-  }
+  const currentLoggedInUser = await Users.loadUserFromCurrentSession(
+    supabaseServer()
+  );
 
   return (
     <main>
       <SignUpModalProvider>
         <SelectedOptionProvider>
-          {await Hero()}
+          <Hero profile={currentLoggedInUser} />
           <SearchSection />
-          <MusiciansList musicians={musicians} />
+          {await MusiciansList({ currentLoggedInUser })}
           <SignUpModal />
         </SelectedOptionProvider>
       </SignUpModalProvider>

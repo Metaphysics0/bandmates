@@ -1,4 +1,8 @@
-import { Session, SupabaseClient } from "@supabase/supabase-js";
+import {
+  PostgrestResponse,
+  Session,
+  SupabaseClient,
+} from "@supabase/supabase-js";
 import { IProfile, IProfileUpdateFields } from "../../types/database";
 import supabase from "./supabase-browser";
 
@@ -60,6 +64,27 @@ class UsersApi {
     }
 
     return profile[0];
+  }
+
+  async likeUser(
+    currentLoggedInUser: IProfile,
+    userToLike: IProfile
+  ): Promise<PostgrestResponse<any>> {
+    return this.updateById(currentLoggedInUser.id, {
+      liked_users: [...(currentLoggedInUser.liked_users || []), userToLike.id],
+    });
+  }
+
+  async unlikeUser(
+    currentLoggedInUser: IProfile,
+    userToUnlike: IProfile
+  ): Promise<PostgrestResponse<any>> {
+    return this.updateById(currentLoggedInUser.id, {
+      // @ts-ignore: Object is possibly 'null'.
+      liked_users: currentLoggedInUser.liked_users.filter(
+        (id) => id !== userToUnlike.id
+      ),
+    });
   }
 }
 export const Users = new UsersApi();
