@@ -9,6 +9,7 @@ import { Database } from "../types/database";
 import { headers, cookies } from "next/headers";
 import { SignUpModalProvider } from "../providers/signUpModalProvider";
 import { ProfileModalProvider } from "../providers/viewProfileModalProvider";
+import { LikedUsersProvider } from "../providers/likedUserListProvider";
 
 export default async function RootLayout({
   children,
@@ -29,9 +30,11 @@ export default async function RootLayout({
       <body>
         <SignUpModalProvider>
           <ProfileModalProvider>
-            <NavMenu session={session} />
-            <SupabaseListener accessToken={session?.access_token} />
-            {children}
+            <LikedUsersProvider>
+              <NavMenu session={session} />
+              <SupabaseListener accessToken={session?.access_token} />
+              {children}
+            </LikedUsersProvider>
           </ProfileModalProvider>
         </SignUpModalProvider>
       </body>

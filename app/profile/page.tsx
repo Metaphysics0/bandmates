@@ -3,7 +3,6 @@ import { ProfileFormProvider } from "../../providers/profileFormProvider";
 import ProfileCardClient from "../../ui/profilePage/ProfileCardClient";
 import { Users } from "../../lib/supabase/db";
 import supabaseServer from "../../lib/supabase/supabase-server";
-import { Toaster } from "react-hot-toast";
 
 export default async function ProfilePage() {
   const profile = await Users.loadUserFromCurrentSession(supabaseServer());

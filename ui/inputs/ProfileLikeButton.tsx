@@ -6,6 +6,7 @@ import { MouseEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Users } from "../../lib/supabase/db";
+import { useLikedUsers } from "../../providers/likedUserListProvider";
 import { useSignUpModal } from "../../providers/signUpModalProvider";
 import { IProfile, IThinProfile } from "../../types/database";
 
@@ -16,8 +17,11 @@ export default function ProfileLikeButton({
   profile: IProfile;
   currentLoggedInUser?: IProfile | IThinProfile;
 }) {
+  const [likedUsers, setLikedUsers] = useLikedUsers();
+
   const [isHovering, setIsHovering] = useState(false);
   const [shouldShowSignUpModal, toggleSignUpModal] = useSignUpModal();
+
   const segment = useSelectedLayoutSegment();
 
   const shouldUnlikeUser =
@@ -48,11 +52,7 @@ export default function ProfileLikeButton({
       return;
     }
 
-    // For the UI
-    currentLoggedInUser.liked_users = shouldUnlikeUser
-      ? // @ts-ignore: Object is possibly 'null'
-        currentLoggedInUser.liked_users.filter((id) => id !== profile.id)
-      : [...(currentLoggedInUser.liked_users || []), profile.id];
+    setLikedUsersForUi();
 
     toast(
       (t) => (
@@ -73,6 +73,24 @@ export default function ProfileLikeButton({
         duration: 3000,
       }
     );
+  }
+
+  function setLikedUsersForUi() {
+    if (shouldUnlikeUser) {
+      setLikedUsers(likedUsers.filter((user) => user.id !== profile.id));
+      if (currentLoggedInUser)
+        currentLoggedInUser.liked_users =
+          currentLoggedInUser?.liked_users?.filter((id) => id !== profile.id) ||
+          [];
+      return;
+    }
+
+    setLikedUsers([...likedUsers, profile]);
+    if (currentLoggedInUser)
+      currentLoggedInUser.liked_users = [
+        ...(currentLoggedInUser?.liked_users || []),
+        profile.id,
+      ];
   }
 
   return (
