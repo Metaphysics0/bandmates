@@ -1,17 +1,11 @@
 import Image from "next/image";
-import { IProfile, IThinProfile } from "../types/database";
-import guitarist from "../public/guitarist.jpg";
+import { IProfile } from "../../types/database";
+import guitarist from "../../public/guitarist.jpg";
 import { MdLocationOn } from "react-icons/md";
-import ProfileLikeButton from "./inputs/ProfileLikeButton";
-import ViewProfileButton from "./inputs/ViewProfileButton";
+import ProfileLikeButton from "./ProfileLikeButton";
+import ViewProfileButton from "../inputs/ViewProfileButton";
 
-export default function ProfileCard({
-  profile,
-  currentLoggedInUser,
-}: {
-  profile: IProfile;
-  currentLoggedInUser?: IProfile | IThinProfile;
-}) {
+export default function ProfileCard({ profile }: { profile: IProfile }) {
   return (
     <article
       key={profile.id}
@@ -49,10 +43,7 @@ export default function ProfileCard({
         <ProfileCardOverlay profile={profile} />
       </div>
       <div className="absolute top-0 right-0 mt-2 mr-3">
-        <ProfileLikeButton
-          profile={profile}
-          currentLoggedInUser={currentLoggedInUser}
-        />
+        <ProfileLikeButton profile={profile} />
       </div>
     </article>
   );

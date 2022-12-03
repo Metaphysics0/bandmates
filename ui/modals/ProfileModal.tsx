@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useProfileModal } from "../providers/viewProfileModalProvider";
+import { useProfileModal } from "../../providers/viewProfileModalProvider";
 
 export default function ProfileModal() {
   const [{ shouldShowModal, profile }, toggleModal] = useProfileModal();

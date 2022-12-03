@@ -60,7 +60,10 @@ class UsersApi {
     return profile[0];
   }
 
-  async loadUserFromSession(session: Session): Promise<IProfile | undefined> {
+  async loadUserFromSession(
+    session: Session | null
+  ): Promise<IProfile | undefined> {
+    if (!session) return;
     const { data: profile, error: userError } = await this.findById(
       session.user.id
     );

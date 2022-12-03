@@ -1,20 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { USER_TYPE_OPTIONS } from "../data/consts";
-import { IProfile } from "../types/database";
-import DropdownList from "./inputs/DropdownList";
-import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
+import { Suspense } from "react";
+import { USER_TYPE_OPTIONS } from "../../data/consts";
+import { useLoggedInUser } from "../../providers/userProvider";
+import { IProfile } from "../../types/database";
+import DropdownList from "../inputs/DropdownList";
+import SignUpWithSpotfiyButton from "../inputs/SignUpWithSpotifyButton";
+import ProfileCardClient from "../profilePage/ProfileCardClient";
 import ProfileCard from "./ProfileCard";
 
-export default function HeroProfileCard({ profile }: { profile?: IProfile }) {
-  return profile ? <SignedInProfileCard profile={profile} /> : <SignUpCard />;
+export default function HeroProfileCard() {
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
+
+  return (
+    <Suspense fallback={<h1>loading...</h1>}>
+      {loggedInUser ? (
+        <SignedInProfileCard profile={loggedInUser} />
+      ) : (
+        <SignUpCard />
+      )}
+    </Suspense>
+  );
 }
 
 function SignedInProfileCard({ profile }: { profile: IProfile }) {
   return (
     <div className="flex flex-col items-center">
-      <ProfileCard profile={profile} />
+      <ProfileCardClient profile={profile} />
       <Link
         href="/profile"
         className="bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2"

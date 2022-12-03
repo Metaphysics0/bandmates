@@ -8,6 +8,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { Session } from "@supabase/supabase-js";
+import { IProfile } from "../types/database";
 
 export default function NavMenu({ session }: { session: Session | null }) {
   return (
