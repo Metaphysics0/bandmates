@@ -1,6 +1,5 @@
 import { Users } from "../../../lib/supabase/db";
 import supabaseServer from "../../../lib/supabase/supabase-server";
-import { IThinProfile } from "../../../types/database";
 import MusiciansList from "../../../ui/MusiciansList";
 
 export default async function Likes() {
@@ -18,17 +17,7 @@ export default async function Likes() {
 
   if (!likedUsers || error) return generalError;
 
-  return (
-    <MusiciansList
-      musicians={likedUsers}
-      currentLoggedInUser={
-        {
-          id: authUser.user.id,
-          liked_users: likedUserIds[0].liked_users,
-        } as IThinProfile
-      }
-    />
-  );
+  return <MusiciansList musicians={likedUsers} />;
 }
 
 const generalError = (

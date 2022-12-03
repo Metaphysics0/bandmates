@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { IProfile } from "../types/database";
 
 const ProfileModal = React.createContext<
-  | [ISignUpStateValue, React.Dispatch<React.SetStateAction<ISignUpStateValue>>]
+  | [
+      IShouldShowProfileModal,
+      React.Dispatch<React.SetStateAction<IShouldShowProfileModal>>
+    ]
   | undefined
 >(undefined);
 
@@ -28,10 +31,21 @@ export function useProfileModal() {
   if (context === undefined) {
     throw new Error("profileModal must be used within a profileModalProvider");
   }
+  const [shouldShowProfileModal, toggleProfileModal] = context;
+  useEffect(() => {
+    const closeModalOnEscape = (e: KeyboardEvent | any): void => {
+      if (e.key === "Escape") toggleProfileModal({ shouldShowModal: false });
+    };
+    document.addEventListener("keydown", closeModalOnEscape);
+    return () => {
+      document.removeEventListener("keydown", closeModalOnEscape);
+    };
+  }, [toggleProfileModal]);
+
   return context;
 }
 
-interface ISignUpStateValue {
+interface IShouldShowProfileModal {
   shouldShowModal: boolean;
   profile?: IProfile;
 }

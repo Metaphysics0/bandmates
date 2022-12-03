@@ -1,5 +1,4 @@
 import ProfileForm from "../../ui/profilePage/ProfileForm";
-import { ProfileFormProvider } from "../../providers/profileFormProvider";
 import ProfileCardClient from "../../ui/profilePage/ProfileCardClient";
 import { Users } from "../../lib/supabase/db";
 import supabaseServer from "../../lib/supabase/supabase-server";
