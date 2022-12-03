@@ -23,7 +23,7 @@ export default function DisclosureComponent() {
       <h2 className="text-center drop-shadow-md text-5xl font-bold mb-4">
         FAQ
       </h2>
-      <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2 drop-shadow-lg">
+      <div className="mx-auto rounded-2xl bg-white p-2 drop-shadow-lg">
         {FAQS.map((faq, idx) => (
           <Disclosure as="div" className="my-1" key={idx}>
             {({ open }) => (

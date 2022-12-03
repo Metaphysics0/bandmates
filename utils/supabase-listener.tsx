@@ -1,30 +1,40 @@
 "use client";
 
+import _ from "lodash";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import supabase from "../lib/supabase/supabase-browser";
+import { useLoggedInUser } from "../providers/userProvider";
+import { IProfile } from "../types/database";
 
-// this component handles refreshing server data when the user logs in or out
-// this method avoids the need to pass a session down to child components
-// in order to re-render when the user's session changes
-// #elegant!
+/*
+  This component is responsible for the following 2 things:
+  1. refreshing the router & session when the auth state changes.
+  2. initializing the user on init.
+*/
 export default function SupabaseListener({
   accessToken,
+  user,
 }: {
   accessToken?: string;
+  user?: IProfile;
 }) {
   const router = useRouter();
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    if (user && !loggedInUser) {
+      setLoggedInUser(user);
+    }
+    supabase.auth.onAuthStateChange((event, session) => {
       if (session?.access_token !== accessToken) {
-        // server and client are out of sync
-        // reload the page to fetch fresh server data
-        // https://beta.nextjs.org/docs/data-fetching/mutating
         router.refresh();
       }
+      if (event === "SIGNED_OUT" || event === "USER_DELETED") {
+        setLoggedInUser(null);
+      }
     });
-  }, [accessToken, router]);
+  }, [accessToken, loggedInUser, router, setLoggedInUser, user]);
 
   return null;
 }

@@ -3,20 +3,26 @@ import {
   Session,
   SupabaseClient,
 } from "@supabase/supabase-js";
-import { IProfile, IProfileUpdateFields } from "../../types/database";
+import {
+  IProfile,
+  IProfileUpdateFields,
+  IThinProfile,
+} from "../../types/database";
 import supabase from "./supabase-browser";
 
 class UsersApi {
-  async list(loggedInUserId?: string) {
-    const baseCriteria = supabase
-      .from("profiles")
-      .select(`*, musical_instrument(*)`);
+  async list(loggedInUserId?: string | null) {
+    const baseCriteria = supabase.from("profiles").select(`*`);
 
     if (loggedInUserId) {
       return await baseCriteria.not("id", "eq", loggedInUserId);
     }
 
     return await baseCriteria;
+  }
+
+  async listByIds(ids: string[]) {
+    return supabase.from("profiles").select(`*`).in("id", ids);
   }
 
   async findById(uuid: string) {
@@ -40,7 +46,7 @@ class UsersApi {
     }
 
     if (!session) {
-      console.error("Error loading");
+      console.error("No current auth session");
       return;
     }
     const { data: profile, error: userError } = await this.findById(
@@ -54,7 +60,10 @@ class UsersApi {
     return profile[0];
   }
 
-  async loadUserFromSession(session: Session): Promise<IProfile | undefined> {
+  async loadUserFromSession(
+    session: Session | null
+  ): Promise<IProfile | undefined> {
+    if (!session) return;
     const { data: profile, error: userError } = await this.findById(
       session.user.id
     );
@@ -67,7 +76,7 @@ class UsersApi {
   }
 
   async likeUser(
-    currentLoggedInUser: IProfile,
+    currentLoggedInUser: IProfile | IThinProfile,
     userToLike: IProfile
   ): Promise<PostgrestResponse<any>> {
     return this.updateById(currentLoggedInUser.id, {
@@ -76,7 +85,7 @@ class UsersApi {
   }
 
   async unlikeUser(
-    currentLoggedInUser: IProfile,
+    currentLoggedInUser: IProfile | IThinProfile,
     userToUnlike: IProfile
   ): Promise<PostgrestResponse<any>> {
     return this.updateById(currentLoggedInUser.id, {
@@ -85,6 +94,13 @@ class UsersApi {
         (id) => id !== userToUnlike.id
       ),
     });
+  }
+
+  async getLikedUserIds(userId: string) {
+    return await supabase
+      .from("profiles")
+      .select(`liked_users`)
+      .eq("id", userId);
   }
 }
 export const Users = new UsersApi();

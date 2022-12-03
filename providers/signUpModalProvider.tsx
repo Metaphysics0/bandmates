@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const SignUpModal = React.createContext<
   | [ISignUpStateValue, React.Dispatch<React.SetStateAction<ISignUpStateValue>>]
@@ -27,6 +27,17 @@ export function useSignUpModal() {
   if (context === undefined) {
     throw new Error("useSignUpModal must be used within a SignUpModalProvider");
   }
+  const [signUpModal, toggleSignUpModal] = context;
+  useEffect(() => {
+    const closeModalOnEscape = (e: KeyboardEvent | any): void => {
+      if (e.key === "Escape") toggleSignUpModal({ shouldShowModal: false });
+    };
+    document.addEventListener("keydown", closeModalOnEscape);
+    return () => {
+      document.removeEventListener("keydown", closeModalOnEscape);
+    };
+  }, [toggleSignUpModal]);
+
   return context;
 }
 

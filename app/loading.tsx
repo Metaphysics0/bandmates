@@ -1,4 +1,5 @@
-import { ProfileCardSkeleton } from "../ui/ProfileCard";
+import MusiciansListSkeleton from "../ui/skeletons/MusiciansList";
+import ProfileCardSkeleton from "../ui/skeletons/ProfileCard";
 
 function Loading() {
   return (
@@ -32,11 +33,7 @@ function Loading() {
         </div>
       </section>
       <div className="py-10"></div>
-      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 w-[calc(100%-2rem)] justify-center mx-auto">
-        {new Array(10).fill("_").map((idx) => (
-          <ProfileCardSkeleton key={idx} />
-        ))}
-      </div>
+      <MusiciansListSkeleton />
     </div>
   );
 }

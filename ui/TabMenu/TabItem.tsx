@@ -25,7 +25,7 @@ export const TabItem = ({
     <Link
       href={href}
       className={classNames(
-        "flex w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
+        "flex w-full rounded-lg py-2.5 text-lg font-medium leading-5 text-blue-700",
         "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
         isActive
           ? "bg-white shadow"

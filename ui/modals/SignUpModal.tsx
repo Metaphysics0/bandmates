@@ -2,12 +2,12 @@
 
 import { KeyboardEvent, useEffect, useState } from "react";
 import { ImCross } from "react-icons/im";
-import { useSelectOption } from "./inputs/DropdownListProvider";
-import DropdownList from "./inputs/DropdownList";
-import { USER_TYPE_OPTIONS } from "../data/consts";
-import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
-import { useSignUpModal } from "../providers/modalProvider";
-import { SignInWithSpotify } from "../lib/supabase/auth";
+import { useSelectOption } from "../inputs/DropdownListProvider";
+import DropdownList from "../inputs/DropdownList";
+import { USER_TYPE_OPTIONS } from "../../data/consts";
+import SignUpWithSpotfiyButton from "../inputs/SignUpWithSpotifyButton";
+import { useSignUpModal } from "../../providers/signUpModalProvider";
+import { SignInWithSpotify } from "../../lib/supabase/auth";
 
 export default function SignUpModal() {
   const [selectedOption] = useSelectOption();
@@ -62,7 +62,7 @@ export default function SignUpModal() {
                     <DropdownList options={USER_TYPE_OPTIONS} />
                   </div>
                   <div className="p-5 flex items-center mx-auto w-fit">
-                    <SignUpWithSpotfiyButton options={signUpQueryParams} />
+                    <SignUpWithSpotfiyButton />
                   </div>
                   <p className="text-center text-sm pb-4">
                     Already have an account?{" "}

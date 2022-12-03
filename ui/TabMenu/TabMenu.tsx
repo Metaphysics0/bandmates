@@ -16,7 +16,7 @@ export default function TabMenu({
   items: Item[];
 }) {
   return (
-    <div className="w-full max-w-md px-2 py-16 sm:px-0 m-auto">
+    <div className="w-full max-w-md px-2 py-10 sm:px-0 m-auto">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {items.map((category) => (

@@ -1,6 +1,6 @@
 import TabMenu from "../../ui/TabMenu/TabMenu";
 
-export default function ProfilePageLayout({
+export default async function ProfilePageLayout({
   children,
 }: {
   children: React.ReactNode;

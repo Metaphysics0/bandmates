@@ -1,18 +1,25 @@
+"use client";
+
 import Link from "next/link";
-import { USER_TYPE_OPTIONS } from "../data/consts";
-import { IProfile } from "../types/database";
-import DropdownList from "./inputs/DropdownList";
-import SignUpWithSpotfiyButton from "./inputs/SignUpWithSpotifyButton";
+import { Suspense } from "react";
+import { USER_TYPE_OPTIONS } from "../../data/consts";
+import { useLoggedInUser } from "../../providers/userProvider";
+import { IProfile } from "../../types/database";
+import DropdownList from "../inputs/DropdownList";
+import SignUpWithSpotfiyButton from "../inputs/SignUpWithSpotifyButton";
 import ProfileCard from "./ProfileCard";
 
+export default function HeroProfileCard() {
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
-export default function HeroProfileCard({profile}: {
-  profile?: IProfile
-}) {
-  return profile ? (
-    <SignedInProfileCard profile={profile} />
-  ) : (
-    <SignUpCard />
+  return (
+    <Suspense fallback={<h1>loading...</h1>}>
+      {loggedInUser ? (
+        <SignedInProfileCard profile={loggedInUser} />
+      ) : (
+        <SignUpCard />
+      )}
+    </Suspense>
   );
 }
 
