@@ -1,17 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
+import { IProfile } from "../../types/database";
 
-export default function ProfileModal() {
-  const [{ shouldShowModal, profile }, toggleModal] = useProfileModal();
+export default function ProfileModal({ profile }: { profile?: IProfile }) {
+  // const [{ shouldShowModal, profile }, toggleModal] = useProfileModal();
+  const router = useRouter();
 
-  return shouldShowModal ? (
+  useEffect(() => {
+    router.prefetch("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return true ? (
     <>
       <div
         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-        onClick={() => toggleModal({ shouldShowModal: false })}
+        // onClick={() => toggleModal({ shouldShowModal: false })}
       >
         <div
           className="relative my-6 mx-auto w-[calc(100%_-_15rem)]"
