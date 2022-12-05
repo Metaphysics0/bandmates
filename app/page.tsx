@@ -16,6 +16,7 @@ export default async function Home() {
       <SearchSection />
       <MusiciansList musicians={musicians} />
       <SignUpModal />
+      <ProfileModal />
     </main>
   );
 }

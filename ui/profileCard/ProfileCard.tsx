@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { IProfile } from "../../types/database";
 import guitarist from "../../public/guitarist.jpg";
-import { MdLocationOn } from "react-icons/md";
 import ProfileLikeButton from "./ProfileLikeButton";
 import ViewProfileButton from "../inputs/ViewProfileButton";
 
