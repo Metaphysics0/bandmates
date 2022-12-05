@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { IProfile } from "../../types/database";
 import guitarist from "../../public/guitarist.jpg";
-import { MdLocationOn } from "react-icons/md";
 import ProfileLikeButton from "./ProfileLikeButton";
 import ViewProfileButton from "../inputs/ViewProfileButton";
 
@@ -35,7 +34,7 @@ export default function ProfileCard({ profile }: { profile: IProfile }) {
 
         <div className="absolute px-2 py-2 bottom-0 font-medium text-slate-100 w-full flex justify-between bg-opacity-50 bg-black">
           <div className="flex items-center">
-            <MdLocationOn />
+            {/* <MdLocationOn /> */}
             <p>{profile.location || ""}</p>
           </div>
           <p className="font-semibold">85% match 🔥</p>

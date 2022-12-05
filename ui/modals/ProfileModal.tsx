@@ -4,14 +4,21 @@ import Image from "next/image";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
 
+
 export default function ProfileModal() {
-  const [{ shouldShowModal, profile }, toggleModal] = useProfileModal();
+  const [{ shouldShowModal, profile }, setShouldShowProfileModal] =
+    useProfileModal();
+
+  const closeModal = () => {
+    setShouldShowProfileModal({ shouldShowModal: false });
+    window.history.pushState({ prevUrl: window.location.href }, "", "/");
+  };
 
   return shouldShowModal ? (
     <>
       <div
         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-        onClick={() => toggleModal({ shouldShowModal: false })}
+        onClick={closeModal}
       >
         <div
           className="relative my-6 mx-auto w-[calc(100%_-_15rem)]"
@@ -37,7 +44,9 @@ export default function ProfileModal() {
             <section>
               <div className="h-52 w-52">
                 <Image
-                  src={guitarist}
+                  src={profile?.avatar_url || guitarist}
+                  height={100}
+                  width={100}
                   alt={profile?.full_name || "musician"}
                   className="h-full w-full object-cover rounded-lg"
                 />

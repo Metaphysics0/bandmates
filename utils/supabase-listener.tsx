@@ -24,6 +24,8 @@ export default function SupabaseListener({
 
   useEffect(() => {
     if (user && !loggedInUser) {
+      console.log("SETTING USER!", loggedInUser);
+
       setLoggedInUser(user);
     }
     supabase.auth.onAuthStateChange((event, session) => {
