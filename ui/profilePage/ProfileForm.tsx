@@ -10,6 +10,7 @@ import SignOutButton from "../inputs/signOutButton";
 import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
+import { TagsInput } from "react-tag-input-component";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       artist_type: profile.artist_type,
       bio: profile.bio,
       location: profile.location,
+      tags: profile.tags,
     },
   });
 
@@ -90,6 +92,18 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             placeholder="Bio"
             className={commonInputClass}
           ></textarea>
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field: { onChange } }) => (
+              <TagsInput
+                value={profile.tags || []}
+                onChange={onChange}
+                name="tags"
+                placeHolder="enter tags"
+              />
+            )}
+          />
           <div
             className="flex items-center cursor-pointer mx-auto"
             onClick={() => setIsOpen(true)}

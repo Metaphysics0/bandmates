@@ -4,51 +4,90 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json }
-  | Json[];
+  | Json[]
 
 export interface Database {
   public: {
     Tables: {
       musical_instrument: {
         Row: {
-          id: string;
-          instrument_name: string;
-          skill_level: number | null;
-          model: string | null;
-          type: string | null;
-          profile_id: string | null;
-        };
+          id: string
+          instrument_name: string
+          skill_level: number | null
+          model: string | null
+          type: string | null
+          profile_id: string | null
+        }
         Insert: {
-          id?: string;
-          instrument_name: string;
-          skill_level?: number | null;
-          model?: string | null;
-          type?: string | null;
-          profile_id?: string | null;
-        };
+          id?: string
+          instrument_name: string
+          skill_level?: number | null
+          model?: string | null
+          type?: string | null
+          profile_id?: string | null
+        }
         Update: {
-          id?: string;
-          instrument_name?: string;
-          skill_level?: number | null;
-          model?: string | null;
-          type?: string | null;
-          profile_id?: string | null;
-        };
-      };
+          id?: string
+          instrument_name?: string
+          skill_level?: number | null
+          model?: string | null
+          type?: string | null
+          profile_id?: string | null
+        }
+      }
       profiles: {
-        Row: IProfile;
-        Insert: IProfile;
-        Update: IProfile;
-      };
-    };
+        Row: {
+          id: string
+          updated_at: string | null
+          full_name: string | null
+          avatar_url: string | null
+          email: string | null
+          sound_snippets: string[] | null
+          age: number | null
+          bio: string | null
+          artist_type: string | null
+          location: string | null
+          liked_users: string[] | null
+          tags: string[] | null
+        }
+        Insert: {
+          id?: string
+          updated_at?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          email?: string | null
+          sound_snippets?: string[] | null
+          age?: number | null
+          bio?: string | null
+          artist_type?: string | null
+          location?: string | null
+          liked_users?: string[] | null
+          tags?: string[] | null
+        }
+        Update: {
+          id?: string
+          updated_at?: string | null
+          full_name?: string | null
+          avatar_url?: string | null
+          email?: string | null
+          sound_snippets?: string[] | null
+          age?: number | null
+          bio?: string | null
+          artist_type?: string | null
+          location?: string | null
+          liked_users?: string[] | null
+          tags?: string[] | null
+        }
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      meeting_preference: "in_person" | "remote";
+      meeting_preference: "in_person" | "remote"
       musical_style:
         | "acoustic"
         | "afrobeat"
@@ -175,40 +214,7 @@ export interface Database {
         | "trip-hop"
         | "turkish"
         | "work-out"
-        | "world-music";
-    };
-  };
-}
-
-export interface IProfile {
-  id: string;
-  updated_at: string | null;
-  full_name: string | null;
-  avatar_url: string | null;
-  email: string | null;
-  sound_snippets: string[] | null;
-  age: number | null;
-  bio: string | null;
-  artist_type: string | null;
-  location: string | null;
-  liked_users: string[] | null;
-  tags: string[] | null;
-}
-
-interface IThinProfile {
-  id: string;
-  liked_users: string[];
-}
-
-export interface IProfileUpdateFields {
-  full_name?: string | null;
-  avatar_url?: string | null;
-  email?: string | null;
-  sound_snippets?: string[] | null;
-  age?: number | null;
-  bio?: string | null;
-  artist_type?: string | null;
-  location?: string | null;
-  liked_users?: string[] | null;
-  tags?: string[];
+        | "world-music"
+    }
+  }
 }
