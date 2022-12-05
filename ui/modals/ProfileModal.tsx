@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
-import { IProfile } from "../../types/database";
+
 
 export default function ProfileModal() {
-  const router = useRouter();
   const [{ shouldShowModal, profile }, setShouldShowProfileModal] =
     useProfileModal();
 

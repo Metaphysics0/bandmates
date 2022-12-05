@@ -15,7 +15,7 @@ export default function ViewProfileButton({ profile }: { profile: IProfile }) {
 
   return (
     <Link
-      href={`/users/${profile.id}`}
+      href={`/users/[userId]`}
       as={`/users/${profile.id}`}
       shallow={true}
       scroll={false}

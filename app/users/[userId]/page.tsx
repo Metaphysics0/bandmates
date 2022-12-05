@@ -1,3 +1,5 @@
-export default function ProfileModalPage() {
-  return <div>Ahhh</div>;
+export default async function ProfileModalPage() {
+  return <>
+    <h4>Ahh</h4>
+  </>
 }
