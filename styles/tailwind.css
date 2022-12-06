@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-blue {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+}
+
+.rti--container {
+  @apply !mb-3 !rounded-2xl !shadow-md !border-none focus:!ring-0 !outline-none font-bold focus:!rounded-2xl focus:!outline-none focus:!border-none;
+}
+
+.rti--input {
+  @apply !w-full !ring-0 font-bold !rounded-2xl !outline-none !border-none;
+}

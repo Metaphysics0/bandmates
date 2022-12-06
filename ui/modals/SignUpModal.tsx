@@ -64,15 +64,6 @@ export default function SignUpModal() {
                   <div className="p-5 flex items-center mx-auto w-fit">
                     <SignUpWithSpotfiyButton />
                   </div>
-                  <p className="text-center text-sm pb-4">
-                    Already have an account?{" "}
-                    <span
-                      onClick={SignInWithSpotify}
-                      className="text-orange-500 font-medium hover:text-orange-600 transition duration-75 underline"
-                    >
-                      Log In
-                    </span>
-                  </p>
                 </section>
               </div>
             </div>

@@ -1,15 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import { useSignUpModal } from "../../providers/signUpModalProvider";
+import { useLoggedInUser } from "../../providers/userProvider";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import { IProfile } from "../../types/database";
 
 export default function ViewProfileButton({ profile }: { profile: IProfile }) {
-  const [{ shouldShowModal }, setShouldShowModal] = useProfileModal();
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
+  const [
+    { shouldShowModal: shouldShowProfileModal },
+    setShouldShowProfileModal,
+  ] = useProfileModal();
+  const [{ shouldShowModal: shouldShowSignUpModal }, setShouldShowSignUpModal] =
+    useSignUpModal();
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    setShouldShowModal({ shouldShowModal: true, profile });
+    if (!loggedInUser) {
+      setShouldShowSignUpModal({
+        shouldShowModal: true,
+        toggleModalReason: `View ${profile.full_name}'s full profile and more after signing up!`,
+      });
+      return;
+    }
+    setShouldShowProfileModal({ shouldShowModal: true, profile });
     window.history.pushState({}, "", `/users/${profile.id}`);
   };
 

@@ -21,7 +21,7 @@ export default function SignUpWithSpotfiyButton({
       onClick={handleSignIn}
     >
       <FaSpotify />
-      <span className="font-semibold">Sign up with Spotify</span>
+      <span className="font-semibold">Sign in with Spotify</span>
       <span></span>
     </div>
   );

@@ -55,15 +55,6 @@ function SignUpCard() {
         </div>
         <SignUpWithSpotfiyButton />
       </div>
-      <div className="text-center text-sm">
-        Already have an account?{" "}
-        <a
-          href=""
-          className="text-orange-500 font-medium hover:text-orange-600 transition duration-75 underline"
-        >
-          Log In
-        </a>
-      </div>
     </div>
   );
 }
