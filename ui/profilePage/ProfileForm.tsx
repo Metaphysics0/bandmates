@@ -11,7 +11,6 @@ import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { TagsInput } from "react-tag-input-component";
-import { HiMusicalNote } from "react-icons/hi2";
 import { BsSoundwave } from "react-icons/bs";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
@@ -25,13 +24,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       artist_type: profile.artist_type,
       bio: profile.bio,
       location: profile.location,
-      // tags: profile.tags,
+      tags: profile.tags,
     },
   });
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name !== undefined && profile[name] !== value) {
+      if (name !== undefined && profile[name as keyof IProfile] !== value) {
         setProfileForm(value);
         setShouldDisableSubmit(false);
       }
@@ -48,6 +47,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       console.error("Error updating profile", error);
       return;
     }
+
     toast("Succesfully updated profile info", {
       icon: "👍",
       duration: 2500,
@@ -107,22 +107,21 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
               {...register("bio")}
               rows={4}
               placeholder="Bio"
-              className={formStyles.input}
+              className={formStyles.input + " min-h-[50px]"}
             ></textarea>
           </label>
           <label className={formStyles.label}>
             <span className={formStyles.span}>Tags:</span>
-            {/* <Controller
-            control={control}
-            name="tags"
-            render={({ field: { onChange } }) => ( */}
-            <TagsInput
-              value={profile.tags || []}
-              onChange={(tag) => console.log("tag!", tag)}
+            <Controller
+              control={control}
               name="tags"
-              placeHolder="LoFi, R&B, ... (Press enter to add!)"
-              //   />
-              // )}
+              render={({ field: { onChange, value } }) => (
+                <TagsInput
+                  value={value || []}
+                  onChange={onChange}
+                  placeHolder="LoFi, R&B, ... (Press enter to add!)"
+                />
+              )}
             />
           </label>
           <div

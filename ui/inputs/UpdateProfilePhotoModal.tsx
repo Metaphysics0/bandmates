@@ -1,5 +1,7 @@
+"use client";
+
 import { Dialog, Transition } from "@headlessui/react";
-import { Dispatch, Fragment, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, Fragment, SetStateAction, useRef } from "react";
 
 export default function UpdateProfilePhotoModal({
   isOpen = false,
@@ -11,6 +13,20 @@ export default function UpdateProfilePhotoModal({
   function closeModal() {
     setIsOpen(false);
   }
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  null;
+
+  const handleClick = () => {
+    // 👇️ open file input box on click of other element
+    inputRef.current?.click();
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const fileObj = event.target.files && event.target.files[0];
+    if (!fileObj) return;
+    console.log("FILE OB", fileObj);
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -46,7 +62,18 @@ export default function UpdateProfilePhotoModal({
                   Change Profile Photo
                 </Dialog.Title>
                 <div className="cursor-pointer w-full border-b-slate-300 border-t-slate-300 border text-center py-3">
-                  <p className="text-blue-500 font-semibold">Upload photo</p>
+                  <input
+                    className="hidden"
+                    ref={inputRef}
+                    type="file"
+                    onChange={handleFileChange}
+                  />
+                  <p
+                    className="text-blue-500 font-semibold"
+                    onClick={handleClick}
+                  >
+                    Upload photo
+                  </p>
                 </div>
                 <div className="cursor-pointer text-center w-full py-3 border-b-slate-300 border-b">
                   <p className="text-red-500 font-semibold">

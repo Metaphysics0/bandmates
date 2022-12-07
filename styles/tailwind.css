@@ -9,9 +9,13 @@
 }
 
 .rti--container {
-  @apply !mb-3 !rounded-2xl !shadow-md !border-none focus:!ring-0 !outline-none font-bold focus:!rounded-2xl focus:!outline-none focus:!border-none;
+  @apply !mb-3 min-h-[100px] !rounded-2xl !shadow-md !border-none focus:!ring-0 !outline-none font-bold focus:!rounded-2xl focus:!outline-none focus:!border-none;
 }
 
 .rti--input {
   @apply !w-full !ring-0 font-bold !rounded-2xl !outline-none !border-none;
+}
+
+.rti--tag {
+  @apply rounded-full px-1 py-2;
 }

@@ -210,5 +210,5 @@ export interface IProfileUpdateFields {
   artist_type?: string | null;
   location?: string | null;
   liked_users?: string[] | null;
-  tags?: string[];
+  tags?: (string | undefined)[] | null;
 }
