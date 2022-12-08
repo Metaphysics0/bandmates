@@ -27,10 +27,7 @@ function SignedInProfileCard({ profile }: { profile: IProfile }) {
   return (
     <div className="flex flex-col items-center">
       <ProfileCard profile={profile} />
-      <Link
-        href="/profile"
-        className="bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2"
-      >
+      <Link href="/profile" className="profile-btn">
         Take me to my profile!
       </Link>
     </div>
@@ -39,7 +36,7 @@ function SignedInProfileCard({ profile }: { profile: IProfile }) {
 
 function SignUpCard() {
   return (
-    <div className="p-5 pb-4 bg-white rounded-xl shadow-xl">
+    <div className="p-5 pb-4 bg-white rounded-xl shadow-xl max-w-sm">
       <div className="video-wrapper mb-4 rounded-md">
         <iframe
           src="https://www.youtube.com/embed/UIofe-CEyII"
@@ -49,11 +46,16 @@ function SignUpCard() {
           allowFullScreen
         ></iframe>
       </div>
-      <div className="container flex flex-col align-middle justify-center mb-2">
+      <div className="container flex flex-col align-middle justify-center">
         <div className="mb-3">
           <DropdownList options={USER_TYPE_OPTIONS} />
         </div>
-        <SignUpWithSpotfiyButton />
+        <div className="mb-1">
+          <SignUpWithSpotfiyButton />
+        </div>
+        <p className="text-center text-sm font-medium text-slate-800">
+          Log in with the same button! 👆
+        </p>
       </div>
     </div>
   );
