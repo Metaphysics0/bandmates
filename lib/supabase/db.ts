@@ -49,15 +49,7 @@ class UsersApi {
       console.error("No current auth session");
       return;
     }
-    const { data: profile, error: userError } = await this.findById(
-      session.user.id
-    );
-    if (userError) {
-      console.error("Error loading user", error);
-      return;
-    }
-
-    return profile[0];
+    return await this.loadUserFromSession(session);
   }
 
   async loadUserFromSession(

@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-blue {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+}
+
+.rti--container {
+  @apply !mb-3 min-h-[100px] !rounded-2xl !shadow-md !border-none focus:!ring-0 !outline-none font-bold focus:!rounded-2xl focus:!outline-none focus:!border-none;
+}
+
+.rti--input {
+  @apply !w-full !ring-0 font-bold !rounded-2xl !outline-none !border-none;
+}
+
+.rti--tag {
+  @apply rounded-full px-1 py-2;
+}
+
+@layer components {
+  .btn-submit {
+    @apply bg-red-500 hover:bg-red-400 text-white font-semibold p-2 rounded-lg shadow-md mr-3 transition duration-75;
+  }
+  .profile-btn {
+    @apply bg-red-500 hover:bg-red-400 border-red-700 hover:border-red-500 transition duration-75 text-white font-bold py-2 px-4 border-b-4 rounded-full outline-none my-2;
+  }
+}

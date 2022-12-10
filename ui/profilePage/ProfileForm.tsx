@@ -10,6 +10,8 @@ import SignOutButton from "../inputs/signOutButton";
 import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
+import { TagsInput } from "react-tag-input-component";
+import { BsSoundwave } from "react-icons/bs";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +24,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       artist_type: profile.artist_type,
       bio: profile.bio,
       location: profile.location,
+      tags: profile.tags,
     },
   });
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name !== undefined && profile[name] !== value) {
+      if (name !== undefined && profile[name as keyof IProfile] !== value) {
         setProfileForm(value);
         setShouldDisableSubmit(false);
       }
@@ -44,14 +47,19 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       console.error("Error updating profile", error);
       return;
     }
+
     toast("Succesfully updated profile info", {
       icon: "👍",
       duration: 2500,
     });
   };
 
-  const commonInputClass =
-    "mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold";
+  const formStyles = {
+    input:
+      "mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800",
+    label: "flex flex-col",
+    span: "w-fit ml-1 font-bold text-lg",
+  };
 
   return (
     <>
@@ -60,36 +68,62 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         className="col-span-2 grid grid-cols-2 items-center mt-4"
       >
         <div className="flex flex-col">
-          <input
-            type="text"
-            {...register("full_name")}
-            placeholder="Name"
-            className={commonInputClass}
-          />
-          <input
-            type="text"
-            {...register("artist_type")}
-            placeholder="Artist Type"
-            className={commonInputClass}
-          />
-          <Controller
-            control={control}
-            name="location"
-            render={({ field: { onChange } }) => (
-              <AutoComplete
-                placeholder={profile.location || "Enter a location"}
-                apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
-                className={commonInputClass + " p-2"}
-                onPlaceSelected={(place) => onChange(place.formatted_address)}
-              />
-            )}
-          />
-          <textarea
-            {...register("bio")}
-            rows={4}
-            placeholder="Bio"
-            className={commonInputClass}
-          ></textarea>
+          <label className={formStyles.label}>
+            <span className={formStyles.span}>Name:</span>
+            <input
+              type="text"
+              {...register("full_name")}
+              placeholder="Name"
+              className={formStyles.input}
+            />
+          </label>
+          <label className={formStyles.label}>
+            <span className={formStyles.span}>Artist Type:</span>
+            <input
+              type="text"
+              {...register("artist_type")}
+              placeholder="Guitarist"
+              className={formStyles.input}
+            />
+          </label>
+          <label className={formStyles.label}>
+            <span className={formStyles.span}>Location:</span>
+            <Controller
+              control={control}
+              name="location"
+              render={({ field: { onChange } }) => (
+                <AutoComplete
+                  placeholder={profile.location || "Enter a location"}
+                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+                  className={formStyles.input + " p-2"}
+                  onPlaceSelected={(place) => onChange(place.formatted_address)}
+                />
+              )}
+            />
+          </label>
+          <label className={formStyles.label}>
+            <span className={formStyles.span}>Bio:</span>
+            <textarea
+              {...register("bio")}
+              rows={4}
+              placeholder="Bio"
+              className={formStyles.input + " min-h-[50px]"}
+            ></textarea>
+          </label>
+          <label className={formStyles.label}>
+            <span className={formStyles.span}>Tags:</span>
+            <Controller
+              control={control}
+              name="tags"
+              render={({ field: { onChange, value } }) => (
+                <TagsInput
+                  value={value || []}
+                  onChange={onChange}
+                  placeHolder="LoFi, R&B, ... (Press enter to add!)"
+                />
+              )}
+            />
+          </label>
           <div
             className="flex items-center cursor-pointer mx-auto"
             onClick={() => setIsOpen(true)}
@@ -112,7 +146,9 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
           </div>
           <SignOutButton />
         </div>
-        <div className="flex flex-col items-center">
+        {/* SOUND SNIPPETS */}
+        <div className="flex flex-col items-center mb-auto">
+          <h3 className={formStyles.span}>Sound Snippets</h3>
           <audio controls className="mb-2">
             <source src="horse.ogg" type="audio/ogg" />
             <source src="horse.mp3" type="audio/mpeg" />
@@ -128,6 +164,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             <source src="horse.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
+          <AddSoundPlaceholder />
         </div>
         <div className="mt-3 col-span-2 flex justify-center">
           <button
@@ -147,3 +184,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     </>
   );
 }
+
+const AddSoundPlaceholder = () => {
+  return (
+    <div className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-[calc(100%_-_10rem)]">
+      <p className="w-fit flex items-center font-bold text-slate-700 opacity-90">
+        Add Sound! <BsSoundwave />
+      </p>
+    </div>
+  );
+};

@@ -37,32 +37,8 @@ export interface Database {
       };
       profiles: {
         Row: IProfile;
-        Insert: {
-          id?: string;
-          updated_at?: string | null;
-          full_name?: string | null;
-          avatar_url?: string | null;
-          email?: string | null;
-          sound_snippets?: string[] | null;
-          age?: number | null;
-          bio?: string | null;
-          artist_type?: string | null;
-          location?: string | null;
-          liked_users?: string[] | null;
-        };
-        Update: {
-          id?: string;
-          updated_at?: string | null;
-          full_name?: string | null;
-          avatar_url?: string | null;
-          email?: string | null;
-          sound_snippets?: string[] | null;
-          age?: number | null;
-          bio?: string | null;
-          artist_type?: string | null;
-          location?: string | null;
-          liked_users?: string[] | null;
-        };
+        Insert: IProfile;
+        Update: IProfile;
       };
     };
     Views: {
@@ -216,6 +192,7 @@ export interface IProfile {
   artist_type: string | null;
   location: string | null;
   liked_users: string[] | null;
+  tags: string[] | null;
 }
 
 interface IThinProfile {
@@ -233,4 +210,5 @@ export interface IProfileUpdateFields {
   artist_type?: string | null;
   location?: string | null;
   liked_users?: string[] | null;
+  tags?: (string | undefined)[] | null;
 }
