@@ -12,11 +12,14 @@ import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { TagsInput } from "react-tag-input-component";
 import { BsSoundwave } from "react-icons/bs";
+import { useLoggedInUser } from "../../providers/userProvider";
+import { compatObject } from "../../utils/helperMethods";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
   const [shouldDisableSubmit, setShouldDisableSubmit] = useState(true);
   const [profileForm, setProfileForm] = useProfileForm();
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
   const { register, handleSubmit, watch, control } = useForm({
     defaultValues: {
@@ -35,19 +38,25 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         setShouldDisableSubmit(false);
       }
     });
-
     return () => subscription.unsubscribe();
   }, [profile, profileForm, setProfileForm, watch]);
+
+  useEffect(() => {
+    setLoggedInUser(profile);
+  }, [profile, setLoggedInUser]);
 
   const onSubmit: SubmitHandler<IProfileUpdateFields> = async (
     fieldsToUpdate: IProfileUpdateFields
   ): Promise<void> => {
     const { error } = await Users.updateById(profile.id, fieldsToUpdate);
     if (error) {
-      console.error("Error updating profile", error);
+      toast.error("Error updating profile");
+      console.error(error);
       return;
     }
 
+    // @ts-expect-error
+    setLoggedInUser({ ...loggedInUser, ...fieldsToUpdate });
     toast("Succesfully updated profile info", {
       icon: "👍",
       duration: 2500,
@@ -194,3 +203,5 @@ const AddSoundPlaceholder = () => {
     </div>
   );
 };
+
+const SounSnippetUploader = () => {};
