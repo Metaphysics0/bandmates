@@ -3,3 +3,6 @@ export const capitalize = (str: string): string =>
 
 export const areObjectsEqual = (obj1: object, obj2: object) =>
   JSON.stringify(obj1) === JSON.stringify(obj2);
+
+export const compatObject = (obj: object) =>
+  Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));

@@ -94,5 +94,9 @@ class UsersApi {
       .select(`liked_users`)
       .eq("id", userId);
   }
+
+  async uploadSoundSnippet(data: any) {
+    console.log("data", data);
+  }
 }
 export const Users = new UsersApi();

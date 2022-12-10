@@ -24,7 +24,7 @@ export default function SupabaseListener({
 
   useEffect(() => {
     if (user && !loggedInUser) {
-      console.log("SETTING USER!", loggedInUser);
+      console.log("SETTING USER!", JSON.stringify(user, null, 2));
 
       setLoggedInUser(user);
     }
@@ -32,7 +32,7 @@ export default function SupabaseListener({
       if (session?.access_token !== accessToken) {
         router.refresh();
       }
-      if (event === "SIGNED_OUT" || event === "USER_DELETED") {
+      if (["SIGNED_OUT", "USER_DELETED"].includes(event)) {
         setLoggedInUser(null);
       }
     });
