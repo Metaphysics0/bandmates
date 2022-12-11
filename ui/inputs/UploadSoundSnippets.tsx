@@ -8,11 +8,7 @@ import toast from "react-hot-toast";
 
 export default function UploadSoundSnippets() {
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
-
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  // 👇️ open file input box on click of other element
-  const handleClick = () => inputRef.current?.click();
 
   const onSoundUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     try {
@@ -47,7 +43,7 @@ export default function UploadSoundSnippets() {
       {(loggedInUser?.sound_snippets || []).map(soundSnippet)}
       <div
         className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-[calc(100%_-_10rem)]"
-        onClick={handleClick}
+        onClick={() => inputRef.current?.click()}
       >
         <input
           className="hidden"
