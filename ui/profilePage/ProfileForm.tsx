@@ -4,16 +4,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IProfile, IProfileUpdateFields } from "../../types/database";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import UpdateProfilePhotoModal from "../inputs/UpdateProfilePhotoModal";
 import AutoComplete from "react-google-autocomplete";
 import SignOutButton from "../inputs/signOutButton";
 import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { TagsInput } from "react-tag-input-component";
-import { BsSoundwave } from "react-icons/bs";
 import { useLoggedInUser } from "../../providers/userProvider";
-import { compatObject } from "../../utils/helperMethods";
+import UpdateAvatarModal from "../inputs/UpdateAvatarModal";
+import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -151,29 +150,14 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             <p className="text-orange-500 cursor-pointer hover:text-orange-400 underline hover:no-underline">
               Change profile photo
             </p>
-            <UpdateProfilePhotoModal isOpen={isOpen} setIsOpen={setIsOpen} />
+            <UpdateAvatarModal isOpen={isOpen} setIsOpen={setIsOpen} />
           </div>
           <SignOutButton />
         </div>
         {/* SOUND SNIPPETS */}
         <div className="flex flex-col items-center mb-auto">
           <h3 className={formStyles.span}>Sound Snippets</h3>
-          <audio controls className="mb-2">
-            <source src="horse.ogg" type="audio/ogg" />
-            <source src="horse.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-          <audio controls className="mb-2">
-            <source src="horse.ogg" type="audio/ogg" />
-            <source src="horse.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-          <audio controls>
-            <source src="horse.ogg" type="audio/ogg" />
-            <source src="horse.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-          <AddSoundPlaceholder />
+          <UploadSoundSnippets />
         </div>
         <div className="mt-3 col-span-2 flex justify-center">
           <button
@@ -193,15 +177,3 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     </>
   );
 }
-
-const AddSoundPlaceholder = () => {
-  return (
-    <div className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-[calc(100%_-_10rem)]">
-      <p className="w-fit flex items-center font-bold text-slate-700 opacity-90">
-        Add Sound! <BsSoundwave />
-      </p>
-    </div>
-  );
-};
-
-const SounSnippetUploader = () => {};

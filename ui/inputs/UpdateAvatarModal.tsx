@@ -7,7 +7,7 @@ import supabase from "../../lib/supabase/supabase-browser";
 import { Users } from "../../lib/supabase/db";
 import { useLoggedInUser } from "../../providers/userProvider";
 
-export default function UpdateProfilePhotoModal({
+export default function UpdateAvatarModal({
   isOpen = false,
   setIsOpen,
 }: {
@@ -39,7 +39,7 @@ export default function UpdateProfilePhotoModal({
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from("avatars")
       .upload(filePath, file, { upsert: true, cacheControl: "3600" });
-    console.log("UPLOADED", uploadData);
+
     if (uploadError) {
       toastError("error uploading avatar user");
       console.log("ERROR", uploadError);
