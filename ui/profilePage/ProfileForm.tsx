@@ -13,7 +13,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { TagsInput } from "react-tag-input-component";
 import { BsSoundwave } from "react-icons/bs";
 import { useLoggedInUser } from "../../providers/userProvider";
-import { compatObject } from "../../utils/helperMethods";
+import GeneralTextInput from "../inputs/general/TextInput";
+import TextAreaInput from "../inputs/general/TextAreaInput";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,24 +78,18 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         className="col-span-2 grid grid-cols-2 items-center mt-4"
       >
         <div className="flex flex-col">
-          <label className={formStyles.label}>
-            <span className={formStyles.span}>Name:</span>
-            <input
-              type="text"
-              {...register("full_name")}
-              placeholder="Name"
-              className={formStyles.input}
-            />
-          </label>
-          <label className={formStyles.label}>
-            <span className={formStyles.span}>Artist Type:</span>
-            <input
-              type="text"
-              {...register("artist_type")}
-              placeholder="Guitarist"
-              className={formStyles.input}
-            />
-          </label>
+          <GeneralTextInput
+            label="Name:"
+            placeholder="Name"
+            formName="full_name"
+            formRegister={register}
+          />
+          <GeneralTextInput
+            label="Artist Type:"
+            placeholder="Guitarist"
+            formName="artist_type"
+            formRegister={register}
+          />
           <label className={formStyles.label}>
             <span className={formStyles.span}>Location:</span>
             <Controller
@@ -110,15 +105,12 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
               )}
             />
           </label>
-          <label className={formStyles.label}>
-            <span className={formStyles.span}>Bio:</span>
-            <textarea
-              {...register("bio")}
-              rows={4}
-              placeholder="Bio"
-              className={formStyles.input + " min-h-[50px]"}
-            ></textarea>
-          </label>
+          <TextAreaInput
+            formRegister={register}
+            formName="bio"
+            placeholder="Talk about yourself"
+            label="Bio:"
+          />
           <label className={formStyles.label}>
             <span className={formStyles.span}>Tags:</span>
             <Controller

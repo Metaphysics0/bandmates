@@ -10,7 +10,7 @@ export default async function ProfilePage() {
     return <div>Unable to load profile at this time ):</div>;
   }
   return (
-    <div className="container grid grid-cols-3 m-auto bg-white p-3 rounded-xl drop-shadow-lg mt-10 w-full">
+    <div className="container grid grid-cols-3 m-auto w-full">
       <ProfileForm profile={profile} />
       <div className="flex flex-col items-center justify-center">
         <ProfileCardClient />

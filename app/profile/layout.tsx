@@ -6,7 +6,7 @@ export default async function ProfilePageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-gradient-to-r from-cyan-500 to-blue-500 min-h-screen">
+    <section>
       <TabMenu
         path="/profile"
         items={[
