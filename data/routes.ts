@@ -1,6 +1,5 @@
 import { IconType } from "react-icons";
 import { HiHome, HiOutlinePaperAirplane } from "react-icons/hi2";
-import { AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { MdExplore } from "react-icons/md";
 

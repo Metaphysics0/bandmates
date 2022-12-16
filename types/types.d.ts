@@ -9,3 +9,5 @@ export interface ISignUpSelectOption extends IDropdownListOption {
   signUpHeader?: string;
   signUpDescription?: string;
 }
+
+export type IStorageBucket = "avatars" | "sound-snippets";

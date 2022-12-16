@@ -2,6 +2,7 @@ import ProfileForm from "../../ui/profilePage/ProfileForm";
 import { Users } from "../../lib/supabase/db";
 import supabaseServer from "../../lib/supabase/supabase-server";
 import ProfileCardClient from "../../ui/profilePage/ProfileCardClient";
+import ProfileModal from "../../ui/modals/ProfileModal";
 
 export default async function ProfilePage() {
   const profile = await Users.loadUserFromCurrentSession(supabaseServer());
@@ -18,6 +19,7 @@ export default async function ProfilePage() {
           This is how you&apos;ll appear! 👆
         </p>
       </div>
+      <ProfileModal />
     </div>
   );
 }
