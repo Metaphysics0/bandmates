@@ -3,11 +3,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ChangeEvent, Dispatch, Fragment, SetStateAction, useRef } from "react";
 import toast from "react-hot-toast";
-import supabase from "../../lib/supabase/supabase-browser";
-import { Users } from "../../lib/supabase/db";
+import UserStorage from "../../lib/supabase/storage";
 import { useLoggedInUser } from "../../providers/userProvider";
 
-export default function UpdateProfilePhotoModal({
+export default function UpdateAvatarModal({
   isOpen = false,
   setIsOpen,
 }: {
@@ -21,47 +20,32 @@ export default function UpdateProfilePhotoModal({
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // 👇️ open file input box on click of other element
-  const handleClick = () => inputRef.current?.click();
-
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
+    try {
+      setIsOpen(false);
+      const file = event.target.files && event.target.files[0];
+      if (!loggedInUser) {
+        toast.error("Unable to upload profile at this time");
+        return;
+      }
 
-    if (!loggedInUser) {
-      console.log("LOGGED IS NOT LOGGED IN", loggedInUser);
-      return;
+      if (!file) {
+        toast.error("Error accepting your file. Please try a new one");
+        return;
+      }
+
+      const avatar_url = await UserStorage.updateAvatar({
+        file,
+        profile: loggedInUser,
+      });
+
+      setLoggedInUser({ ...loggedInUser, avatar_url });
+
+      toastUploadSuccess();
+    } catch (error) {
+      console.error(error);
+      toast.error("Error uploading profile modal");
     }
-
-    setIsOpen(false);
-
-    const filePath = `${loggedInUser?.id}/${file.name}`;
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from("avatars")
-      .upload(filePath, file, { upsert: true, cacheControl: "3600" });
-    console.log("UPLOADED", uploadData);
-    if (uploadError) {
-      toastError("error uploading avatar user");
-      console.log("ERROR", uploadError);
-      return;
-    }
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("avatars").getPublicUrl(uploadData.path);
-
-    const { error: updateUserError } = await Users.updateById(loggedInUser.id, {
-      avatar_url: publicUrl,
-    });
-
-    if (updateUserError) {
-      toastError("error setting new profile picture");
-      console.log(updateUserError);
-      return;
-    }
-
-    setLoggedInUser({ ...loggedInUser, avatar_url: publicUrl });
-
-    toastUploadSuccess();
   };
 
   return (
@@ -107,7 +91,7 @@ export default function UpdateProfilePhotoModal({
                   />
                   <p
                     className="text-blue-500 font-semibold"
-                    onClick={handleClick}
+                    onClick={() => inputRef.current?.click()}
                   >
                     Upload photo
                   </p>

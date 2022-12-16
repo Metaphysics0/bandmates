@@ -3,13 +3,9 @@
 import { FaSpotify } from "react-icons/fa";
 import { SignInWithSpotify } from "../../lib/supabase/auth";
 
-export default function SignUpWithSpotfiyButton({
-  options,
-}: {
-  options?: any;
-}) {
+export default function SignUpWithSpotfiyButton() {
   const handleSignIn = async (): Promise<void> => {
-    const { data, error } = await SignInWithSpotify(options);
+    const { data, error } = await SignInWithSpotify();
     if (error) {
       console.error("Error signing in with spotify", error);
     }
