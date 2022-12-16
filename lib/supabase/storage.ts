@@ -57,8 +57,9 @@ class UserStorage {
     file: File,
     profile: IProfile,
     bucket: IStorageBucket
-  ) {
-    const filePath = `${profile.id}/${file.name}`;
+  ): Promise<string> {
+    const filePath = this.createFilePath(profile, file);
+
     const { data: uploadData, error: uploadError } = await this.storage
       .from(bucket)
       .upload(filePath, file, { upsert: true, cacheControl: "3600" });
@@ -66,8 +67,15 @@ class UserStorage {
     if (uploadError) {
       throw uploadError;
     }
-    return this.storage.from(bucket).getPublicUrl(uploadData.path).data
-      .publicUrl;
+    const {
+      data: { publicUrl },
+    } = this.storage.from(bucket).getPublicUrl(uploadData.path);
+
+    return publicUrl;
+  }
+
+  private createFilePath(profile: IProfile, file: File): string {
+    return `${profile.id}/${file.name}`;
   }
 }
 

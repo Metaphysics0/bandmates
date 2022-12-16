@@ -34,12 +34,12 @@ export default function UpdateAvatarModal({
         return;
       }
 
-      const publicUrl = await UserStorage.updateAvatar({
+      const avatar_url = await UserStorage.updateAvatar({
         file,
         profile: loggedInUser,
       });
 
-      setLoggedInUser({ ...loggedInUser, avatar_url: publicUrl });
+      setLoggedInUser({ ...loggedInUser, avatar_url });
 
       toastUploadSuccess();
     } catch (error) {
