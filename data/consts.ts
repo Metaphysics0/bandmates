@@ -1,4 +1,4 @@
-import { ISignUpSelectOption } from "../types/types";
+import { ISignUpSelectOption, IAvailableContactMethod } from "../types/types";
 
 export const USER_TYPE_OPTIONS: ISignUpSelectOption[] = [
   { value: "Select the most relevant!", id: 123, disabled: true },
@@ -87,4 +87,10 @@ export const PREMIUM_SEARCH_FILTERS: string[] = [
   "🪐 Djent",
   "😤 Hardcore",
   "🎺 Jazz",
+];
+
+export const AVAILABLE_CONTACT_METHODS: IAvailableContactMethod[] = [
+  "instagram_link",
+  "whatsapp_link",
+  "discord_link",
 ];

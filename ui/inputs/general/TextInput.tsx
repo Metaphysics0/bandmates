@@ -15,7 +15,7 @@ export default function TextInput({
 }) {
   return (
     <label className="flex flex-col">
-      <span className="w-fit ml-1 font-bold text-lg">{label}</span>
+      <span className="ml-1 font-bold text-lg">{label}</span>
       <input
         type="text"
         {...formRegister(formName)}

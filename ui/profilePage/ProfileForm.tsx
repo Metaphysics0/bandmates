@@ -9,12 +9,14 @@ import SignOutButton from "../inputs/signOutButton";
 import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
-import { TagsInput } from "react-tag-input-component";
 import { useLoggedInUser } from "../../providers/userProvider";
 import GeneralTextInput from "../inputs/general/TextInput";
 import TextAreaInput from "../inputs/general/TextAreaInput";
-import UpdateAvatarModal from "../inputs/UpdateAvatarModal";
+import UpdateAvatarModal from "../modals/UpdateAvatarModal";
 import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
+import ProfileCardClient from "./ProfileCardClient";
+import Spacer from "../common/Spacer";
+import ContactMethods from "../inputs/ContactMethods";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +30,6 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
       artist_type: profile.artist_type,
       bio: profile.bio,
       location: profile.location,
-      tags: profile.tags,
     },
   });
 
@@ -73,80 +74,75 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="col-span-2 grid grid-cols-2 items-center mt-4"
-      >
-        <div className="flex flex-col">
-          <GeneralTextInput
-            label="Name:"
-            placeholder="Name"
-            formName="full_name"
-            formRegister={register}
-          />
-          <GeneralTextInput
-            label="Artist Type:"
-            placeholder="Guitarist"
-            formName="artist_type"
-            formRegister={register}
-          />
-          <label className={formStyles.label}>
-            <span className={formStyles.span}>Location:</span>
-            <Controller
-              control={control}
-              name="location"
-              render={({ field: { onChange } }) => (
-                <AutoComplete
-                  placeholder={profile.location || "Enter a location"}
-                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
-                  className={formStyles.input + " p-2"}
-                  onPlaceSelected={(place) => onChange(place.formatted_address)}
-                />
-              )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex justify-around pb-5">
+          <div className="flex flex-col justify-between w-1/2">
+            <GeneralTextInput
+              label="Name:"
+              placeholder="Name"
+              formName="full_name"
+              formRegister={register}
             />
-          </label>
-          <TextAreaInput
-            formRegister={register}
-            formName="bio"
-            placeholder="Talk about yourself"
-            label="Bio:"
-          />
-          <label className={formStyles.label}>
-            <span className={formStyles.span}>Tags:</span>
-            <Controller
-              control={control}
-              name="tags"
-              render={({ field: { onChange, value } }) => (
-                <TagsInput
-                  value={value || []}
-                  onChange={onChange}
-                  placeHolder="LoFi, R&B, ... (Press enter to add!)"
-                />
-              )}
+            <GeneralTextInput
+              label="Artist Type:"
+              placeholder="Guitarist"
+              formName="artist_type"
+              formRegister={register}
             />
-          </label>
-          <div
-            className="flex items-center cursor-pointer mx-auto"
-            onClick={() => setIsOpen(true)}
-          >
-            {profile.avatar_url ? (
-              <Image
-                src={profile.avatar_url}
-                className="bg-white shadow-md rounded-xl mr-2"
-                alt="profile picture preview"
-                width={28}
-                height={28}
+            <label className={formStyles.label}>
+              <span className={formStyles.span}>Location:</span>
+              <Controller
+                control={control}
+                name="location"
+                render={({ field: { onChange } }) => (
+                  <AutoComplete
+                    placeholder={profile.location || "Enter a location"}
+                    apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+                    className={formStyles.input + " p-2"}
+                    onPlaceSelected={(place) =>
+                      onChange(place.formatted_address)
+                    }
+                  />
+                )}
               />
-            ) : (
-              <div className="bg-white shadow-md rounded-xl mr-2"></div>
-            )}
-            <p className="text-orange-500 cursor-pointer hover:text-orange-400 underline hover:no-underline">
-              Change profile photo
-            </p>
-            <UpdateAvatarModal isOpen={isOpen} setIsOpen={setIsOpen} />
+            </label>
+            <TextAreaInput
+              formRegister={register}
+              formName="bio"
+              placeholder="Talk about yourself"
+              label="Bio:"
+              rows={2}
+            />
+            <ContactMethods />
           </div>
-          <SignOutButton />
+          <div className="flex flex-col items-center justify-center">
+            <ProfileCardClient />
+            <p className="text-slate-800 font-extrabold text-center mt-2 text-lg drop-shadow-md">
+              This is how you&apos;ll appear! 👆
+            </p>
+            <div
+              className="flex items-center cursor-pointer mx-auto"
+              onClick={() => setIsOpen(true)}
+            >
+              {profile.avatar_url ? (
+                <Image
+                  src={profile.avatar_url}
+                  className="bg-white shadow-md rounded-xl mr-2"
+                  alt="profile picture preview"
+                  width={28}
+                  height={28}
+                />
+              ) : (
+                <div className="bg-white shadow-md rounded-xl mr-2"></div>
+              )}
+              <p className="text-orange-500 cursor-pointer hover:text-orange-400 underline hover:no-underline">
+                Change profile photo
+              </p>
+            </div>
+            <SignOutButton />
+          </div>
         </div>
+        <Spacer />
         {/* SOUND SNIPPETS */}
         <div className="flex flex-col items-center mb-auto">
           <h3 className={formStyles.span}>Sound Snippets</h3>
@@ -167,6 +163,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         </div>
       </form>
       <Toaster position="top-right" />
+      <UpdateAvatarModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }

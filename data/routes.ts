@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { HiHome, HiOutlinePaperAirplane } from "react-icons/hi2";
+import { HiHeart, HiHome, HiOutlinePaperAirplane } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { MdExplore } from "react-icons/md";
 
@@ -16,11 +16,17 @@ export const ROUTES: IRoute[] = [
     slug: "explore",
     icon: MdExplore,
   },
+  // {
+  //   name: "Messages",
+  //   description: "Collaborate and talk with other artists!",
+  //   slug: "messages",
+  //   icon: HiOutlinePaperAirplane,
+  // },
   {
-    name: "Messages",
-    description: "Collaborate and talk with other artists!",
-    slug: "messages",
-    icon: HiOutlinePaperAirplane,
+    name: "Likes",
+    description: "View all the artists you've liked",
+    slug: "likes",
+    icon: HiHeart,
   },
   {
     name: "Profile",
