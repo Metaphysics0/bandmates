@@ -2,22 +2,23 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction } from "react";
-import toast from "react-hot-toast";
 import { useLoggedInUser } from "../../providers/userProvider";
 import { IAvailableContactMethod } from "../../types/types";
 
 export default function ContactMethodModal({
   isOpen = false,
   setIsOpen,
+  contactMethod,
 }: {
-  isOpen: boolean | IAvailableContactMethod;
-  setIsOpen: Dispatch<SetStateAction<false | IAvailableContactMethod>>;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  contactMethod: undefined | IAvailableContactMethod;
 }) {
   const closeModal = () => setIsOpen(false);
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
   return (
-    <Transition appear show={!!isOpen} as={Fragment}>
+    <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -47,21 +48,10 @@ export default function ContactMethodModal({
                   as="h3"
                   className="text-lg font-bold leading-6 text-gray-900 py-5"
                 >
-                  Set {isOpen}!
+                  Link your {contactMethod} account!
                 </Dialog.Title>
-                <div className="cursor-pointer w-full border-b-slate-300 border-t-slate-300 border text-center py-3">
-                  <p>Ahh</p>
-                </div>
-                <div className="cursor-pointer text-center w-full py-3 border-b-slate-300 border-b">
-                  <p className="text-red-500 font-semibold">
-                    Remove current photo
-                  </p>
-                </div>
-
-                <div
-                  className="w-full py-3 cursor-pointer text-center"
-                  onClick={closeModal}
-                >
+                <div className="btn-submit">Save</div>
+                <div className="cursor-pointer" onClick={closeModal}>
                   <p className="text-slate-500">Cancel</p>
                 </div>
               </Dialog.Panel>
@@ -72,11 +62,3 @@ export default function ContactMethodModal({
     </Transition>
   );
 }
-
-const toastUploadSuccess = () =>
-  toast("Succesfully updated profile photo", {
-    icon: "👍",
-    duration: 2500,
-  });
-
-const toastError = (error: any) => toast.error(error);

@@ -1,31 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import { FaDiscord, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { AVAILABLE_CONTACT_METHODS } from "../../data/consts";
 import { IAvailableContactMethod } from "../../types/types";
 import ContactMethodModal from "../modals/ContactMethodModal";
 
 export default function ContactMethods() {
-  const handleClick = (contactMethod: IAvailableContactMethod) =>
-    setIsContactMethodModalOpen(contactMethod);
+  const [isContactMethodModalOpen, setIsContactMethodModalOpen] =
+    useState<boolean>(false);
 
-  const [isContactMethodModalOpen, setIsContactMethodModalOpen] = useState<
-    false | IAvailableContactMethod
-  >(false);
+  const [activeContactMethod, setActiveContactMethod] = useState<
+    undefined | IAvailableContactMethod
+  >();
+
+  const handleClick = (contactMethod: IAvailableContactMethod) => {
+    setIsContactMethodModalOpen(true);
+    setActiveContactMethod(contactMethod);
+  };
 
   return (
     <>
       <div className="flex flex-col">
-        <strong>Contact Methods:</strong>
+        <strong className="flex items-center">
+          Contact Methods
+          {/* <span className="ml-1">
+            <FcInfo id="my-element" data-tooltip-content="hello world" />
+          </span> */}
+          :
+        </strong>
         <div className="flex">
-          {AVAILABLE_CONTACT_METHODS.map((contactMethod) => (
+          {AVAILABLE_CONTACT_METHODS.map((contactMethod, idx) => (
             <div
-              className="cursor-pointer"
-              key={contactMethod}
-              onClick={(e) => handleClick(contactMethod)}
+              className="cursor-pointer text-lg"
+              key={idx}
+              onClick={(e) => handleClick(contactMethod.provider)}
             >
-              {iconMap[contactMethod]}
+              <contactMethod.icon />
             </div>
           ))}
         </div>
@@ -33,13 +43,8 @@ export default function ContactMethods() {
       <ContactMethodModal
         isOpen={isContactMethodModalOpen}
         setIsOpen={setIsContactMethodModalOpen}
+        contactMethod={activeContactMethod}
       />
     </>
   );
 }
-
-const iconMap = {
-  whatsapp_link: <FaWhatsapp />,
-  instagram_link: <FaInstagram />,
-  discord_link: <FaDiscord />,
-};

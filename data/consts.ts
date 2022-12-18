@@ -1,4 +1,8 @@
-import { ISignUpSelectOption, IAvailableContactMethod } from "../types/types";
+import { ISignUpSelectOption, IContactMethod } from "../types/types";
+import DiscordIcon from "../ui/icons/Discord";
+import InstagramIcon from "../ui/icons/Instagram";
+import TwitterIcon from "../ui/icons/Twitter";
+import WhatsAppIcon from "../ui/icons/WhatsApp";
 
 export const USER_TYPE_OPTIONS: ISignUpSelectOption[] = [
   { value: "Select the most relevant!", id: 123, disabled: true },
@@ -89,8 +93,21 @@ export const PREMIUM_SEARCH_FILTERS: string[] = [
   "🎺 Jazz",
 ];
 
-export const AVAILABLE_CONTACT_METHODS: IAvailableContactMethod[] = [
-  "instagram_link",
-  "whatsapp_link",
-  "discord_link",
+export const AVAILABLE_CONTACT_METHODS: IContactMethod[] = [
+  {
+    provider: "instagram",
+    icon: InstagramIcon,
+  },
+  {
+    provider: "discord",
+    icon: DiscordIcon,
+  },
+  {
+    provider: "whatsapp",
+    icon: WhatsAppIcon,
+  },
+  {
+    provider: "twitter",
+    icon: TwitterIcon,
+  },
 ];

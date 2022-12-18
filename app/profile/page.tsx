@@ -10,7 +10,7 @@ export default async function ProfilePage() {
     return <div>Unable to load profile at this time ):</div>;
   }
   return (
-    <div className="container m-auto w-full">
+    <div className="container m-auto w-full py-14">
       <ProfileForm profile={profile} />
       <ProfileModal />
     </div>

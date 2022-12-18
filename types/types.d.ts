@@ -12,6 +12,12 @@ export interface ISignUpSelectOption extends IDropdownListOption {
 
 export type IStorageBucket = "avatars" | "sound-snippets";
 export type IAvailableContactMethod =
-  | "instagram_link"
-  | "whatsapp_link"
-  | "discord_link";
+  | "instagram"
+  | "whatsapp"
+  | "discord"
+  | "twitter";
+
+export interface IContactMethod {
+  provider: IAvailableContactMethod;
+  icon: Component;
+}
