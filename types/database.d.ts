@@ -196,6 +196,7 @@ export interface IProfile {
   instagram_link: string | null;
   whatsapp_link: string | null;
   discord_link: string | null;
+  twitter_link: string | null;
 }
 
 interface IThinProfile {

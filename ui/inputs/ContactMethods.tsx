@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { AVAILABLE_CONTACT_METHODS } from "../../data/consts";
-import { IAvailableContactMethod } from "../../types/types";
+import { useLoggedInUser } from "../../providers/userProvider";
+import { IAvailableContactMethod, IContactMethod } from "../../types/types";
 import ContactMethodModal from "../modals/ContactMethodModal";
 
 export default function ContactMethods() {
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
   const [isContactMethodModalOpen, setIsContactMethodModalOpen] =
     useState<boolean>(false);
 
@@ -17,6 +19,11 @@ export default function ContactMethods() {
     setIsContactMethodModalOpen(true);
     setActiveContactMethod(contactMethod);
   };
+
+  if (!loggedInUser) return <div>Loading ...</div>;
+
+  const hasContactMethod = (method: IContactMethod) =>
+    !!loggedInUser[`${method.provider}_link`];
 
   return (
     <>
@@ -31,7 +38,9 @@ export default function ContactMethods() {
         <div className="flex">
           {AVAILABLE_CONTACT_METHODS.map((contactMethod, idx) => (
             <div
-              className="cursor-pointer text-lg"
+              className={`cursor-pointer text-lg hover:opacity-100 ${
+                hasContactMethod(contactMethod) ? "" : "opacity-60"
+              }`}
               key={idx}
               onClick={(e) => handleClick(contactMethod.provider)}
             >
