@@ -14,13 +14,13 @@ export default function TextInput({
   formRegister: UseFormRegister<any>;
 }) {
   return (
-    <label className="flex flex-col">
-      <span className="ml-1 font-bold text-lg">{label}</span>
+    <label className="flex justify-between mb-4">
+      <span className="font-bold text-lg">{label}</span>
       <input
         type="text"
         {...formRegister(formName)}
         placeholder={placeholder}
-        className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800"
+        className="w-3/4 rounded-md shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800"
       />
     </label>
   );

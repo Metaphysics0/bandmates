@@ -16,13 +16,13 @@ export default function TextAreaInput({
   formRegister: UseFormRegister<any>;
 }) {
   return (
-    <label className="flex flex-col">
-      <span className="w-fit ml-1 font-bold text-lg">{label}</span>
+    <label className="flex justify-between mb-4">
+      <span className="font-bold text-lg">{label}</span>
       <textarea
         {...formRegister(formName)}
         rows={rows || 4}
         placeholder={placeholder}
-        className="mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800 min-h-[50px]"
+        className="mb-3 w-3/4 rounded-md shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800 min-h-[50px]"
       ></textarea>
     </label>
   );

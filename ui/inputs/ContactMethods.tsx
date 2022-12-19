@@ -20,7 +20,7 @@ export default function ContactMethods() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex justify-between">
         <strong className="flex items-center">
           Contact Methods
           {/* <span className="ml-1">

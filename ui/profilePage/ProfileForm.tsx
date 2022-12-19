@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IProfile, IProfileUpdateFields } from "../../types/database";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import AutoComplete from "react-google-autocomplete";
-import SignOutButton from "../inputs/signOutButton";
 import { Users } from "../../lib/supabase/db";
 import { useProfileForm } from "../../providers/profileFormProvider";
 import toast, { Toaster } from "react-hot-toast";
@@ -14,9 +12,8 @@ import GeneralTextInput from "../inputs/general/TextInput";
 import TextAreaInput from "../inputs/general/TextAreaInput";
 import UpdateAvatarModal from "../modals/UpdateAvatarModal";
 import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
-import ProfileCardClient from "./ProfileCardClient";
-import Spacer from "../common/Spacer";
 import ContactMethods from "../inputs/ContactMethods";
+import ProfileCardClient from "./ProfileCardClient";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,90 +62,55 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     });
   };
 
-  const formStyles = {
-    input:
-      "mb-3 rounded-2xl shadow-md border-none focus:ring-0 outline-none font-bold text-slate-800",
-    label: "flex flex-col",
-    span: "w-fit ml-1 font-bold text-lg",
-  };
-
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-around pb-5">
-          <div className="flex flex-col justify-between w-1/2">
-            <GeneralTextInput
-              label="Name:"
-              placeholder="Name"
-              formName="full_name"
-              formRegister={register}
-            />
-            <GeneralTextInput
-              label="Artist Type:"
-              placeholder="Guitarist"
-              formName="artist_type"
-              formRegister={register}
-            />
-            <label className={formStyles.label}>
-              <span className={formStyles.span}>Location:</span>
-              <Controller
-                control={control}
-                name="location"
-                render={({ field: { onChange } }) => (
-                  <AutoComplete
-                    placeholder={profile.location || "Enter a location"}
-                    apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
-                    className={formStyles.input + " p-2"}
-                    onPlaceSelected={(place) =>
-                      onChange(place.formatted_address)
-                    }
-                  />
-                )}
-              />
-            </label>
-            <TextAreaInput
-              formRegister={register}
-              formName="bio"
-              placeholder="Talk about yourself"
-              label="Bio:"
-              rows={2}
-            />
-            <ContactMethods />
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <ProfileCardClient />
-            <p className="text-slate-800 font-extrabold text-center mt-2 text-lg drop-shadow-md">
-              This is how you&apos;ll appear! 👆
-            </p>
-            <div
-              className="flex items-center cursor-pointer mx-auto"
-              onClick={() => setIsOpen(true)}
-            >
-              {profile.avatar_url ? (
-                <Image
-                  src={profile.avatar_url}
-                  className="bg-white shadow-md rounded-xl mr-2"
-                  alt="profile picture preview"
-                  width={28}
-                  height={28}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-rows-3 grid-flow-col gap-4"
+      >
+        <div className="col-span-2 flex flex-col justify-between">
+          <GeneralTextInput
+            label="Name:"
+            placeholder="Name"
+            formName="full_name"
+            formRegister={register}
+          />
+          <GeneralTextInput
+            label="Artist Type:"
+            placeholder="Guitarist"
+            formName="artist_type"
+            formRegister={register}
+          />
+          <label className="flex justify-between">
+            <span className="w-fit font-bold text-lg">Location:</span>
+            <Controller
+              control={control}
+              name="location"
+              render={({ field: { onChange } }) => (
+                <AutoComplete
+                  placeholder={profile.location || "Enter a location"}
+                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+                  className="text-input p-2 w-3/4 mb-4"
+                  onPlaceSelected={(place) => onChange(place.formatted_address)}
                 />
-              ) : (
-                <div className="bg-white shadow-md rounded-xl mr-2"></div>
               )}
-              <p className="text-orange-500 cursor-pointer hover:text-orange-400 underline hover:no-underline">
-                Change profile photo
-              </p>
-            </div>
-            <SignOutButton />
-          </div>
+            />
+          </label>
+          <TextAreaInput
+            formRegister={register}
+            formName="bio"
+            placeholder="Talk about yourself"
+            label="Bio:"
+            rows={2}
+          />
+          <ContactMethods />
         </div>
-        <Spacer />
         {/* SOUND SNIPPETS */}
-        <div className="flex flex-col items-center mb-auto">
-          <h3 className={formStyles.span}>Sound Snippets</h3>
+        {/* <div className="col-span-2 flex flex-col items-center mb-auto">
+          <h3 className="w-fit ml-1 font-bold text-lg">Sound Snippets</h3>
           <UploadSoundSnippets />
-        </div>
-        <div className="mt-3 col-span-2 flex justify-center">
+        </div> */}
+        <div className="flex justify-center">
           <button
             type="submit"
             disabled={shouldDisableSubmit}
@@ -156,10 +118,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
               shouldDisableSubmit
                 ? "bg-slate-400 hover:bg-slate-300"
                 : "bg-red-500 hover:bg-red-400"
-            } text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-75`}
+            } text-white h-min font-semibold py-2 px-4 rounded-md shadow-md transition duration-75`}
           >
             Submit
           </button>
+        </div>
+        <div className="row-span-3">
+          <ProfileCardClient />
         </div>
       </form>
       <Toaster position="top-right" />
