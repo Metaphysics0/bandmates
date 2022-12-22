@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { AVAILABLE_CONTACT_METHODS } from "../../data/consts";
+import { SOCIAL_CONTACT_METHODS } from "../../data/consts";
 import { useLoggedInUser } from "../../providers/userProvider";
-import { IAvailableContactMethod, IContactMethod } from "../../types/types";
+import {
+  ISocialContactProvider,
+  ISocialContactMethod,
+} from "../../types/types";
 import ContactMethodModal from "../modals/ContactMethodModal";
 
 export default function ContactMethods() {
@@ -12,17 +15,17 @@ export default function ContactMethods() {
     useState<boolean>(false);
 
   const [activeContactMethod, setActiveContactMethod] = useState<
-    undefined | IAvailableContactMethod
+    undefined | ISocialContactProvider
   >();
 
-  const handleClick = (contactMethod: IAvailableContactMethod) => {
+  const handleClick = (contactMethod: ISocialContactProvider) => {
     setIsContactMethodModalOpen(true);
     setActiveContactMethod(contactMethod);
   };
 
   if (!loggedInUser) return <div>Loading ...</div>;
 
-  const hasContactMethod = (method: IContactMethod) =>
+  const hasContactMethod = (method: ISocialContactMethod) =>
     !!loggedInUser[`${method.provider}_link`];
 
   return (
@@ -36,7 +39,7 @@ export default function ContactMethods() {
           :
         </strong>
         <div className="flex">
-          {AVAILABLE_CONTACT_METHODS.map((contactMethod, idx) => (
+          {SOCIAL_CONTACT_METHODS.map((contactMethod, idx) => (
             <div
               className={`cursor-pointer text-lg hover:opacity-100 ${
                 hasContactMethod(contactMethod) ? "" : "opacity-60"
@@ -52,7 +55,7 @@ export default function ContactMethods() {
       <ContactMethodModal
         isOpen={isContactMethodModalOpen}
         setIsOpen={setIsContactMethodModalOpen}
-        contactMethod={activeContactMethod}
+        contactMethod={activeContactMethod!}
       />
     </>
   );

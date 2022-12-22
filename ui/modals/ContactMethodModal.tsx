@@ -2,8 +2,10 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction } from "react";
+import { useForm } from "react-hook-form";
 import { useLoggedInUser } from "../../providers/userProvider";
-import { IAvailableContactMethod } from "../../types/types";
+import { ISocialContactProvider } from "../../types/types";
+import SocialMediaInput from "../inputs/general/SocialMediaInput";
 
 export default function ContactMethodModal({
   isOpen = false,
@@ -12,10 +14,12 @@ export default function ContactMethodModal({
 }: {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  contactMethod: undefined | IAvailableContactMethod;
+  contactMethod: ISocialContactProvider;
 }) {
   const closeModal = () => setIsOpen(false);
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
+
+  const { register, handleSubmit, watch, control } = useForm();
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -50,9 +54,18 @@ export default function ContactMethodModal({
                 >
                   Link your {contactMethod} account!
                 </Dialog.Title>
-                <div className="btn-submit">Save</div>
-                <div className="cursor-pointer" onClick={closeModal}>
-                  <p className="text-slate-500">Cancel</p>
+                <SocialMediaInput
+                  contactMethod={contactMethod}
+                  formRegister={register}
+                />
+                <div className="flex ml-auto items-center">
+                  <p
+                    className="cursor-pointer text-slate-500 mr-2"
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </p>
+                  <div className="btn-submit">Save</div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

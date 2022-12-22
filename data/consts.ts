@@ -1,4 +1,4 @@
-import { ISignUpSelectOption, IContactMethod } from "../types/types";
+import { ISignUpSelectOption, ISocialContactMethod } from "../types/types";
 import DiscordIcon from "../ui/icons/Discord";
 import InstagramIcon from "../ui/icons/Instagram";
 import TwitterIcon from "../ui/icons/Twitter";
@@ -93,7 +93,7 @@ export const PREMIUM_SEARCH_FILTERS: string[] = [
   "🎺 Jazz",
 ];
 
-export const AVAILABLE_CONTACT_METHODS: IContactMethod[] = [
+export const SOCIAL_CONTACT_METHODS: ISocialContactMethod[] = [
   {
     provider: "instagram",
     icon: InstagramIcon,
