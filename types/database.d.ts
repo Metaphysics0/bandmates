@@ -215,4 +215,8 @@ export interface IProfileUpdateFields {
   location?: string | null;
   liked_users?: string[] | null;
   tags?: (string | undefined)[] | null;
+  instagram_link?: string | null;
+  whatsapp_link?: string | null;
+  discord_link?: string | null;
+  twitter_link?: string | null;
 }

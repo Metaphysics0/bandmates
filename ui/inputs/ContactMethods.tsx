@@ -42,7 +42,7 @@ export default function ContactMethods() {
           {SOCIAL_CONTACT_METHODS.map((contactMethod, idx) => (
             <div
               className={`cursor-pointer text-lg hover:opacity-100 ${
-                hasContactMethod(contactMethod) ? "" : "opacity-60"
+                hasContactMethod(contactMethod) ? "" : "opacity-50"
               }`}
               key={idx}
               onClick={(e) => handleClick(contactMethod.provider)}

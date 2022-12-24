@@ -21,3 +21,10 @@ export interface ISocialContactMethod {
   provider: ISocialContactProvider;
   icon: Component;
 }
+
+export interface ISocialContactFormValue {
+  instagram?: string;
+  whatsapp?: string;
+  discord?: string;
+  twitter?: string;
+}

@@ -2,10 +2,12 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoggedInUser } from "../../providers/userProvider";
 import { ISocialContactProvider } from "../../types/types";
 import SocialMediaInput from "../inputs/general/SocialMediaInput";
+import { Users } from "../../lib/supabase/db";
+import toast from "react-hot-toast";
 
 export default function ContactMethodModal({
   isOpen = false,
@@ -16,14 +18,41 @@ export default function ContactMethodModal({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   contactMethod: ISocialContactProvider;
 }) {
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
-  const { register, handleSubmit, watch, control } = useForm();
+  const { register, unregister, handleSubmit, reset } = useForm();
+
+  const onSubmit: SubmitHandler<any> = async (
+    socialField: Record<ISocialContactProvider, string>
+  ) => {
+    const params = {
+      [`${contactMethod}_link`]: socialField[contactMethod],
+    };
+
+    if (!loggedInUser) return;
+
+    const { error } = await Users.updateById(loggedInUser.id, params);
+
+    if (error) {
+      toast.error("Error updating profile");
+      console.error(error);
+      return;
+    }
+
+    setLoggedInUser({ ...loggedInUser, ...params });
+    toast(`Succesfully added ${contactMethod} link`, {
+      icon: "🔥",
+      duration: 2500,
+    });
+    closeModal();
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-50" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,7 +76,7 @@ export default function ContactMethodModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-0 text-left align-middle shadow-xl transition-all flex flex-col items-center">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-0 text-left align-middle shadow-xl transition-all flex flex-col items-center pb-3">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-bold leading-6 text-gray-900 py-5"
@@ -65,7 +94,9 @@ export default function ContactMethodModal({
                   >
                     Cancel
                   </p>
-                  <div className="btn-submit">Save</div>
+                  <div className="btn-submit" onClick={handleSubmit(onSubmit)}>
+                    Save
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
