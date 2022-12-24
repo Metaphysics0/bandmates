@@ -11,3 +11,20 @@ export interface ISignUpSelectOption extends IDropdownListOption {
 }
 
 export type IStorageBucket = "avatars" | "sound-snippets";
+export type ISocialContactProvider =
+  | "instagram"
+  | "whatsapp"
+  | "discord"
+  | "twitter";
+
+export interface ISocialContactMethod {
+  provider: ISocialContactProvider;
+  icon: Component;
+}
+
+export interface ISocialContactFormValue {
+  instagram?: string;
+  whatsapp?: string;
+  discord?: string;
+  twitter?: string;
+}

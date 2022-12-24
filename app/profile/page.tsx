@@ -1,7 +1,6 @@
 import ProfileForm from "../../ui/profilePage/ProfileForm";
 import { Users } from "../../lib/supabase/db";
 import supabaseServer from "../../lib/supabase/supabase-server";
-import ProfileCardClient from "../../ui/profilePage/ProfileCardClient";
 import ProfileModal from "../../ui/modals/ProfileModal";
 
 export default async function ProfilePage() {
@@ -11,14 +10,8 @@ export default async function ProfilePage() {
     return <div>Unable to load profile at this time ):</div>;
   }
   return (
-    <div className="container grid grid-cols-3 m-auto bg-white p-3 rounded-xl drop-shadow-lg mt-10 w-full">
+    <div className="container m-auto w-full py-14">
       <ProfileForm profile={profile} />
-      <div className="flex flex-col items-center justify-center">
-        <ProfileCardClient />
-        <p className="text-slate-800 font-extrabold text-center mt-2 text-lg drop-shadow-md">
-          This is how you&apos;ll appear! 👆
-        </p>
-      </div>
       <ProfileModal />
     </div>
   );
