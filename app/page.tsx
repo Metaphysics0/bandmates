@@ -10,6 +10,8 @@ import ProfileModal from "../ui/modals/ProfileModal";
 export default async function Home() {
   const musicians = await getMusicians();
 
+  // console.log("MUSICIANS", JSON.stringify(musicians, null, 2));
+
   return (
     <main>
       <Hero />

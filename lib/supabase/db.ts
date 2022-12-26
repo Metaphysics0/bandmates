@@ -11,22 +11,33 @@ import {
 import supabase from "./supabase-browser";
 
 class UsersApi {
-  async list(loggedInUserId?: string | null) {
-    const baseCriteria = supabase.from("profiles").select(`*`);
+  private get allProfilesCriteria() {
+    return supabase.from("profiles").select(`*`);
+  }
 
+  private get onlyEligibleProfilesCriteria() {
+    return supabase
+      .from("profiles")
+      .select(`*`)
+      .eq("is_eligible_for_listing", true);
+  }
+
+  async list(loggedInUserId?: string | null) {
     if (loggedInUserId) {
-      return await baseCriteria.not("id", "eq", loggedInUserId);
+      return await this.allProfilesCriteria.not("id", "eq", loggedInUserId);
     }
 
-    return await baseCriteria;
+    return await this.allProfilesCriteria;
   }
 
   async listByIds(ids: string[]) {
-    return supabase.from("profiles").select(`*`).in("id", ids);
+    console.log("IDS", ids);
+
+    return this.allProfilesCriteria.in("id", ids);
   }
 
   async findById(uuid: string) {
-    return await supabase.from("profiles").select("*").eq("id", uuid);
+    return await this.allProfilesCriteria.eq("id", uuid);
   }
 
   async updateById(uuid: string, fields: IProfileUpdateFields) {

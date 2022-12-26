@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import HeroProfileCard from "./profileCard/HeroProfileCard";
-import ProfileCardSkeleton from "./skeletons/ProfileCard";
 
 export default function Hero() {
   return (
@@ -16,9 +14,7 @@ export default function Hero() {
         </p>
       </div>
       <div className="z-10">
-        <Suspense fallback={<ProfileCardSkeleton />}>
-          <HeroProfileCard />
-        </Suspense>
+        <HeroProfileCard />
       </div>
       <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
         <video
