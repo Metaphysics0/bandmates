@@ -64,11 +64,12 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
 
   return (
     <>
+      <h5 className="text-2xl font-bold mb-9">General Info</h5>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-rows-3 grid-flow-col gap-4"
+        className="grid grid-rows-2 grid-flow-col gap-4"
       >
-        <div className="col-span-2 flex flex-col justify-between">
+        <div className="col-span-2 row-span-2 flex flex-col justify-between">
           <GeneralTextInput
             label="Name:"
             placeholder="Name"
@@ -104,11 +105,6 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             rows={2}
           />
           <ContactMethods />
-          <div className="border-b border-slate-500 h-1 my-3"></div>
-          <div className="col-span-2 flex items-center mb-auto mt-4">
-            <label className="font-bold text-lg">Sounds:</label>
-            <UploadSoundSnippets />
-          </div>
           <div className="flex justify-center">
             <button
               type="submit"
@@ -122,8 +118,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
               Submit
             </button>
           </div>
+          <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
+          <div className="">
+            <h3 className="text-2xl font-bold mb-9">Sounds</h3>
+            <UploadSoundSnippets />
+          </div>
         </div>
-        <div className="row-span-3">
+        <div className="row-span-2">
           <ProfileCardClient />
         </div>
       </form>

@@ -52,7 +52,7 @@ export default function UploadSoundSnippets() {
         {(loggedInUser.sound_snippets || []).map(soundSnippet)}
       </div>
       <div
-        className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-fit"
+        className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-fit h-min"
         onClick={() => inputRef.current?.click()}
       >
         <input

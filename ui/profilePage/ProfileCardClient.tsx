@@ -15,7 +15,7 @@ export default function ProfileCardClient() {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <ProfileCard profile={loggedInUser} />;
+        <ProfileCard profile={loggedInUser} />
         <p className="text-slate-800 font-extrabold text-center mt-2 text-lg drop-shadow-md">
           This is how you&apos;ll appear! 👆
         </p>

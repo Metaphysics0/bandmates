@@ -3,5 +3,5 @@ export default async function ProfilePageLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return <section className="p-2">{children}</section>;
 }

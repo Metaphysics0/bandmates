@@ -10,12 +10,12 @@ export const ROUTES: IRoute[] = [
     slug: "",
     icon: HiHome,
   },
-  {
-    name: "Explore",
-    description: "Discover talent",
-    slug: "explore",
-    icon: MdExplore,
-  },
+  // {
+  //   name: "Explore",
+  //   description: "Discover talent",
+  //   slug: "explore",
+  //   icon: MdExplore,
+  // },
   // {
   //   name: "Messages",
   //   description: "Collaborate and talk with other artists!",
