@@ -1,4 +1,4 @@
-import MusiciansListSkeleton from "../../../ui/skeletons/MusiciansList";
+import MusiciansListSkeleton from "../../ui/skeletons/MusiciansList";
 
 export default function LoadingLikes() {
   return (

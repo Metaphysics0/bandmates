@@ -104,24 +104,24 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             rows={2}
           />
           <ContactMethods />
-        </div>
-        {/* SOUND SNIPPETS */}
-        {/* <div className="col-span-2 flex flex-col items-center mb-auto">
-          <h3 className="w-fit ml-1 font-bold text-lg">Sound Snippets</h3>
-          <UploadSoundSnippets />
-        </div> */}
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            disabled={shouldDisableSubmit}
-            className={`${
-              shouldDisableSubmit
-                ? "bg-slate-400 hover:bg-slate-300"
-                : "bg-red-500 hover:bg-red-400"
-            } text-white h-min font-semibold py-2 px-4 rounded-md shadow-md transition duration-75`}
-          >
-            Submit
-          </button>
+          <div className="border-b border-slate-500 h-1 my-3"></div>
+          <div className="col-span-2 flex items-center mb-auto mt-4">
+            <label className="font-bold text-lg">Sounds:</label>
+            <UploadSoundSnippets />
+          </div>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={shouldDisableSubmit}
+              className={`${
+                shouldDisableSubmit
+                  ? "bg-slate-400 hover:bg-slate-300"
+                  : "bg-red-500 hover:bg-red-400"
+              } text-white h-min font-semibold py-2 px-4 rounded-md shadow-md transition duration-75`}
+            >
+              Submit
+            </button>
+          </div>
         </div>
         <div className="row-span-3">
           <ProfileCardClient />

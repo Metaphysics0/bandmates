@@ -1,6 +1,6 @@
-import { Users } from "../../../lib/supabase/db";
-import supabaseServer from "../../../lib/supabase/supabase-server";
-import MusiciansList from "../../../ui/MusiciansList";
+import { Users } from "../../lib/supabase/db";
+import supabaseServer from "../../lib/supabase/supabase-server";
+import MusiciansList from "../../ui/MusiciansList";
 
 export default async function Likes() {
   const { data: authUser } = await supabaseServer().auth.getUser();
@@ -17,7 +17,12 @@ export default async function Likes() {
 
   if (!likedUsers || error) return generalError;
 
-  return <MusiciansList musicians={likedUsers} />;
+  return (
+    <div className="pt-10">
+      <h1 className="mx-auto">Liked users</h1>
+      <MusiciansList musicians={likedUsers} />
+    </div>
+  );
 }
 
 const generalError = (

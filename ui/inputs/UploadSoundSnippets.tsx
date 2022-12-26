@@ -38,11 +38,21 @@ export default function UploadSoundSnippets() {
     }
   };
 
+  if (!loggedInUser) {
+    return (
+      <div>
+        <p>Loading sound snippets...</p>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {(loggedInUser?.sound_snippets || []).map(soundSnippet)}
+    <div className="flex justify-between w-full">
+      <div className="flex flex-col">
+        {(loggedInUser.sound_snippets || []).map(soundSnippet)}
+      </div>
       <div
-        className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-[calc(100%_-_10rem)]"
+        className="flex items-center cursor-pointer justify-center mt-3 border-[#a9a9a9] border bg-[#d8d8d8] hover:bg-[#adadad] transition-all rounded-full p-3 w-fit"
         onClick={() => inputRef.current?.click()}
       >
         <input
@@ -56,13 +66,16 @@ export default function UploadSoundSnippets() {
           Add Sound! <BsSoundwave />
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
 const soundSnippet = (src: string, idx: number) => (
-  <audio key={idx} controls className="mb-2">
-    <source src={src} type="audio/wav" />
-    Your browser does not support the audio element.
-  </audio>
+  <>
+    <span>{idx + 1}.</span>
+    <audio key={idx} controls className="mb-2">
+      <source src={src} type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </>
 );
