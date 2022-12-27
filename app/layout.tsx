@@ -9,6 +9,7 @@ import { Database } from "../types/database";
 import { headers, cookies } from "next/headers";
 import { Users } from "./../lib/supabase/db";
 import Providers from "./providers";
+import { SpotifyApi } from "../lib/spotify";
 
 export default async function RootLayout({
   children,
@@ -22,6 +23,13 @@ export default async function RootLayout({
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  console.log("SESSION", session);
+
+  // if (session?.provider_token) {
+  //   const spotify = new SpotifyApi(session.provider_token);
+  //   const data = await spotify.getUsersTopArtists();
+  // }
 
   const user = await Users.loadUserFromSession(session);
 

@@ -1,6 +1,5 @@
 "use client";
 
-import _ from "lodash";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import supabase from "../lib/supabase/supabase-browser";
@@ -24,8 +23,6 @@ export default function SupabaseListener({
 
   useEffect(() => {
     if (user && !loggedInUser) {
-      console.log("SETTING USER!", JSON.stringify(user, null, 2));
-
       setLoggedInUser(user);
     }
     supabase.auth.onAuthStateChange((event, session) => {

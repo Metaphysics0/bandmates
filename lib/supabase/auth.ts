@@ -3,6 +3,10 @@ import supabase from "./supabase-browser";
 export async function SignInWithSpotify() {
   return await supabase.auth.signInWithOAuth({
     provider: "spotify",
+    options: {
+      scopes:
+        "user-top-read user-read-currently-playing user-read-playback-state",
+    },
   });
 }
 
