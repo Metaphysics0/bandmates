@@ -10,6 +10,7 @@ import { headers, cookies } from "next/headers";
 import { Users } from "./../lib/supabase/db";
 import Providers from "./providers";
 import { SpotifyApi } from "../lib/spotify";
+import { AuthSession } from "@supabase/supabase-js";
 
 export default async function RootLayout({
   children,
@@ -26,10 +27,11 @@ export default async function RootLayout({
 
   console.log("SESSION", session);
 
-  // if (session?.provider_token) {
-  //   const spotify = new SpotifyApi(session.provider_token);
-  //   const data = await spotify.getUsersTopArtists();
-  // }
+  if (session?.provider_token) {
+    console.log("SESSION", session);
+
+    await getAndSetTopSpotifyArtists(session);
+  }
 
   const user = await Users.loadUserFromSession(session);
 
@@ -45,4 +47,14 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+async function getAndSetTopSpotifyArtists(session: AuthSession) {
+  const spotify = new SpotifyApi(session.provider_token!);
+  const spotifyData = await spotify.getUsersTopArtists();
+  console.log("SPOTIFY DATA", spotifyData);
+
+  if (!spotifyData?.items) return;
+
+  await Users.setSpotifyTopArtists(session.user.id, spotifyData?.items);
 }

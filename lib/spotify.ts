@@ -1,3 +1,5 @@
+import { ITopSpotifyArtist } from "../types/database";
+
 export class SpotifyApi {
   accessToken: string;
   private BASE_URL = "https://api.spotify.com/v1/me/";
@@ -6,13 +8,12 @@ export class SpotifyApi {
     this.accessToken = accessToken;
   }
 
-  async getUsersTopArtists(): Promise<any> {
+  async getUsersTopArtists(): Promise<ITopArtistsResponse | undefined> {
     try {
       const response = await fetch(this.BASE_URL + "top/artists", {
         headers: this.authorizationHeaders,
       });
-      // @ts-ignore
-      const json = await response.json();
+      return await response.json();
     } catch (error) {
       console.log("unable to get users top items", error);
     }
@@ -24,4 +25,14 @@ export class SpotifyApi {
       "Content-Type": "application/json",
     };
   }
+}
+
+interface ITopArtistsResponse {
+  items: ITopSpotifyArtist[];
+  total: 50;
+  limit: 20;
+  offset: 0;
+  previous: null;
+  href: string;
+  next: string;
 }

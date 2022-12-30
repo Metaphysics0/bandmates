@@ -6,6 +6,7 @@ import ProfileCard from "../profileCard/ProfileCard";
 import ProfileCardSkeleton from "../skeletons/ProfileCard";
 import UpdateAvatarModal from "../modals/UpdateAvatarModal";
 import { useState } from "react";
+import SignOutButton from "../inputs/signOutButton";
 
 export default function ProfileCardClient() {
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
@@ -37,6 +38,9 @@ export default function ProfileCardClient() {
           <p className="text-orange-500 cursor-pointer hover:text-orange-400 underline hover:no-underline">
             Change profile photo
           </p>
+        </div>
+        <div>
+          <SignOutButton />
         </div>
       </div>
       <UpdateAvatarModal

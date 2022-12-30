@@ -7,6 +7,7 @@ import {
   IProfile,
   IProfileUpdateFields,
   IThinProfile,
+  ITopSpotifyArtist,
 } from "../../types/database";
 import supabase from "./supabase-browser";
 
@@ -31,8 +32,6 @@ class UsersApi {
   }
 
   async listByIds(ids: string[]) {
-    console.log("IDS", ids);
-
     return this.allProfilesCriteria.in("id", ids);
   }
 
@@ -104,6 +103,12 @@ class UsersApi {
       .from("profiles")
       .select(`liked_users`)
       .eq("id", userId);
+  }
+
+  async setSpotifyTopArtists(uuid: string, items: ITopSpotifyArtist[]) {
+    console.log("UPDATING SPOTIFY USER", items);
+
+    return await this.updateById(uuid, { spotify_data: { items } });
   }
 }
 export const Users = new UsersApi();
