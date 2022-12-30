@@ -9,8 +9,12 @@ export default async function ProfilePage() {
   if (!profile) {
     return <div>Unable to load profile at this time ):</div>;
   }
+
+  console.log("PROFILE", profile.spotify_data);
+
   return (
     <>
+      <pre>{JSON.stringify(profile.spotify_data.items)}</pre>
       <div className="container m-auto w-full bg-white p-3 rounded-md">
         <ProfileForm profile={profile} />
       </div>

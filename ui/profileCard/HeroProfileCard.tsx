@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense } from "react";
 import { USER_TYPE_OPTIONS } from "../../data/consts";
 import { useLoggedInUser } from "../../providers/userProvider";
 import { IProfile } from "../../types/database";
@@ -13,13 +12,13 @@ export default function HeroProfileCard() {
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
   return (
-    <Suspense fallback={<h1>loading...</h1>}>
+    <>
       {loggedInUser ? (
         <SignedInProfileCard profile={loggedInUser} />
       ) : (
         <SignUpCard />
       )}
-    </Suspense>
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import NavMenu from "../ui/NavMenu";
 import SupabaseListener from "../utils/supabase-listener";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../types/database";
+import { Database, IProfile } from "../types/database";
 import { headers, cookies } from "next/headers";
 import { Users } from "./../lib/supabase/db";
 import Providers from "./providers";
@@ -25,15 +25,11 @@ export default async function RootLayout({
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log("SESSION", session);
-
-  if (session?.provider_token) {
-    console.log("SESSION", session);
-
-    await getAndSetTopSpotifyArtists(session);
-  }
-
   const user = await Users.loadUserFromSession(session);
+
+  if (session?.provider_token && user) {
+    await getAndSetTopSpotifyArtists(user, session);
+  }
 
   return (
     <html>
@@ -49,12 +45,17 @@ export default async function RootLayout({
   );
 }
 
-async function getAndSetTopSpotifyArtists(session: AuthSession) {
-  const spotify = new SpotifyApi(session.provider_token!);
-  const spotifyData = await spotify.getUsersTopArtists();
-  console.log("SPOTIFY DATA", spotifyData);
+async function getAndSetTopSpotifyArtists(
+  user: IProfile,
+  session: AuthSession
+) {
+  try {
+    const spotify = new SpotifyApi(session.provider_token!);
+    const spotifyData = await spotify.getUsersTopArtists();
+    if (!spotifyData?.items) return;
 
-  if (!spotifyData?.items) return;
-
-  await Users.setSpotifyTopArtists(session.user.id, spotifyData?.items);
+    await Users.setSpotifyTopArtists(user.id, spotifyData?.items);
+  } catch (error) {
+    console.warn("Unable to set spotify data on user", error);
+  }
 }

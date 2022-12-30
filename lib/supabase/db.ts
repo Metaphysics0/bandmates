@@ -17,10 +17,7 @@ class UsersApi {
   }
 
   private get onlyEligibleProfilesCriteria() {
-    return supabase
-      .from("profiles")
-      .select(`*`)
-      .eq("is_eligible_for_listing", true);
+    return this.allProfilesCriteria.eq("is_eligible_for_listing", true);
   }
 
   async list(loggedInUserId?: string | null) {
@@ -106,7 +103,7 @@ class UsersApi {
   }
 
   async setSpotifyTopArtists(uuid: string, items: ITopSpotifyArtist[]) {
-    console.log("UPDATING SPOTIFY USER", items);
+    console.log("UPDATING USER with the items:", items);
 
     return await this.updateById(uuid, { spotify_data: { items } });
   }

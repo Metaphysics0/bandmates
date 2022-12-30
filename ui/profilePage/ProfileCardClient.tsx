@@ -7,10 +7,37 @@ import ProfileCardSkeleton from "../skeletons/ProfileCard";
 import UpdateAvatarModal from "../modals/UpdateAvatarModal";
 import { useState } from "react";
 import SignOutButton from "../inputs/signOutButton";
+import { Users } from "../../lib/supabase/db";
 
 export default function ProfileCardClient() {
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+
+  const MOCK_DATA = [
+    {
+      external_urls: [],
+      followers: [],
+      genres: [],
+      href: "https://api.spotify.com/v1/artists/5LyRnL0rysObxDRxzSfV1z",
+      id: "5LyRnL0rysObxDRxzSfV1z",
+      images: [],
+      name: "Counterparts",
+      popularity: 53,
+      type: "artist",
+      uri: "spotify:artist:5LyRnL0rysObxDRxzSfV1z",
+    },
+  ];
+
+  const updateThings = async () => {
+    try {
+      await Users.updateById(loggedInUser.id, {
+        // @ts-ignore
+        spotify_data: { items: MOCK_DATA },
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   if (!loggedInUser) return <ProfileCardSkeleton />;
   return (
@@ -42,6 +69,7 @@ export default function ProfileCardClient() {
         <div>
           <SignOutButton />
         </div>
+        <button onClick={updateThings}>Update stuff</button>
       </div>
       <UpdateAvatarModal
         isOpen={isAvatarModalOpen}
