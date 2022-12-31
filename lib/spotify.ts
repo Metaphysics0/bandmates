@@ -1,8 +1,11 @@
-import { ITopSpotifyArtist } from "../types/database";
+import { Session } from "@supabase/auth-helpers-nextjs";
+import { IProfile, ITopSpotifyArtist } from "../types/database";
+import { isDateWithinOneWeek } from "../utils/helperMethods";
+import { Users } from "./supabase/db";
 
 export class SpotifyApi {
-  accessToken: string;
   private BASE_URL = "https://api.spotify.com/v1/me/";
+  accessToken: string;
 
   constructor(accessToken: string) {
     this.accessToken = accessToken;
@@ -16,6 +19,24 @@ export class SpotifyApi {
       return await response.json();
     } catch (error) {
       console.log("unable to get users top items", error);
+    }
+  }
+
+  async getAndSetTopSpotifyArtists(user: IProfile): Promise<any> {
+    const { spotify_data_updated_at: lastUpdatedAt = "" } = user;
+    if (lastUpdatedAt && isDateWithinOneWeek(lastUpdatedAt)) {
+      console.warn("User had their spotify data updated recently. Skipping");
+      return;
+    }
+    try {
+      const spotifyData = await this.getUsersTopArtists();
+      if (!spotifyData?.items) return;
+      await Users.setSpotifyTopArtists(user.id, spotifyData.items);
+    } catch (error) {
+      console.error(
+        "Error setting spotify artists",
+        JSON.stringify(error, null, 2)
+      );
     }
   }
 

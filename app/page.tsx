@@ -1,6 +1,5 @@
 import { Users } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
-import SearchSection from "../ui/SearchSection";
 import MusiciansList from "../ui/MusiciansList";
 import SignUpModal from "../ui/modals/SignUpModal";
 import supabaseServer from "../lib/supabase/supabase-server";

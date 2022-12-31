@@ -10,7 +10,7 @@ export default async function ProfilePage() {
     return <div>Unable to load profile at this time ):</div>;
   }
 
-  console.log("PROFILE", profile.spotify_data);
+  console.log("PROFILE", profile);
 
   return (
     <>

@@ -9,3 +9,8 @@ export const compatObject = (obj: object) =>
 
 export const printAsJson = (obj: object): void =>
   console.log(JSON.stringify(obj, null, 2));
+
+export const isDateWithinOneWeek = (date: string): boolean => {
+  const weekInMs = 604800000;
+  return Date.parse(date) - weekInMs >= Date.now() - weekInMs;
+};

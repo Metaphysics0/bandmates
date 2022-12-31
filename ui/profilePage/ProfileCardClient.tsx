@@ -30,10 +30,13 @@ export default function ProfileCardClient() {
 
   const updateThings = async () => {
     try {
-      await Users.updateById(loggedInUser.id, {
+      // @ts-ignore
+      const response = await Users.updateById(loggedInUser.id, {
         // @ts-ignore
         spotify_data: { items: MOCK_DATA },
       });
+
+      console.log("RESPONSE", response);
     } catch (error) {
       console.log("error", error);
     }

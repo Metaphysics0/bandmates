@@ -198,6 +198,7 @@ export interface IProfile {
   discord_link: string | null;
   twitter_link: string | null;
   spotify_data: { items: ITopSpotifyArtist[] };
+  spotify_data_updated_at: string | null;
 }
 
 interface IThinProfile {
@@ -221,6 +222,7 @@ export interface IProfileUpdateFields {
   discord_link?: string | null;
   twitter_link?: string | null;
   spotify_data?: { items: ITopSpotifyArtist[] };
+  spotify_data_updated_at?: string | null;
 }
 
 export interface ITopSpotifyArtist {

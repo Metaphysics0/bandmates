@@ -11,7 +11,7 @@ import { IProfile } from "../types/database";
   1. refreshing the router & session when the auth state changes.
   2. initializing the user on init.
 */
-export default function SupabaseListener({
+export default function SupabaseSessionHandler({
   accessToken,
   user,
 }: {

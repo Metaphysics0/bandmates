@@ -103,9 +103,10 @@ class UsersApi {
   }
 
   async setSpotifyTopArtists(uuid: string, items: ITopSpotifyArtist[]) {
-    console.log("UPDATING USER with the items:", items);
-
-    return await this.updateById(uuid, { spotify_data: { items } });
+    return await this.updateById(uuid, {
+      spotify_data: { items },
+      spotify_data_updated_at: new Date().toJSON(),
+    });
   }
 }
 export const Users = new UsersApi();
