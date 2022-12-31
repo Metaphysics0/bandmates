@@ -22,22 +22,30 @@ export class SpotifyApi {
     }
   }
 
-  async getAndSetTopSpotifyArtists(user: IProfile): Promise<any> {
+  async getAndSetTopSpotifyArtists(
+    user: IProfile
+  ): Promise<ITopSpotifyArtist[] | undefined> {
     const { spotify_data_updated_at: lastUpdatedAt = "" } = user;
     if (lastUpdatedAt && isDateWithinOneWeek(lastUpdatedAt)) {
       console.warn("User had their spotify data updated recently. Skipping");
       return;
     }
-    try {
-      const spotifyData = await this.getUsersTopArtists();
-      if (!spotifyData?.items) return;
-      await Users.setSpotifyTopArtists(user.id, spotifyData.items);
-    } catch (error) {
+    const spotifyData = await this.getUsersTopArtists();
+    if (!spotifyData?.items) return;
+
+    const { error } = await Users.setSpotifyTopArtists(
+      user.id,
+      spotifyData.items
+    );
+
+    if (error) {
       console.error(
         "Error setting spotify artists",
         JSON.stringify(error, null, 2)
       );
     }
+
+    return spotifyData.items;
   }
 
   private get authorizationHeaders(): Record<string, string> {

@@ -24,11 +24,16 @@ export default async function RootLayout({
     data: { session },
   } = await supabase.auth.getSession();
 
-  const user = await Users.loadUserFromSession(session);
+  let user = await Users.loadUserFromSession(session);
 
   if (user && session?.provider_token) {
     const spotify = new SpotifyApi(session.provider_token);
-    await spotify.getAndSetTopSpotifyArtists(user);
+    const items = await spotify.getAndSetTopSpotifyArtists(user);
+    if (Array.isArray(items)) {
+      // setting the user's top artists for the initial session load.:wq
+
+      user = { ...user, spotify_data: { items } };
+    }
   }
 
   return (

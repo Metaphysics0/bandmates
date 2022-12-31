@@ -12,5 +12,5 @@ export const printAsJson = (obj: object): void =>
 
 export const isDateWithinOneWeek = (date: string): boolean => {
   const weekInMs = 604800000;
-  return Date.parse(date) - weekInMs >= Date.now() - weekInMs;
+  return Date.parse(date) + weekInMs >= Date.now();
 };
