@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
+import GraphScreen from "../spotify/pie/GraphScreen";
 import UsersTopArtists from "../spotify/UsersTopArtists";
 
 export default function ProfileModal() {
@@ -45,6 +46,9 @@ export default function ProfileModal() {
                 <div>
                   <strong>Top Artists:</strong>
                   <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
+                </div>
+                <div>
+                  <GraphScreen artists={profile?.spotify_data?.items ?? []} />
                 </div>
               </section>
               <section>
