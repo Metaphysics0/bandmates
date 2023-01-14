@@ -115,11 +115,11 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
                   : "bg-red-500 hover:bg-red-400"
               } text-white h-min font-semibold py-2 px-4 rounded-md shadow-md transition duration-75`}
             >
-              Submit
+              Update
             </button>
           </div>
           <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
-          <div className="">
+          <div>
             <h3 className="text-2xl font-bold mb-9">Sounds</h3>
             <UploadSoundSnippets />
           </div>

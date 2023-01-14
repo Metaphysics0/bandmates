@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { BiPaperPlane } from "react-icons/bi";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
+import UsersTopArtists from "../spotify/UsersTopArtists";
 
 export default function ProfileModal() {
   const [{ shouldShowModal, profile }, setShouldShowProfileModal] =
@@ -42,6 +41,11 @@ export default function ProfileModal() {
                   <strong>Bio:</strong>
                   <p>{profile?.bio}</p>
                 </div>
+
+                <div>
+                  <strong>Top Artists:</strong>
+                  <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
+                </div>
               </section>
               <section>
                 <div className="h-52 w-52">
@@ -54,13 +58,6 @@ export default function ProfileModal() {
                   />
                 </div>
               </section>
-            </div>
-            <div>
-              <Link href="/messages">
-                <button className="profile-btn flex items-center">
-                  Message! <BiPaperPlane />
-                </button>
-              </Link>
             </div>
           </div>
         </div>

@@ -1,22 +1,22 @@
 import { Users } from "../lib/supabase/db";
 import Hero from "../ui/Hero";
-import SearchSection from "../ui/SearchSection";
 import MusiciansList from "../ui/MusiciansList";
 import SignUpModal from "../ui/modals/SignUpModal";
 import supabaseServer from "../lib/supabase/supabase-server";
 import { IProfile } from "../types/database";
 import ProfileModal from "../ui/modals/ProfileModal";
+import MusiciansListTitle from "../ui/MusiciansListTitle";
 
 export default async function Home() {
   const musicians = await getMusicians();
 
-  // console.log("MUSICIANS", JSON.stringify(musicians, null, 2));
-
   return (
     <main>
       <Hero />
-      <SearchSection />
-      <MusiciansList musicians={musicians} />
+      <div className="p-3">
+        <MusiciansListTitle />
+        <MusiciansList musicians={musicians} />
+      </div>
       <SignUpModal />
       <ProfileModal />
     </main>

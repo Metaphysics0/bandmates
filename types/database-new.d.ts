@@ -56,6 +56,8 @@ export interface Database {
           is_eligible_for_listing: boolean | null
           soundcloud_link: string | null
           spotify_link: string | null
+          spotify_data: Json | null
+          spotify_data_updated_at: string | null
         }
         Insert: {
           id?: string
@@ -77,6 +79,8 @@ export interface Database {
           is_eligible_for_listing?: boolean | null
           soundcloud_link?: string | null
           spotify_link?: string | null
+          spotify_data?: Json | null
+          spotify_data_updated_at?: string | null
         }
         Update: {
           id?: string
@@ -98,6 +102,8 @@ export interface Database {
           is_eligible_for_listing?: boolean | null
           soundcloud_link?: string | null
           spotify_link?: string | null
+          spotify_data?: Json | null
+          spotify_data_updated_at?: string | null
         }
       }
     }

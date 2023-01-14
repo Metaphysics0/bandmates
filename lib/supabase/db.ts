@@ -7,6 +7,7 @@ import {
   IProfile,
   IProfileUpdateFields,
   IThinProfile,
+  ITopSpotifyArtist,
 } from "../../types/database";
 import supabase from "./supabase-browser";
 
@@ -16,10 +17,7 @@ class UsersApi {
   }
 
   private get onlyEligibleProfilesCriteria() {
-    return supabase
-      .from("profiles")
-      .select(`*`)
-      .eq("is_eligible_for_listing", true);
+    return this.allProfilesCriteria.eq("is_eligible_for_listing", true);
   }
 
   async list(loggedInUserId?: string | null) {
@@ -31,8 +29,6 @@ class UsersApi {
   }
 
   async listByIds(ids: string[]) {
-    console.log("IDS", ids);
-
     return this.allProfilesCriteria.in("id", ids);
   }
 
@@ -104,6 +100,13 @@ class UsersApi {
       .from("profiles")
       .select(`liked_users`)
       .eq("id", userId);
+  }
+
+  async setSpotifyTopArtists(uuid: string, items: ITopSpotifyArtist[]) {
+    return await this.updateById(uuid, {
+      spotify_data: { items },
+      spotify_data_updated_at: new Date().toJSON(),
+    });
   }
 }
 export const Users = new UsersApi();

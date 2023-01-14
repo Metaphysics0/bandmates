@@ -9,6 +9,7 @@ export default async function ProfilePage() {
   if (!profile) {
     return <div>Unable to load profile at this time ):</div>;
   }
+
   return (
     <>
       <div className="container m-auto w-full bg-white p-3 rounded-md">

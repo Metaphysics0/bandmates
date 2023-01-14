@@ -197,6 +197,8 @@ export interface IProfile {
   whatsapp_link: string | null;
   discord_link: string | null;
   twitter_link: string | null;
+  spotify_data: { items: ITopSpotifyArtist[] };
+  spotify_data_updated_at: string | null;
 }
 
 interface IThinProfile {
@@ -219,4 +221,30 @@ export interface IProfileUpdateFields {
   whatsapp_link?: string | null;
   discord_link?: string | null;
   twitter_link?: string | null;
+  spotify_data?: { items: ITopSpotifyArtist[] };
+  spotify_data_updated_at?: string | null;
+}
+
+export interface ITopSpotifyArtist {
+  external_urls: {
+    spotify?: string;
+  };
+  followers: {
+    href?: string;
+    tota: number;
+  };
+  genres: string[];
+  href: string;
+  id: string;
+  images: ITopSpotifyArtistImage[];
+  name: string;
+  popularity: number;
+  type: "artist";
+  uri: string;
+}
+
+interface ITopSpotifyArtistImage {
+  height: number;
+  url: string;
+  width: number;
 }
