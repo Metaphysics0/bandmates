@@ -58,9 +58,6 @@ export default function SignUpModal() {
                   <p className="text-slate-500 text-lg text-center mb-6">
                     It&apos;s free
                   </p>
-                  <div className="mx-auto mb-2 w-1/4">
-                    <DropdownList options={USER_TYPE_OPTIONS} />
-                  </div>
                   <div className="p-5 flex items-center mx-auto w-fit">
                     <SignUpWithSpotfiyButton />
                   </div>

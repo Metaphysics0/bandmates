@@ -119,7 +119,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             </button>
           </div>
           <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
-          <div className="">
+          <div>
             <h3 className="text-2xl font-bold mb-9">Sounds</h3>
             <UploadSoundSnippets />
           </div>

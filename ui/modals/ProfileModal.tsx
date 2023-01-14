@@ -41,7 +41,11 @@ export default function ProfileModal() {
                   <strong>Bio:</strong>
                   <p>{profile?.bio}</p>
                 </div>
-                <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
+
+                <div>
+                  <strong>Top Artists:</strong>
+                  <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
+                </div>
               </section>
               <section>
                 <div className="h-52 w-52">
