@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
+import { IProfile } from "../../types/database";
 import GraphScreen from "../spotify/pie/GraphScreen";
 import UsersTopArtists from "../spotify/UsersTopArtists";
 
@@ -15,6 +16,21 @@ export default function ProfileModal() {
     window.history.pushState({ prevUrl: window.location.href }, "", "/");
   };
 
+  const PROFILE_INFO_FIELDS: IProfileInfoField[] = [
+    {
+      title: "Artist Type",
+      value: "artist_type",
+    },
+    {
+      title: "Location",
+      value: "location",
+    },
+    {
+      title: "Bio",
+      value: "bio",
+    },
+  ];
+
   return shouldShowModal ? (
     <>
       <div
@@ -26,24 +42,14 @@ export default function ProfileModal() {
           onClick={(e) => e.stopPropagation()}
         >
           {/*content*/}
-          <div className="p-5 flex flex-col border-0 rounded-lg shadow-lg relative w-full bg-white outline-none focus:outline-none">
-            <div className="flex justify-between items-center">
+          <div className="p-5 border-0 max-h-screen overflow-scroll rounded-lg shadow-lg relative w-full bg-white outline-none focus:outline-none">
+            <div className="grid grid-cols-2">
               <section className="flex flex-col justify-around">
                 <h3 className="text-4xl font-bold">{profile?.full_name}</h3>
-                <div>
-                  <h4>Artist Type:</h4>
-                  <strong>{profile?.artist_type}</strong>
-                </div>
-                <div>
-                  <h4>Location:</h4>
-                  <strong>{profile?.location}</strong>
-                </div>
-                <div>
-                  <strong>Bio:</strong>
-                  <p>{profile?.bio}</p>
-                </div>
-
-                <div>
+                {PROFILE_INFO_FIELDS.map((info, idx) => (
+                  <ProfileInfoField info={info} profile={profile} key={idx} />
+                ))}
+                <div className="mt-2">
                   <strong>Top Artists:</strong>
                   <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
                 </div>
@@ -51,12 +57,12 @@ export default function ProfileModal() {
                   <GraphScreen artists={profile?.spotify_data?.items ?? []} />
                 </div>
               </section>
-              <section>
+              <section className="flex items-center justify-center">
                 <div className="h-52 w-52">
                   <Image
                     src={profile?.avatar_url || guitarist}
-                    height={100}
-                    width={100}
+                    height={150}
+                    width={150}
                     alt={profile?.full_name || "musician"}
                     className="h-full w-full object-cover rounded-lg"
                   />
@@ -69,4 +75,23 @@ export default function ProfileModal() {
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
   ) : null;
+}
+
+const ProfileInfoField = ({
+  info,
+  profile,
+}: {
+  info: IProfileInfoField;
+  profile: IProfile | undefined;
+}) => (
+  <div className="flex">
+    <h4 className="mr-2">{info.title}:</h4>
+    {/* @ts-ignore */}
+    <p>{profile[info.value] ?? "Not Provided"}</p>
+  </div>
+);
+
+interface IProfileInfoField {
+  title: string;
+  value: keyof IProfile;
 }

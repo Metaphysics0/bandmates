@@ -1,5 +1,7 @@
-export default async function ProfileModalPage() {
-  return <>
-    <h4>Ahh</h4>
-  </>
+export default async function UserPage() {
+  return (
+    <>
+      <h4>Ahh</h4>
+    </>
+  );
 }
