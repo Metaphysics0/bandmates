@@ -64,7 +64,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
 
   return (
     <>
-      <h5 className="text-2xl font-bold mb-9">General Info</h5>
+      <FormSectionTitle title="General Info" subText="Stuff that matters" />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-rows-2 grid-flow-col gap-4"
@@ -74,12 +74,6 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             label="Name:"
             placeholder="Name"
             formName="full_name"
-            formRegister={register}
-          />
-          <GeneralTextInput
-            label="Artist Type:"
-            placeholder="Guitarist"
-            formName="artist_type"
             formRegister={register}
           />
           <label className="flex justify-between">
@@ -104,7 +98,6 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             label="Bio:"
             rows={2}
           />
-          <ContactMethods />
           <div className="flex justify-center">
             <button
               type="submit"
@@ -119,8 +112,17 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             </button>
           </div>
           <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
+          <FormSectionTitle
+            title="Contact Methods"
+            subText="How can people reach you?"
+          />
+          <ContactMethods />
+          <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
           <div>
-            <h3 className="text-2xl font-bold mb-9">Sounds</h3>
+            <FormSectionTitle
+              title="Sound snippets"
+              subText="Show off some recordings"
+            />
             <UploadSoundSnippets />
           </div>
         </div>
@@ -133,3 +135,18 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
     </>
   );
 }
+
+const FormSectionTitle = ({
+  title,
+  subText,
+}: {
+  title: string;
+  subText?: string;
+}) => {
+  return (
+    <div className="mb-9">
+      <h5 className="text-2xl font-bold">{title}</h5>
+      {subText ? <p className="font-light">{subText}</p> : null}
+    </div>
+  );
+};

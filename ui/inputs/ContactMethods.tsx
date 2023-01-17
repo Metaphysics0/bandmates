@@ -31,13 +31,7 @@ export default function ContactMethods() {
   return (
     <>
       <div className="flex justify-between">
-        <strong className="flex items-center">
-          Contact Methods
-          {/* <span className="ml-1">
-            <FcInfo id="my-element" data-tooltip-content="hello world" />
-          </span> */}
-          :
-        </strong>
+        <strong className="flex items-center">Linked Socials:</strong>
         <div className="flex">
           {SOCIAL_CONTACT_METHODS.map((contactMethod, idx) => (
             <div

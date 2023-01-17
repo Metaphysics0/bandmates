@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import PiChart from "./PieChart";
 import { ITopSpotifyArtist } from "../../../types/database";
+import { useLoggedInUser } from "../../../providers/userProvider";
 export default function GraphScreen({
   artists,
 }: {
@@ -117,13 +118,15 @@ export default function GraphScreen({
     setGraphData();
   }, [artists]);
 
-  return (
-    <div>
-      {piData && artistToGenres ? (
-        <PiChart chartData={piData} artistToGenres={artistToGenres} />
-      ) : null}
-    </div>
-  );
+  const [loggedInUser, setLoggedInUser] = useLoggedInUser();
+
+  return piData && artistToGenres ? (
+    <PiChart
+      chartData={piData}
+      artistToGenres={artistToGenres}
+      artistName={loggedInUser?.full_name}
+    />
+  ) : null;
 }
 
 export interface IArtistToGenre {

@@ -13,6 +13,7 @@ export default function ProfileModal() {
 
   const closeModal = () => {
     setShouldShowProfileModal({ shouldShowModal: false });
+
     window.history.pushState({ prevUrl: window.location.href }, "", "/");
   };
 
@@ -53,16 +54,14 @@ export default function ProfileModal() {
                   <strong>Top Artists:</strong>
                   <UsersTopArtists items={profile?.spotify_data?.items ?? []} />
                 </div>
-                <div>
+                <div className="w-3/4 h-3/4">
                   <GraphScreen artists={profile?.spotify_data?.items ?? []} />
                 </div>
               </section>
               <section className="flex items-center justify-center">
-                <div className="h-52 w-52">
+                <div className="w-3/4 h-auto">
                   <Image
                     src={profile?.avatar_url || guitarist}
-                    height={150}
-                    width={150}
                     alt={profile?.full_name || "musician"}
                     className="h-full w-full object-cover rounded-lg"
                   />
