@@ -13,97 +13,100 @@ export interface Database {
         Row: {
           id: string
           instrument_name: string
-          skill_level: number | null
           model: string | null
-          type: string | null
           profile_id: string | null
+          skill_level: number | null
+          type: string | null
         }
         Insert: {
           id?: string
           instrument_name: string
-          skill_level?: number | null
           model?: string | null
-          type?: string | null
           profile_id?: string | null
+          skill_level?: number | null
+          type?: string | null
         }
         Update: {
           id?: string
           instrument_name?: string
-          skill_level?: number | null
           model?: string | null
-          type?: string | null
           profile_id?: string | null
+          skill_level?: number | null
+          type?: string | null
         }
       }
       profiles: {
         Row: {
-          id: string
-          updated_at: string | null
-          full_name: string | null
-          avatar_url: string | null
-          email: string | null
-          sound_snippets: string[] | null
           age: number | null
-          bio: string | null
           artist_type: string | null
-          location: string | null
-          liked_users: string[] | null
-          tags: string[] | null
-          instagram_link: string | null
-          whatsapp_link: string | null
+          avatar_url: string | null
+          bio: string | null
           discord_link: string | null
-          twitter_link: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          instagram_link: string | null
           is_eligible_for_listing: boolean | null
+          liked_users: string[] | null
+          location: string | null
+          profile_photos: string | null
+          sound_snippets: string[] | null
           soundcloud_link: string | null
-          spotify_link: string | null
           spotify_data: Json | null
           spotify_data_updated_at: string | null
+          spotify_link: string | null
+          tags: string[] | null
+          twitter_link: string | null
+          updated_at: string | null
+          whatsapp_link: string | null
         }
         Insert: {
-          id?: string
-          updated_at?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
-          email?: string | null
-          sound_snippets?: string[] | null
           age?: number | null
-          bio?: string | null
           artist_type?: string | null
-          location?: string | null
-          liked_users?: string[] | null
-          tags?: string[] | null
-          instagram_link?: string | null
-          whatsapp_link?: string | null
+          avatar_url?: string | null
+          bio?: string | null
           discord_link?: string | null
-          twitter_link?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          instagram_link?: string | null
           is_eligible_for_listing?: boolean | null
+          liked_users?: string[] | null
+          location?: string | null
+          profile_photos?: string | null
+          sound_snippets?: string[] | null
           soundcloud_link?: string | null
-          spotify_link?: string | null
           spotify_data?: Json | null
           spotify_data_updated_at?: string | null
+          spotify_link?: string | null
+          tags?: string[] | null
+          twitter_link?: string | null
+          updated_at?: string | null
+          whatsapp_link?: string | null
         }
         Update: {
-          id?: string
-          updated_at?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
-          email?: string | null
-          sound_snippets?: string[] | null
           age?: number | null
-          bio?: string | null
           artist_type?: string | null
-          location?: string | null
-          liked_users?: string[] | null
-          tags?: string[] | null
-          instagram_link?: string | null
-          whatsapp_link?: string | null
+          avatar_url?: string | null
+          bio?: string | null
           discord_link?: string | null
-          twitter_link?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          instagram_link?: string | null
           is_eligible_for_listing?: boolean | null
+          liked_users?: string[] | null
+          location?: string | null
+          profile_photos?: string | null
+          sound_snippets?: string[] | null
           soundcloud_link?: string | null
-          spotify_link?: string | null
           spotify_data?: Json | null
           spotify_data_updated_at?: string | null
+          spotify_link?: string | null
+          tags?: string[] | null
+          twitter_link?: string | null
+          updated_at?: string | null
+          whatsapp_link?: string | null
         }
       }
     }

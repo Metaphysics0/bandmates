@@ -199,6 +199,7 @@ export interface IProfile {
   twitter_link: string | null;
   spotify_data: { items: ITopSpotifyArtist[] };
   spotify_data_updated_at: string | null;
+  profile_photos: string[] | null;
 }
 
 interface IThinProfile {
@@ -223,6 +224,7 @@ export interface IProfileUpdateFields {
   twitter_link?: string | null;
   spotify_data?: { items: ITopSpotifyArtist[] };
   spotify_data_updated_at?: string | null;
+  profile_photos?: string[] | null;
 }
 
 export interface ITopSpotifyArtist {
