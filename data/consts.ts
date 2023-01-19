@@ -111,3 +111,5 @@ export const SOCIAL_CONTACT_METHODS: ISocialContactMethod[] = [
     icon: TwitterIcon,
   },
 ];
+
+export const MAX_PROFILE_PHOTO_LENGTH = 5;

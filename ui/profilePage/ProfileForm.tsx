@@ -14,6 +14,8 @@ import UpdateAvatarModal from "../modals/UpdateAvatarModal";
 import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
 import ContactMethods from "../inputs/ContactMethods";
 import ProfileCardClient from "./ProfileCardClient";
+import SpotifyData from "./SpotifyData";
+import ProfilePhotos from "../inputs/profilePhotos/ProfilePhotos";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -126,8 +128,12 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             <UploadSoundSnippets />
           </div>
         </div>
-        <div className="row-span-2">
+        <div className="row-span-1">
           <ProfileCardClient />
+          <ProfilePhotos profile={loggedInUser} />
+        </div>
+        <div className="row-span-1">
+          {/* <SpotifyData profile={loggedInUser} /> */}
         </div>
       </form>
       <Toaster position="top-right" />
