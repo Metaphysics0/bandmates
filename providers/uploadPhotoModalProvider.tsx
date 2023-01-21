@@ -4,7 +4,11 @@ import React, { createContext, useState } from "react";
 import useCloseModalOnEscape from "../utils/useCloseModalOnEscape";
 
 const UploadPhotoModalContext = createContext<
-  [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
+  | [
+      IUploadPhotoModalValues,
+      React.Dispatch<React.SetStateAction<IUploadPhotoModalValues>>
+    ]
+  | undefined
 >(undefined);
 
 export function UploadPhotoModalProvider({
@@ -12,7 +16,7 @@ export function UploadPhotoModalProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [shouldShowModal, setShouldShowModal] = useState(false);
+  const [shouldShowModal, setShouldShowModal] = useState({ isOpen: false });
   return (
     <UploadPhotoModalContext.Provider
       value={[shouldShowModal, setShouldShowModal]}
@@ -29,8 +33,13 @@ export function useUploadPhotoModal() {
     throw new Error("useSignUpModal must be used within a SignUpModalProvider");
   }
 
-  const [shouldShowModal, setShouldShowModal] = context;
-  useCloseModalOnEscape(setShouldShowModal);
+  // const [shouldShowModal, setShouldShowModal] = context;
+  // useCloseModalOnEscape(setShouldShowModal);
 
   return context;
+}
+
+interface IUploadPhotoModalValues {
+  isOpen: boolean;
+  indexOfPhoto?: number;
 }

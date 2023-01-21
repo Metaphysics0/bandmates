@@ -18,7 +18,6 @@ import SpotifyData from "./SpotifyData";
 import ProfilePhotos from "../inputs/profilePhotos/ProfilePhotos";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
-  const [isOpen, setIsOpen] = useState(false);
   const [shouldDisableSubmit, setShouldDisableSubmit] = useState(true);
   const [profileForm, setProfileForm] = useProfileForm();
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
@@ -134,7 +133,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         </div>
       </form>
       <Toaster position="top-right" />
-      <UploadPhotoModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <UploadPhotoModal />
     </>
   );
 }

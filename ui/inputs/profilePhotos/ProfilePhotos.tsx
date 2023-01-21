@@ -24,13 +24,15 @@ export default function ProfilePhotos({
       ];
     }
 
+    console.log("PROFILE PHOTOS", profile_photos);
+
     return profile_photos;
   };
 
   const profilePhotos = initializeProfilePhotos();
 
   return (
-    <div className="flex items-center justify-center mt-3">
+    <div className="flex flex-wrap items-center justify-center mt-5">
       {profilePhotos.map((photoUrl, idx) => (
         <ProfilePhotoInput photoUrl={photoUrl} key={idx} idx={idx} />
       ))}

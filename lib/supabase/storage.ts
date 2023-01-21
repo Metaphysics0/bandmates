@@ -9,6 +9,36 @@ class UserStorage {
     this.storage = supabase.storage;
   }
 
+  public async updateProfilePhotos({
+    file,
+    profile,
+    indexOfPhotoToUpdate,
+  }: {
+    file: File;
+    profile: IProfile;
+    indexOfPhotoToUpdate: number;
+  }) {
+    const filePath = `${profile.id}/photo_${indexOfPhotoToUpdate}`;
+
+    const uploadedPhotoUrl = await this.uploadFile(
+      file,
+      profile,
+      "profile-photos",
+      { customFilePath: filePath }
+    );
+
+    const photosToUpdateUserWith = [...(profile?.profile_photos || [])];
+    photosToUpdateUserWith[indexOfPhotoToUpdate] = uploadedPhotoUrl;
+
+    const { error: updateUserError } = await Users.updateById(profile.id, {
+      profile_photos: photosToUpdateUserWith,
+    });
+
+    if (updateUserError) throw updateUserError;
+
+    return uploadedPhotoUrl;
+  }
+
   public async updateAvatar({
     file,
     profile,
@@ -56,9 +86,11 @@ class UserStorage {
   private async uploadFile(
     file: File,
     profile: IProfile,
-    bucket: IStorageBucket
+    bucket: IStorageBucket,
+    options?: IAvailableUploadOptions
   ): Promise<string> {
-    const filePath = this.createFilePath(profile, file);
+    const filePath =
+      options?.customFilePath || this.createFilePath(profile, file);
 
     const { data: uploadData, error: uploadError } = await this.storage
       .from(bucket)
@@ -77,6 +109,10 @@ class UserStorage {
   private createFilePath(profile: IProfile, file: File): string {
     return `${profile.id}/${file.name}`;
   }
+}
+
+interface IAvailableUploadOptions {
+  customFilePath?: string;
 }
 
 export default new UserStorage();

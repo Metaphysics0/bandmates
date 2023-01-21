@@ -1,29 +1,25 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { ChangeEvent, Dispatch, Fragment, SetStateAction, useRef } from "react";
+import { Fragment } from "react";
+import Dropzone from "react-dropzone";
 import toast from "react-hot-toast";
+import { BsFillImageFill } from "react-icons/bs";
 import UserStorage from "../../lib/supabase/storage";
+import { useUploadPhotoModal } from "../../providers/uploadPhotoModalProvider";
 import { useLoggedInUser } from "../../providers/userProvider";
 
-export default function UploadPhotoModal({
-  isOpen = false,
-  setIsOpen,
-}: {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}) {
+export default function UploadPhotoModal() {
+  const [modalValues, setModalValues] = useUploadPhotoModal();
+
   function closeModal() {
-    setIsOpen(false);
+    setModalValues({ isOpen: false });
   }
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFiles = async (acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
     try {
-      setIsOpen(false);
-      const file = event.target.files && event.target.files[0];
       if (!loggedInUser) {
         toast.error("Unable to upload profile at this time");
         return;
@@ -34,13 +30,18 @@ export default function UploadPhotoModal({
         return;
       }
 
-      const avatar_url = await UserStorage.updateAvatar({
+      const photoUrl = await UserStorage.updateProfilePhotos({
         file,
         profile: loggedInUser,
+        indexOfPhotoToUpdate: modalValues.indexOfPhoto || 0,
       });
 
-      setLoggedInUser({ ...loggedInUser, avatar_url });
+      setLoggedInUser({
+        ...loggedInUser,
+        profile_photos: [...(loggedInUser?.profile_photos ?? []), photoUrl],
+      });
 
+      closeModal();
       toastUploadSuccess();
     } catch (error) {
       console.error(error);
@@ -49,7 +50,7 @@ export default function UploadPhotoModal({
   };
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={modalValues.isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -74,40 +75,28 @@ export default function UploadPhotoModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-0 text-left align-middle shadow-xl transition-all flex flex-col items-center">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-bold leading-6 text-gray-900 py-5"
-                >
-                  Change Profile Photo
-                </Dialog.Title>
-                <div className="cursor-pointer w-full border-b-slate-300 border-t-slate-300 border text-center py-3">
-                  <input
-                    className="hidden"
-                    ref={inputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                  <p
-                    className="text-blue-500 font-semibold"
-                    onClick={() => inputRef.current?.click()}
-                  >
-                    Upload photo
-                  </p>
-                </div>
-                <div className="cursor-pointer text-center w-full py-3 border-b-slate-300 border-b">
-                  <p className="text-red-500 font-semibold">
-                    Remove current photo
-                  </p>
-                </div>
-
-                <div
-                  className="w-full py-3 cursor-pointer text-center"
-                  onClick={closeModal}
-                >
-                  <p className="text-slate-500">Cancel</p>
-                </div>
+              <Dialog.Panel className="transform overflow-hidden rounded-2xl bg-white px-0 text-left align-middle shadow-xl transition-all flex flex-col items-center">
+                <Dropzone onDrop={handleFiles} maxFiles={1}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section className="p-3">
+                      <div
+                        {...getRootProps()}
+                        className="p-10 hover:opacity-70 cursor-pointer border-2 border-dashed border-slate-400 rounded-lg"
+                      >
+                        <input {...getInputProps()} />
+                        <div className="flex justify-center">
+                          <BsFillImageFill />
+                        </div>
+                        <p className="text-center">
+                          Drop your image here, or{" "}
+                          <span className="text-blue-400 font-medium">
+                            browse
+                          </span>
+                        </p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
               </Dialog.Panel>
             </Transition.Child>
           </div>

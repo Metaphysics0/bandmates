@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { useUploadPhotoModal } from "../../../providers/uploadPhotoModalProvider";
 import placeholder from "../../../public/placeholder_img.jpeg";
 
 export default function ProfilePhotoInput({
@@ -9,8 +10,10 @@ export default function ProfilePhotoInput({
   photoUrl: string | null;
   idx: number;
 }) {
+  const [, setModalValues] = useUploadPhotoModal();
+
   const onImageClick = (e: any) => {
-    console.log("AHHH", idx);
+    setModalValues({ isOpen: true, indexOfPhoto: idx });
   };
 
   return (
@@ -19,7 +22,7 @@ export default function ProfilePhotoInput({
       onClick={onImageClick}
     >
       <Image
-        className="opacity-40 hover:opacity-100"
+        className={photoUrl ? "" : "opacity-40 hover:opacity-100"}
         src={photoUrl || placeholder}
         alt={`profile photo ${idx}`}
         width={100}
