@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import UserStorage from "../../lib/supabase/storage";
 import { useLoggedInUser } from "../../providers/userProvider";
 
-export default function UpdateAvatarModal({
+export default function UploadPhotoModal({
   isOpen = false,
   setIsOpen,
 }: {

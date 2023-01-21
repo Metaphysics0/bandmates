@@ -10,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLoggedInUser } from "../../providers/userProvider";
 import GeneralTextInput from "../inputs/general/TextInput";
 import TextAreaInput from "../inputs/general/TextAreaInput";
-import UpdateAvatarModal from "../modals/UpdateAvatarModal";
+import UploadPhotoModal from "../modals/UploadPhotoModal";
 import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
 import ContactMethods from "../inputs/ContactMethods";
 import ProfileCardClient from "./ProfileCardClient";
@@ -128,16 +128,13 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             <UploadSoundSnippets />
           </div>
         </div>
-        <div className="row-span-1">
+        <div className="row-span-2">
           <ProfileCardClient />
           <ProfilePhotos profile={loggedInUser} />
         </div>
-        <div className="row-span-1">
-          {/* <SpotifyData profile={loggedInUser} /> */}
-        </div>
       </form>
       <Toaster position="top-right" />
-      <UpdateAvatarModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <UploadPhotoModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }

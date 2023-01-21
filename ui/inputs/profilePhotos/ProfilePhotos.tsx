@@ -30,7 +30,7 @@ export default function ProfilePhotos({
   const profilePhotos = initializeProfilePhotos();
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mt-3">
       {profilePhotos.map((photoUrl, idx) => (
         <ProfilePhotoInput photoUrl={photoUrl} key={idx} idx={idx} />
       ))}
