@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 import { Fragment } from "react";
 import Dropzone from "react-dropzone";
 import toast from "react-hot-toast";
@@ -79,6 +80,14 @@ export default function UploadPhotoModal() {
                 <Dropzone onDrop={handleFiles} maxFiles={1}>
                   {({ getRootProps, getInputProps }) => (
                     <section className="p-3">
+                      {modalValues.photoUrl ? (
+                        <Image
+                          width={100}
+                          height={100}
+                          src={modalValues.photoUrl}
+                          alt={`profile-photo-${modalValues.indexOfPhoto}`}
+                        />
+                      ) : null}
                       <div
                         {...getRootProps()}
                         className="p-10 hover:opacity-70 cursor-pointer border-2 border-dashed border-slate-400 rounded-lg"

@@ -63,6 +63,8 @@ export default function ProfileModal() {
                   <Image
                     src={profile?.avatar_url || guitarist}
                     alt={profile?.full_name || "musician"}
+                    width={200}
+                    height={200}
                     className="h-full w-full object-cover rounded-lg"
                   />
                 </div>

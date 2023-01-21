@@ -39,7 +39,8 @@ export function useUploadPhotoModal() {
   return context;
 }
 
-interface IUploadPhotoModalValues {
+export interface IUploadPhotoModalValues {
   isOpen: boolean;
   indexOfPhoto?: number;
+  photoUrl?: string;
 }

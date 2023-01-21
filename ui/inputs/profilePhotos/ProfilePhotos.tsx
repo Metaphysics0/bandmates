@@ -24,8 +24,6 @@ export default function ProfilePhotos({
       ];
     }
 
-    console.log("PROFILE PHOTOS", profile_photos);
-
     return profile_photos;
   };
 
