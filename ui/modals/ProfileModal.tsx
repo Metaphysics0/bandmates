@@ -1,9 +1,11 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+import { useState } from "react";
 import { useProfileModal } from "../../providers/viewProfileModalProvider";
 import guitarist from "../../public/guitarist.jpg";
 import { IProfile } from "../../types/database";
+import ProfilePhotos from "../inputs/profilePhotos/ProfilePhotos";
 import GraphScreen from "../spotify/pie/GraphScreen";
 import UsersTopArtists from "../spotify/UsersTopArtists";
 
@@ -17,7 +19,7 @@ export default function ProfileModal() {
     window.history.pushState({ prevUrl: window.location.href }, "", "/");
   };
 
-  const PROFILE_INFO_FIELDS: IProfileInfoField[] = [
+  const infoFieldToReflect: IProfileInfoField[] = [
     {
       title: "Artist Type",
       value: "artist_type",
@@ -31,6 +33,10 @@ export default function ProfileModal() {
       value: "bio",
     },
   ];
+
+  const [activeProfilePhoto, setActiveProfilePhoto] = useState<
+    string | StaticImageData
+  >(profile?.avatar_url || guitarist);
 
   return shouldShowModal ? (
     <>
@@ -47,7 +53,7 @@ export default function ProfileModal() {
             <div className="grid grid-cols-2">
               <section className="flex flex-col justify-around">
                 <h3 className="text-4xl font-bold">{profile?.full_name}</h3>
-                {PROFILE_INFO_FIELDS.map((info, idx) => (
+                {infoFieldToReflect.map((info, idx) => (
                   <ProfileInfoField info={info} profile={profile} key={idx} />
                 ))}
                 <div className="mt-2">
@@ -58,16 +64,21 @@ export default function ProfileModal() {
                   <GraphScreen artists={profile?.spotify_data?.items ?? []} />
                 </div>
               </section>
-              <section className="flex items-center justify-center">
+              <section className="flex flex-col items-center justify-center">
                 <div className="w-3/4 h-auto">
                   <Image
-                    src={profile?.avatar_url || guitarist}
+                    src={activeProfilePhoto}
                     alt={profile?.full_name || "musician"}
                     width={200}
                     height={200}
                     className="h-full w-full object-cover rounded-lg"
                   />
                 </div>
+                <ProfilePhotos
+                  profile={profile || null}
+                  isForProfileModal={true}
+                  setActiveProfilePhotoForModal={setActiveProfilePhoto}
+                />
               </section>
             </div>
           </div>
