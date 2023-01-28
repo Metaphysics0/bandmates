@@ -20,6 +20,8 @@ export type ISocialContactProvider =
 export interface ISocialContactMethod {
   provider: ISocialContactProvider;
   icon: Component;
+  linkPrefix: string;
+  inputPlaceholder: string;
 }
 
 export interface ISocialContactFormValue {

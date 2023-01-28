@@ -8,7 +8,6 @@ export default function UsersTopArtists({
 }: {
   items: ITopSpotifyArtist[];
 }) {
-  console.log("ARTSITS", JSON.stringify(items, null, 2));
   return (
     <div className="flex">
       {items.slice(0, TOP_ARTIST_SHOW_LIMIT).map(ArtistItem)}

@@ -10,10 +10,10 @@ export default function ProfilePhotos({
   setActiveProfilePhotoForModal,
 }: {
   profile: IProfile | null;
-  isForProfileModal: boolean;
   setActiveProfilePhotoForModal?: Dispatch<
     SetStateAction<string | StaticImageData>
   >;
+  isForProfileModal?: boolean;
 }) {
   const profilePhotos = initializeProfilePhotos(profile, isForProfileModal);
 

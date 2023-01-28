@@ -2,10 +2,11 @@ import "server-only";
 
 import "../styles/tailwind.css";
 import "../styles/globals.css";
+import "react-tooltip/dist/react-tooltip.css";
 import NavMenu from "../ui/NavMenu";
 import SupabaseSessionHandler from "../utils/supabase-listener";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database, IProfile } from "../types/database";
+import { Database } from "../types/database";
 import { headers, cookies } from "next/headers";
 import { Users } from "./../lib/supabase/db";
 import Providers from "./providers";

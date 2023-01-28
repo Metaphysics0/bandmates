@@ -14,7 +14,6 @@ import UploadPhotoModal from "../modals/UploadPhotoModal";
 import UploadSoundSnippets from "../inputs/UploadSoundSnippets";
 import ContactMethods from "../inputs/ContactMethods";
 import ProfileCardClient from "./ProfileCardClient";
-import SpotifyData from "./SpotifyData";
 import ProfilePhotos from "../inputs/profilePhotos/ProfilePhotos";
 
 export default function ProfileForm({ profile }: { profile: IProfile }) {
@@ -117,7 +116,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
             title="Contact Methods"
             subText="How can people reach you?"
           />
-          <ContactMethods />
+          <ContactMethods user={profile} />
           <div className="border-b border-slate-300 border-opacity-60 h-1 my-4"></div>
           <div>
             <FormSectionTitle
@@ -129,7 +128,7 @@ export default function ProfileForm({ profile }: { profile: IProfile }) {
         </div>
         <div className="row-span-2">
           <ProfileCardClient />
-          <ProfilePhotos profile={loggedInUser} />
+          <ProfilePhotos profile={profile} />
         </div>
       </form>
       <Toaster position="top-right" />

@@ -97,18 +97,26 @@ export const SOCIAL_CONTACT_METHODS: ISocialContactMethod[] = [
   {
     provider: "instagram",
     icon: InstagramIcon,
+    linkPrefix: "https://instagram.com/",
+    inputPlaceholder: "my-insta-name",
   },
   {
     provider: "discord",
     icon: DiscordIcon,
+    linkPrefix: "https://discordapp.com/users/",
+    inputPlaceholder: "MyUser#7801",
   },
   {
     provider: "whatsapp",
     icon: WhatsAppIcon,
+    linkPrefix: " https://wa.me/",
+    inputPlaceholder: "15554443333",
   },
   {
     provider: "twitter",
     icon: TwitterIcon,
+    linkPrefix: "https://twitter.com/",
+    inputPlaceholder: "MyTwitterName",
   },
 ];
 
