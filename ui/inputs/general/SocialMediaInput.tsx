@@ -1,6 +1,7 @@
 "use client";
 
 import { UseFormRegister } from "react-hook-form";
+import { SOCIAL_CONTACT_METHODS } from "../../../data/consts";
 import { ISocialContactProvider } from "../../../types/types";
 
 export default function SocialMediaInput({
@@ -10,16 +11,20 @@ export default function SocialMediaInput({
   contactMethod: ISocialContactProvider;
   formRegister: UseFormRegister<any>;
 }) {
-  const { prefix, placeholder } = SOCIAL_MEDIA_MAPPING[contactMethod];
+  // @ts-ignore
+  const { linkPrefix, inputPlaceholder } = SOCIAL_CONTACT_METHODS.find(
+    (method) => method.provider === contactMethod
+  );
+
   return (
     <label className="flex justify-between mb-4 border-slate-300 rounded-md border">
       <div className="flex items-center bg-slate-300 px-3 opacity-50">
-        {prefix}
+        {linkPrefix}
       </div>
       <input
         type="text"
         {...formRegister(contactMethod)}
-        placeholder={placeholder}
+        placeholder={inputPlaceholder}
         className="rounded-md outline-none border-none focus:ring-0 font-bold"
       />
     </label>

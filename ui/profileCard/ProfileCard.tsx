@@ -8,7 +8,7 @@ export default function ProfileCard({ profile }: { profile: IProfile }) {
   return (
     <article
       key={profile.id}
-      className="group relative max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-zoom-in w-fit"
+      className="group relative max-w-sm rounded-lg overflow-hidden shadow-lg bg-white h-80 cursor-zoom-in w-fit mx-auto"
     >
       <div className="w-full h-full relative">
         {profile.avatar_url ? (

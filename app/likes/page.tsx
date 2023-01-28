@@ -6,20 +6,14 @@ export default async function Likes() {
   const { data: authUser } = await supabaseServer().auth.getUser();
   if (!authUser.user) return generalError;
 
-  const { data: likedUserIds, error: getLikedUserError } =
-    await Users.getLikedUserIds(authUser.user.id);
-  if (likedUserIds === null || !likedUserIds[0] || getLikedUserError)
-    return generalError;
-
-  const { data: likedUsers, error } = await Users.listByIds(
-    likedUserIds[0].liked_users
-  );
+  const likedUserIds = await Users.getLikedUserIds(authUser.user.id);
+  const { data: likedUsers, error } = await Users.listByIds(likedUserIds);
 
   if (!likedUsers || error) return generalError;
 
   return (
     <div className="pt-10">
-      <h1 className="mx-auto">Liked users</h1>
+      <h1 className="mx-auto">Liked Users</h1>
       <MusiciansList musicians={likedUsers} />
     </div>
   );
@@ -27,6 +21,6 @@ export default async function Likes() {
 
 const generalError = (
   <>
-    <h5>Something went wrong</h5>
+    <h5>Unable to list liked users at this time ):</h5>
   </>
 );

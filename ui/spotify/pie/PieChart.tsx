@@ -5,9 +5,11 @@ import { IArtistToGenre, IChartData } from "./GraphScreen";
 export default function PiChart({
   chartData,
   artistToGenres,
+  artistName,
 }: {
   chartData: IChartData;
   artistToGenres: IArtistToGenre[];
+  artistName: string | null | undefined;
 }) {
   return (
     <Pie
@@ -17,7 +19,7 @@ export default function PiChart({
         plugins: {
           title: {
             display: true,
-            text: "Your Top Genres 🥧",
+            text: `${artistName ? artistName : "User"}'s Top Genres 🔥`,
             color: "#000000",
           },
           legend: {

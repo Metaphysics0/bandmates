@@ -1,30 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PiChart from "./PieChart";
-import { ITopSpotifyArtist } from "../../../types/database";
-export default function GraphScreen({
-  artists,
-}: {
-  artists: ITopSpotifyArtist[];
-}) {
+import { IProfile, ITopSpotifyArtist } from "../../../types/database";
+export default function GraphScreen({ user }: { user: IProfile }) {
   const [artistToGenres, setArtistToGenres] = useState<IArtistToGenre[]>([]);
+
+  const artists = useMemo(
+    () => user.spotify_data?.items ?? [],
+    [user.spotify_data?.items]
+  );
 
   const [piData, setPiData] = useState<IChartData | undefined>();
 
-  const indexOfMax = (arr: any[]) => {
+  const indexOfMax = (arr: any[]): number => {
     if (arr.length === 0) return -1;
-    let max = arr[0];
-    let maxIndex = 0;
-
-    for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > max) {
-        maxIndex = i;
-        max = arr[i];
-      }
-    }
-
-    return maxIndex;
+    return arr.reduce(
+      (maxIndex, currentValue, currentIndex, array) =>
+        currentValue > array[maxIndex] ? currentIndex : maxIndex,
+      0
+    );
   };
 
   useEffect(() => {
@@ -117,13 +112,13 @@ export default function GraphScreen({
     setGraphData();
   }, [artists]);
 
-  return (
-    <div>
-      {piData && artistToGenres ? (
-        <PiChart chartData={piData} artistToGenres={artistToGenres} />
-      ) : null}
-    </div>
-  );
+  return piData && artistToGenres ? (
+    <PiChart
+      chartData={piData}
+      artistToGenres={artistToGenres}
+      artistName={user?.full_name}
+    />
+  ) : null;
 }
 
 export interface IArtistToGenre {

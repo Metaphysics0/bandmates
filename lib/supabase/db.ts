@@ -95,11 +95,23 @@ class UsersApi {
     });
   }
 
-  async getLikedUserIds(userId: string) {
-    return await supabase
+  async getLikedUserIds(userId: string): Promise<string[]> {
+    const { data, error } = await supabase
       .from("profiles")
       .select(`liked_users`)
       .eq("id", userId);
+    if (data === null) return [];
+
+    if (data && data[0].liked_users) {
+      return data[0].liked_users;
+    }
+
+    if (error) {
+      console.error("Error loading liked users", error);
+      return [];
+    }
+
+    return [];
   }
 
   async setSpotifyTopArtists(uuid: string, items: ITopSpotifyArtist[]) {
